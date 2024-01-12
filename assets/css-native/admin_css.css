@@ -1,0 +1,35 @@
+input.invalid {
+	border: red solid 3px;
+	animation: shake 300ms;
+}
+
+.invalidInfo {
+	text-shadow: 1 2 1 #fff;
+	animation: shake 300s;
+}
+
+input.confirm-not-matching {
+	animation: shake 300ms;
+	border: red solid 3px;
+}
+
+@keyframes shake {
+	0%,
+	100% {
+		transform: translate(0);
+	}
+	25% {
+		transform: translate(0.125rem);
+	}
+	75% {
+		transform: translate(-0.125rem);
+	}
+}
+
+.hide-cek {
+	display: none;
+}
+
+.show-cek {
+	display: inline-block;
+}
