@@ -144,7 +144,7 @@ $link_poto = $dt_user[5];
                             <img src="
                             <?php
                             if (empty($link_poto)) {
-                                echo '../assets/img/user-profile.png';
+                                echo '../assets/img/profile/user-profile.png';
                             } else {
                                 echo "../".$link_poto;
                             }

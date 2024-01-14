@@ -20,7 +20,9 @@ if ($jml_data > 0) {
     $_SESSION["nama"] = $res['nama_user'];
     $_SESSION["nama_lengkap"] = $res['nama_lengkap'];
     $_SESSION["id"] = $res['id_user'];
-    $_SESSION["role"] = $res['role']; // asumsikan Anda memiliki kolom 'role' dalam database Anda
+    $_SESSION["role"] = $res['role'];
+    $_SESSION["no-rek"] = $res['no_rek'];
+    $_SESSION["no-telp"] = $res['no_telp'];
 
     if ($_SESSION["role"] == 'admin') {
         header("location: admin");

@@ -17,8 +17,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-	<meta name="generator" content="Hugo 0.84.0" />
+
 	<title>Login-Eflower</title>
 
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/" />
@@ -54,6 +53,16 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 			</div>
 
 			<div class="form-inner">
+				<?php if (isset($_GET["pesan"])): ?>
+					<script>
+						alert('Email atau Password yang anda inputkan SALAH!');
+					</script>
+				<?php endif ?>
+				<?php if (isset($_GET["new-login"])): ?>
+					<script>
+						alert('SELAMAT! Akun anda telah berhasil dibuat.');
+					</script>
+				<?php endif ?>
 				<form action="login.php" class="login" method="post">
 					<!-- input login -->
 					<div class="md-2 form-floating">
@@ -94,6 +103,11 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 					</div>
 
 					<div class="mt-2 form-floating">
+						<input class="form-control" type="text" placeholder="nama" name="nama" required />
+						<label for="nama" class="text-dark">Nama Lengkap</label>
+					</div>
+
+					<div class="mt-2 form-floating">
 						<input class="form-control" type="text" placeholder="Email" name="email" required />
 						<label for="email" class="text-dark">Email Address</label>
 					</div>
@@ -110,10 +124,25 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 
 					<div class="mt-2 form-floating">
 						<input class="form-control" type="password" placeholder="Ulangi password" id="passConfrm"
-							name="passConfrm" pattern="[a-zA-Z0-9]+" maxlength="30" required />
+						pattern="[a-zA-Z0-9]+" maxlength="30" required />
 						<input type="checkbox" id="cek-pass2" class="hide-cek mt-1" />
 						<p id="title-cek2" class="hide-cek">Show Password</p>
 						<label for="passConfrm" class="text-dark">Confirm Password</label>
+					</div>
+
+					<div class="mt-2 form-floating">
+						<input class="form-control" type="text" placeholder="Telp" name="no-telp" />
+						<label for="no-telp" class="text-dark">No Telpon</label>
+					</div>
+
+					<div class="mt-2 form-floating">
+						<input class="form-control" type="text" placeholder="rek" name="no-rek" maxlength="20" required />
+						<label for="no-rek" class="text-dark">No Rekening</label>
+					</div>
+
+					<div class="mt-2 form-floating">
+						<textarea name="address-data" id="" class="form-control"">Kota, Jl.nama jalan No.0</textarea>
+						<label for="address" class="text-dark">Alamat</label>
 					</div>
 					<!-- input pendaftaran akhir -->
 
@@ -142,16 +171,16 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 		crossorigin="anonymous"></script>
 
 	<!-- validasi persyaratan password -->
-	<script type="module" src="Assets/js-native/pass-reg-validation.js"></script>
+	<script type="module" src="assets/js-native/pass-reg-validation.js"></script>
 
 	<!-- validasi ulang password -->
-	<script type="module" src="/assets/js-native/pass-confirm.js"></script>
+	<script type="module" src="assets/js-native/pass-confirm.js"></script>
 
 	<!-- slide login dan singup -->
-	<script type="module" src="/assets/js-native/slide-form.js"></script>
+	<script type="module" src="assets/js-native/slide-form.js"></script>
 
 	<!-- showing password feature -->
-	<script type="module" src="/assets/js-native/showing-pass.js"></script>
+	<script type="module" src="assets/js-native/showing-pass.js"></script>
 
 	<!-- End js Area -->
 </body>

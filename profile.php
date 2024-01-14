@@ -182,11 +182,11 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 					<div class="card-body">
 						<img src="<?php
 						if (empty($link_poto)) {
-							echo 'assets/img/user-profile.png';
+							echo 'assets/img/profile/user-profile.png';
 						} else {
 							echo $link_poto;
 						}
-						?>" alt="" width="70px" height="200px" class="card-img-top rounded-pill" />
+						?>" alt="" width="70px" height="235px" class="card-img-top rounded-pill" />
 					</div>
 				</div>
 			</div>

@@ -138,7 +138,7 @@ $link_poto = $dt_user[5];
                             if (!empty($link_poto)) {
                                 echo $link_poto;
                             } else {
-                                echo 'assets/img/user-profile.png';
+                                echo 'assets/img/profile/user-profile.png';
                             }
                             ?>" width="15px" height="20px" class="card-img-top rounded-pill">
                     </li>
