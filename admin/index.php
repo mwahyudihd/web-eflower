@@ -11,7 +11,7 @@ else if (isset($_SESSION["user_mail"]) == NULL){
     exit;
 }
 
-include '../connection.php';
+include '../data-connect.php';
 
 $sesi_id = $_SESSION['id'];
 
@@ -141,15 +141,14 @@ $link_poto = $dt_user[5];
                 </ul>
                    <ul class="navbar-nav">
                         <li class="nav-item">
+                            <img src="
                             <?php
-                            if (isset($dt_user[5]) != NULL) {
-                                echo '<img src="';
-                                echo $link_poto;
-                                echo '" width="15px" height="20px" class="card-img-top rounded-pill">';
-                            }else{
-                                echo "<i class='mt-3 fas fa-user'>"."</i>";
+                            if (empty($link_poto)) {
+                                echo '../assets/img/user-profile.png';
+                            } else {
+                                echo "../".$link_poto;
                             }
-                             ?>
+                            ?>" width="15px" height="20px" class="card-img-top rounded-pill">
                         </li>
                         <li class="nav-item">
                             

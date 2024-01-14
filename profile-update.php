@@ -1,3 +1,12 @@
+<?php include 'data-connect.php';
+session_start();
+
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
@@ -226,11 +235,11 @@
 				<div class="col-md-9">
 					<div class="card">
 						<div class="card-header bg-leaf">Profile</div>
-						<form action="">
+						<form action="update-profile.php" method="post">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="">Nama: </label>
-									<input type="text" class="form-control" value="" />
+									<input type="text" class="form-control" value="<?php " nama/>
 								</div>
 								<div class="form-group">
 									<label for="">Email: </label>

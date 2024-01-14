@@ -1,4 +1,4 @@
-<?php include 'connection.php';
+<?php include 'data-connect.php';
 session_start();
 
 if (isset($_SESSION["user_mail"]) == NULL) {
@@ -150,10 +150,15 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 	$sesi_id = $_SESSION['id'];
 
 	$query = mysqli_query($connection, "SELECT * FROM users WHERE id_user='$sesi_id'");
-	$dt_user = mysqli_fetch_row($query);
-	$nama_lengkap = $dt_user[7];
-	$telp = $dt_user[6];
+	$dt_user = mysqli_fetch_array($query);
+
+	$nama_lkp = $dt_user[7] ;
+	$telp = $dt_user[6] ;
 	$link_poto = $dt_user[5];
+	$nmr_rek = $dt_user['no_rek'];
+
+	
+	
 	?>
 
 	<main role="main" class="container">
@@ -176,8 +181,8 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 				<div class="card" mb-3>
 					<div class="card-body">
 						<img src="<?php
-						if (isset($link_poto) == NULL) {
-							echo 'https://placeholder.co/70x70';
+						if (empty($link_poto)) {
+							echo 'assets/img/user-profile.png';
 						} else {
 							echo $link_poto;
 						}
@@ -193,17 +198,43 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 						<div class="card-body">
 							<div class="form-group">
 								<label for="">Nama: </label>
-								<input type="text" class="form-control" value="<?php echo $nama_lengkap ?>" readonly />
+								<input type="text" class="form-control" value="<?php
+								if (!empty($nama_lkp)) {
+									echo $nama_lkp;
+								} else {
+									echo 'NONAME';
+								}
+								?>" readonly />
 							</div>
 							<div class="form-group">
 								<label for="">Email: </label>
-								<input type="email" class="form-control" value="<?php echo $_SESSION['user_mail'] ?>"
-									readonly />
+								<input type="email" class="form-control" value="<?php
+								if (!empty($_SESSION['user_mail'])) {
+									echo $_SESSION['user_mail'];
+								} else {
+									echo 'NONE';
+								}
+								?>" readonly />
 							</div>
 							<div class="form-group">
 								<label for="">Telpon: </label>
-								<input type="text" class="form-control" value="+62-<?php echo $telp ?>" pattern="[0-9]"
-									readonly />
+								<input type="text" class="form-control" value="+62-<?php
+								if (!empty($telp)) {
+									echo $telp;
+								} else {
+									echo '0000000000000';
+								}
+								?>" pattern="[0-9]" readonly />
+							</div>
+							<div class="form-group">
+								<label for="">No Rekening: </label>
+								<input type="text" class="form-control" value="<?php
+								if (!empty($nmr_rek)) {
+									echo $nmr_rek;
+								} else {
+									echo 'XXXXXXXXXXXXX';
+								}
+								?>" readonly />
 							</div>
 
 						</div>

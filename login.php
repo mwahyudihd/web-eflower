@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'connection.php';
+include 'data-connect.php';
 
 //get database
 $usermail = $_POST['user_mail'];

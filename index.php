@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'connection.php';
+include 'data-connect.php';
 
 
 if (isset($_SESSION["user_mail"]) != NULL) {
@@ -131,7 +131,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top bg-success">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="#"
 					>E<span class="text-white">flower</span></a
