@@ -40,6 +40,19 @@ print_r($dt_user);
 $s = $dt_user['no_rek'];
 echo $s;
 
+$display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$sesi_id'");
+
+$array_data = mysqli_fetch_array($display_produk);
+
+if(!empty($array_data)){
+    echo '<h1>';
+    print_r ($array_data);
+    echo '</h1>';
+}else{
+    echo '<h1>'.'Produk Dengan ID'.'<strong>'.$sesi_id.'</strong>'.'TIDAK TERSEDIA'.'</h1>';
+}
+
+
 $id_generate = bin2hex(random_bytes(4));
 $id_generate = strtoupper($id_generate);
 echo '<h1>'.$id_generate.'</h1>';
