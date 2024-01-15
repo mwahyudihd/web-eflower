@@ -145,6 +145,11 @@ if (isset($_SESSION["user_mail"]) == NULL) {
     </nav>
 
     <main role="main" class="container">
+        <?php if(isset($_GET['success'])): ?>
+            <script>
+                alert("Perubahan data telah berhasil dilakukan!")
+            </script>
+        <?php endif ?>
         <div class="row">
             <div class="container-fluid">
                 <div class="col-md-10 mx-auto">

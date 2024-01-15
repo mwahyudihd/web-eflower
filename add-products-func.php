@@ -1,5 +1,7 @@
 <?php
+
 include 'data-connect.php';
+
 session_start();
 $time_data = time();
 
@@ -25,8 +27,13 @@ $file_size = $_FILES['image']['size'];
 
 
 
-$query = "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', NULL, '$tgl', '$stok', '$slug_data')";
-$send = mysqli_query($connection, $query);
+$query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', NULL, NOW(), '$stok', '$slug_data')");
 
-header("location: profile.php?success");
+if($query){
+    header("location: manage.php?success");
+}else{
+
+}
+
+
 ?>

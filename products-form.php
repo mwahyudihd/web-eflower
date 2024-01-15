@@ -159,13 +159,11 @@
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
+							<a href="cart.php" class="nav-link"
 								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
 							>
 						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
-						</li>
+		
 						<li class="nav-item dropdown">
 							<a
 								href="#"
@@ -177,9 +175,9 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="profile.php" class="dropdown-item">Profile</a>
+								<a href="orders.php" class="dropdown-item">Orders</a>
+								<a href="logout.php" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -196,7 +194,7 @@
 								<span>Tambah Produk</span>
 							</div>
 							<div class="card-body">
-								<form action="#" class="signup" method="post">
+								<form action="add-products-func.php" class="signup" method="post">
 									<!-- kolom input pendaftaran -->
 									<div class="form-floating">
 										<input
