@@ -193,7 +193,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             $img_produk = $array_produk['gambar'];
                                             $nama_produk = $array_produk['nama_produk'];
                                             $set_kategori = $array_produk['kategori'];
-                                            $price = $array_produk['harga_produk'];
+                                            $price = $array_produk['harga'];
                                             $stok_barang = $array_produk['qty'];
                                         }
                                         ?>

@@ -222,7 +222,7 @@
 
 									<div class="mt-2 form-floating">
 										<select
-											name="kategori"
+											name="category"
 											id="kategori"
 											class="form-control"
 											required
@@ -240,7 +240,7 @@
 												style="display: none" />
 										</select>
 
-										<label for="email">Kategori</label>
+										<label for="category">Kategori</label>
 									</div>
 
 									<div class="mt-2 form-floating">
@@ -249,21 +249,13 @@
 											type="number"
 											placeholder="stock"
 											id="stok_id"
-											name="stok"
+											name="stock"
 											pattern="[0-9]"
 											required />
 										<label for="stock">Stok</label>
 									</div>
 									<div class="form-group">
 										<label for="">Foto: </label>
-									</div>
-									<div class="p-5 col-md-3">
-										<img
-											src="https://placeholder.co/50x50"
-											alt=""
-											class="card-img-top" />
-									</div>
-									<div class="form-group">
 										<input type="file" class="form-control" name="image" />
 									</div>
 
@@ -278,14 +270,21 @@
 										<label for="slug">Slug</label>
 									</div>
 
+                                    <div class="form-floating mt-3">
+                                        <textarea name="description" class="form-control">
+
+                                        </textarea>
+                                        <label for="desc">Deskripsi</label>
+                                    </div>
+
 									<!-- bagian ini dalah tombol Daftar -->
-									<a href="/admin-product.html" class="mt-3 btn btn-warning">
+									<a href="manage.php" class="mt-3 btn btn-warning">
 										<i class="p-1 fas fa-angle-left"></i>Kembali
 									</a>
 									<!-- akhir tombol login -->
 
 									<button class="float-end mt-3 btn btn-success" type="submit">
-										Simpan <i class="p-1 fas fa-user"></i>
+										Simpan <i class="p-1 fas fa-folder-plus"></i>
 									</button>
 								</form>
 							</div>
