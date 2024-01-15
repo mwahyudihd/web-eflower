@@ -210,35 +210,34 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 				<div class="col-md-9">
 					<div class="card">
 						<div class="card-header bg-leaf">Profile</div>
-						<form action="update-profile.php" method="post">
+						<form action="update-profile-func.php" method="post">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="">Nama: </label>
-									<input type="text" class="form-control" value="<?php ?>" nama/>
+									<input type="text" class="form-control" value="<?php echo $_SESSION['nama_lengkap'] ?>" name="nama-lkp"/>
 								</div>
 								<div class="form-group">
 									<label for="">Email: </label>
-									<input type="email" class="form-control" value="" />
+									<input type="email" class="form-control" value="<?php echo $_SESSION['user_mail'] ?>" name="email"/>
 								</div>
 								<div class="form-group">
 									<label for="">Telpon: </label>
 									<input
+										name="contact"
 										type="text"
 										class="form-control"
-										value=""
-										pattern="[0-9]" />
+										pattern="\d+"
+										maxlength="13"
+										value="<?php if(!empty($_SESSION['no-telp'])){
+											echo $_SESSION['no-telp'];
+										}else{
+											NULL;
+										}?>"
+										 />
 								</div>
 								<div class="form-group">
-									<label for="">Foto: </label>
-								</div>
-                                <div class="col-md-3"><img
-									src="https://placeholder.co/50x50"
-									alt=""
-									class="card-img-top" />
-                                </div>
-								<div class="form-group">
-								
-									<input type="file" class="form-control" name="image" />
+									<label for="">No. Rekening: </label>
+									<input type="text" class="form-control" value="<?php echo $_SESSION['no-rek'] ?>" name="no-rkng"/>
 								</div>
 							</div>
 							<div class="card-footer">

@@ -128,9 +128,6 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 						<a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i>Cart
 							(<span>0</span>)</a>
 					</li>
-					<li class="nav-item">
-						<a href="form.php" class="nav-link">Login</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link active dropdown-toggle" id="dropdown-2" data-bs-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">User</a>
@@ -188,11 +185,19 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 						}
 						?>" alt="" width="70px" height="235px" class="card-img-top rounded-pill" />
 					</div>
+					<div class="card-footer">
+						<a href="photo-update.php" class="btn btn-success"><i class="fas fa-user-pen"></i></a>
+					</div>
 				</div>
 			</div>
 
 			<div class="col-md-6">
 				<div class="card">
+					<?php if (isset($_GET["success"])): ?>
+						<script>
+							alert('Data anda telah diperbarui!');
+						</script>
+					<?php endif ?>
 					<div class="card-header bg-leaf">Profile</div>
 					<form action="">
 						<div class="card-body">
