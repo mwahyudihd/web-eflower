@@ -197,6 +197,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             $stok_barang = $array_produk['qty'];
                                         }
                                         ?>
+                                        <?php if(!empty($array_produk)): ?>
                                         <td><?php echo $no++; ?></td>
                                         <td>
                                             <p>
@@ -236,6 +237,13 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                                     class="btn btn-sm">
                                                     <i class="fas fa-trash text-danger"></i>
                                                 </button>
+                                                <?php else: ?>
+                                                <td class="bolder">data tidak ada!</td>
+                                                <td class="bolder">data tidak ada!</td>
+                                                <td class="bolder">data tidak ada!</td>
+                                                <td class="bolder">data tidak ada!</td>
+                                                <td class="bolder">data tidak ada!</td>
+                                                <?php endif ?>
                                             </form>
                                         </td>
                                     </tr>
