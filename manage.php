@@ -151,7 +151,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                     <div class="card float-center">
                         <div class="card-header bg-leaf">
                             <span>Produk</span>
-                            <a href="admin-product-form.html" class="btn btn-sm btn-secondary">
+                            <a href="products-form.php" class="btn btn-sm btn-secondary">
                                 <i class="fas fa-file-pen"></i>
                             </a>
                             <div class="float-end">

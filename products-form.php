@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,40 +18,18 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
-		<link rel="stylesheet" href="Assets/css-native/form-admin.css" />
-		<link rel="stylesheet" href="Assets/css-native/admin_css.css" />
+		<link rel="stylesheet" href="assets/css-native/form-admin.css" />
+		<link rel="stylesheet" href="assets/css-native/admin_css.css" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="/assets/css-native/app.css" />
+		<link rel="stylesheet" href="assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -316,10 +294,10 @@
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<script src="/assets/js-native/product-form.js"></script>
-		<script src="/assets/js-native/admin-category.js"></script>
+		<script src="assets/js-native/product-form.js"></script>
+		<script src="assets/js-native/admin-category.js"></script>
 	</body>
 </html>
