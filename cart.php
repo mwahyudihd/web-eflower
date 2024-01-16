@@ -259,9 +259,9 @@ $data2 = mysqli_fetch_array($query2);
 										<td class="text-center p-3">Rp<?php
 										$jml_beli = $data2['qty'];
 										$harga = $data['harga'];
-										$total = $harga * $jml_beli;
-
-										echo $total;
+										$subtotal = $harga * $jml_beli;
+										
+										echo $subtotal;
 										?>,-</td>
 										<td>
 											<form action="">
@@ -270,13 +270,11 @@ $data2 = mysqli_fetch_array($query2);
 												</button>
 											</form>
 										</td>
-										<?php }} ?>
+										<?php } $total = $subtotal + $subtotal; } ?>
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
                                             <td class="text-center"><strong>Rp<?php
-										$jml_beli = $data2['qty'];
-										$harga = $data['harga'];
-										$total = $harga * $jml_beli;
+										
 										echo $total;
 										?>
                                         </tr>
