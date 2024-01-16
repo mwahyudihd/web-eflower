@@ -1,15 +1,29 @@
+<?php 
+include 'functions/data-connect.php';
+session_start();
+
+$sesi_id = $_SESSION['id'];
+
+$query = mysqli_query($connection, "SELECT * FROM detailorder 
+JOIN cart ON detailorder.orderid = cart.orderid 
+JOIN produk ON produk.id_produk = detailorder.id_produk 
+WHERE cart.id_user = '$sesi_id'");
+
+$query2 = mysqli_query($connection, "SELECT * FROM detailorder 
+JOIN cart ON detailorder.orderid = cart.orderid 
+WHERE cart.id_user = '$sesi_id'");
+$data = mysqli_fetch_array($query);
+$data2 = mysqli_fetch_array($query2);
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-		<meta
-			name="author"
-			content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-		<meta name="generator" content="Hugo 0.118.2" />
 		<title>Keranjang Belanja</title>
 
 		<link
@@ -21,37 +35,15 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="/assets/css-native/app.css" />
+		<link rel="stylesheet" href="assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -173,7 +165,7 @@
 								<a href="/admin-category.html" class="dropdown-item"
 									>Kategori</a
 								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
+								<a href="admin-product.php" class="dropdown-item">Produk</a>
 								<a href="/admin-order.html" class="dropdown-item">Order</a>
 							</div>
 						</li>
@@ -198,9 +190,9 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="profile.html" class="dropdown-item">Profile</a>
+								<a href="orders.html" class="dropdown-item">Orders</a>
+								<a onclick="logOut()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -224,22 +216,38 @@
 										<th scope="col"></th>
 									</tr>
 								</thead>
+
+								<?php 
+
+								$jml_array = mysqli_num_rows($query);
+
+								if($jml_array > 0){
+									while($data = mysqli_fetch_array($query)){
+								?>
+
 								<tbody>
 									<tr>
 										<td scope="row">
 											<p>
-												<img src="https://placehold.co/50x50" alt="" />
-												<strong class="ms-3">Nama Produk</strong>
+												<img src="<?php if(empty($data['gambar'])){
+													echo 'https://placeholder.co/100x70';
+												}else{
+													echo $data['gambar'];
+												}
+												?>" alt="" width="70" height="70" />
+												<strong class="ms-3"><?= $data['nama_produk']; ?></strong>
 											</p>
 										</td>
-										<td class="p-3 text-center">Rp100.000,-</td>
+										<td class="p-3 text-center">Rp<?=
+										$data['harga'];
+										?>,-</td>
 										<td>
 											<form action="">
 												<div class="input-group">
 													<input
 														type="number"
 														class="form-control text-center"
-														value="1" />
+														value="<?= $data2['qty']; ?>" />
 													<div class="input-append-clas">
 														<button class="btn btn-info" type="submit">
 															<i class="fas fa-check"></i>
@@ -248,7 +256,13 @@
 												</div>
 											</form>
 										</td>
-										<td class="text-center p-3">Rp100.000,-</td>
+										<td class="text-center p-3">Rp<?php
+										$jml_beli = $data2['qty'];
+										$harga = $data['harga'];
+										$total = $harga * $jml_beli;
+
+										echo $total;
+										?>,-</td>
 										<td>
 											<form action="">
 												<button class="btn btn-danger">
@@ -256,23 +270,31 @@
 												</button>
 											</form>
 										</td>
+										<?php }} ?>
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
-                                            <td class="text-center"><strong>Rp100.000,-</strong></td>
+                                            <td class="text-center"><strong>Rp<?php
+										$jml_beli = $data2['qty'];
+										$harga = $data['harga'];
+										$total = $harga * $jml_beli;
+										echo $total;
+										?>
                                         </tr>
 									</tr>
 								</tbody>
+						
 							</table>
 						</div>
                         <div class="card-footer">
-                            <a href="/checkout.html" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
-                            <a href="/index.html" class="btn btn-warning float-start text-white"><i class="fas fa-angle-left"></i> Beli Lagi</a>
+                            <a href="checkout.html" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
+                            <a href="." class="btn btn-warning float-start text-white"><i class="fas fa-angle-left"></i> Beli Lagi</a>
                         </div>
 					</div>
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/js-native/confirm.js"></script>
 	</body>
 </html>

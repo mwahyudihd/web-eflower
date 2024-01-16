@@ -41,7 +41,7 @@
                                     <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
-									<form action="cart.php" method="get">
+									<form action="functions/insert-to-cart.php" method="get">
 										<div class="input-group">
                                             <input type="text" style="display: none;" value="<?= $data['id_produk'] ?>" name="id-produk" id="">
 											<input

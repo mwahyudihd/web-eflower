@@ -11,7 +11,7 @@ else if (isset($_SESSION["user_mail"]) == NULL){
     exit;
 }
 
-include '../data-connect.php';
+include '../functions/data-connect.php';
 
 $sesi_id = $_SESSION['id'];
 
@@ -133,7 +133,7 @@ $link_poto = $dt_user[5];
                             aria-haspopup="true" aria-expanded="false">Manage</a>
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
                             <a href="/admin-category.html" class="dropdown-item">Kategori</a>
-                            <a href="/admin-product.html" class="dropdown-item">Produk</a>
+                            <a href="admin-product.php" class="dropdown-item">Produk</a>
                             <a href="/admin-order.html" class="dropdown-item">Order</a>
                             <a href="/admin-users.html" class="dropdown-item">Pengguna</a>
                         </div>
@@ -245,9 +245,13 @@ $link_poto = $dt_user[5];
 									>
                                     <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
-								<div class="card-footer bg-leaf">
+								<div class="card-footer bg-leaf text-dark">
                                     Dibuat pada :
 									<?= $data['tgl_buat'] ?>
+                                    <p class="float-end mt-2 text-dark">
+                                        Terakhir Diedit : 
+                                        <?= $data['di_edit']; ?>
+                                    </p>
 								</div>
 							</div>
 						</div>

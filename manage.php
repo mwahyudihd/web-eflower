@@ -318,7 +318,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             <td>Rp.<?= $price; ?></td>
                                             <td><?= $stok_barang; ?></td>
                                             <td>
-                                                <form action="functions/edit-product.php" method="get">
+                                                <form action="edit-product.php" method="get">
                                                     <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
                                                     <a href="edit-product.php">
                                                         <button class="btn btn-sm">

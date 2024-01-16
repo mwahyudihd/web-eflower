@@ -21,16 +21,18 @@ $img = $_POST['image'];
 
 
 if($img != NULL){
+    $img = $_POST['image'];
     $targetDir = "assets/img/product/";
-    $fileName = basename($_FILES['image']["name"]);
+    $fileName = basename($_FILES[$img]["name"]);
     $targetFilePath = $targetDir . $fileName;
-    $fileType = $_FILES['image']['type'];
-    $file_size = $_FILES['image']['size'];
-    move_uploaded_file($_FILES['image']["tmp_name"], $targetFilePath);
-    $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc', gamabar='$targetFilePath' WHERE id_produk='$idproduk'");
+    $upFile = '../' . $targetDir . $fileName;
+    $fileType = $_FILES[$img]['type'];
+    $file_size = $_FILES[$img]['size'];
+    move_uploaded_file($_FILES[$img]["tmp_name"], $upFile);
+    $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc', gamabar='$targetFilePath', di_edit = NOW() WHERE id_produk='$idproduk'");
     header("location: ../manage.php?success");
 }else{
-    $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc' WHERE id_produk='$idproduk'");
+    $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc', di_edit = NOW() WHERE id_produk='$idproduk'");
     header("location: ../manage.php?success");
 }
 

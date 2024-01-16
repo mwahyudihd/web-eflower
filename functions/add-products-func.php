@@ -26,15 +26,16 @@ if($_POST['category'] == 'other'){
 $targetDir = "assets/img/product/";
 $fileName = basename($_FILES['image']["name"]);
 $targetFilePath = $targetDir . $fileName;
+$upFile = '../' . $targetDir . $fileName;
 $fileType = $_FILES['image']['type'];
 $file_size = $_FILES['image']['size'];
 
 
 
-$query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', 0, NOW(), '$stok', '$slug_data', 'aktif')");
+$query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', 0, NOW(), '$stok', '$slug_data', 'aktif', NOW())");
 
 if($query){
-    move_uploaded_file($_FILES['image']["tmp_name"], $targetFilePath);
+    move_uploaded_file($_FILES['image']["tmp_name"], $upFile);
     header("location: ../manage.php?success");
 } else {
     echo "Error: " . $query . "<br>". "<h1>" . mysqli_error($connection) . "</h1>";

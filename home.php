@@ -225,6 +225,11 @@ $link_poto = $dt_user[5];
             </div>
         </div>
     </main>
+    <?php if(isset($_GET['error'])): ?>
+        <script>
+            alert("Data Tidak Valid, Sikahkan Coba lagi Nanti");
+        </script>
+    <?php endif; ?>
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
     <script src="assets/js-native/confirm.js"></script>

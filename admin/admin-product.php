@@ -1,7 +1,23 @@
+<?php
+include '../functions/data-connect.php';
+
+session_start();
+if (isset($_SESSION["user_mail"]) != NULL) {
+    if ($_SESSION["role"] != 'admin') {
+        header("location: ../index.php");
+        exit;
+    }
+}
+else if (isset($_SESSION["user_mail"]) == NULL){
+    header('location: ../index.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="../assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,14 +33,14 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="assets/libs/bootstrap/css/bootstrap.min.css"
+			href="../assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="assets/css-native/app.css" />
+		<link rel="stylesheet" href="../assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -112,9 +128,9 @@
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -130,7 +146,7 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
+							<a class="nav-link active" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -154,9 +170,7 @@
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-							>
+							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama'] ?></p>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -169,9 +183,8 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="profile.php" class="dropdown-item">Profile</a>
-								<a href="orders.php" class="dropdown-item">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="../profile.php" class="dropdown-item">Profile</a>
+								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -216,44 +229,105 @@
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">Produk</th>
+											<th scope="col">Pemilik</th>
 											<th scope="col">Kategori</th>
 											<th scope="col">Harga</th>
 											<th scope="col">Stok</th>
+											<th scope="col">Status</th>
 											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
+									<?php 
+                                        $data = $_SESSION['id'];
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_user = users.id_user");
+                                        $no = 1;
+                                        $row = mysqli_num_rows($display_produk);
+                                        if($row > 0) {
+                                            while($array_produk = mysqli_fetch_array($display_produk)){
+                                                $img_produk = $array_produk['gambar'];
+                                                $nama_produk = $array_produk['nama_produk'];
+                                                $set_kategori = $array_produk['kategori'];
+                                                $price = $array_produk['harga'];
+                                                $idproduk = $array_produk['id_produk'];
+                                                $stok_barang = $array_produk['qty'];
+												$pemilik = $array_produk['nama_user'];
+												$status_produk = $array_produk['status'];
+                                            
+                                            ?>
+                                            <td><?php echo $no++; ?></td>
+                                            <td>
+                                                <p>
+                                                    <img src="../<?php
+                                                    if(!empty($img_produk)){
+                                                        echo $img_produk;
+                                                    }else{
+                                                        echo 'https://placehold.co/70x70';
+                                                    }?>
+                                                    " alt="" width="70" height="70" /> <?php
+                                                    echo $nama_produk ?>
+                                                </p>
+                                            </td>
 											<td>
-												<p>
-													<img src="https://placehold.co/70x70" alt="" /> Janda
-													bolong
-												</p>
+												<?php echo $pemilik; ?>
 											</td>
+                                            <td>
+                                                <span class="badge <?php if($set_kategori == 'daun'){
+                                                    echo 'bg-warning'.' '.'text-dark';
+                                                }else if($set_kategori == 'diair'){
+                                                    echo 'bg-primary';
+                                                }else if ($set_kategori == 'berduri'){
+                                                    echo 'bg-success';
+                                                }else if($set_kategori == 'bunga'){
+                                                    echo 'bg-info';
+                                                }else{
+                                                    echo 'bg-secondary';
+                                                } ?>"><i class="fas fa-tags"></i> <?= $set_kategori ?></span>
+                                            </td>
+                                            <td>Rp.<?= $price; ?></td>
+                                            <td><?= $stok_barang; ?></td>
 											<td>
-												<span class="badge bg-primary"
-													><i class="fas fa-tags"></i> daun</span
-												>
+											<span class="badge <?php if($status_produk == 'aktif'){
+                                                    echo 'bg-warning'.' '.'text-dark';
+                                                }else{
+                                                    echo 'bg-danger';
+                                                } ?>"><i class="fas <?php if($status_produk == 'aktif'){
+                                                    echo 'fa-toggle-on';
+                                                }else{
+                                                    echo 'fa-toggle-off';
+                                                } ?>"></i> <?php if($status_produk == 'aktif'){
+                                                    echo 'Aktif';
+                                                }else{
+                                                    echo 'Non-Aktif';
+                                                } ?></span>
 											</td>
-											<td>Rp.100.000,-</td>
-											<td>Tersedia</td>
-											<td>
-												<form action="#">
-													<a href="#">
-														<button class="btn btn-sm">
-															<i class="fas fa-edit text-info"></i>
-														</button>
-													</a>
-													<button
-														type="submit"
-														onclick="return confirm('Are you Sure?')"
-														class="btn btn-sm">
-														<i class="fas fa-trash text-danger"></i>
-													</button>
-												</form>
-											</td>
-										</tr>
+                                            <td>
+                                                <form action="functions/edit-product.php" method="get">
+                                                    <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
+                                                    <a href="edit-product.php">
+                                                        <button class="btn btn-sm">
+                                                            <i class="fas fa-edit text-info"></i>
+                                                        </button>
+                                                    </a>
+                                                </form>
+                                                <form action="functions/del-product.php" method="get">
+                                                    <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
+                                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus produk?')"
+                                                        class="btn btn-sm">
+                                                        <i class="fas fa-circle-xmark text-danger"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php }} else{ ?>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+											<td>data tidak ditemukan!</td>
+											<td>data tidak ditemukan!</td>
+                                        <?php } ?>
 									</tbody>
 								</table>
 								<nav aria-label="Page navigation example">
@@ -281,7 +355,8 @@
 				</div>
 			</div>
 		</main>
-		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="../assets/js-native/confirm.js"></script>
 	</body>
 </html>

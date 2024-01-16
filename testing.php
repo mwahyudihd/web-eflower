@@ -74,10 +74,47 @@ session_start(); ?>
 
 $data = $_SESSION['nama'];
 
-$dat = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = '$data'");
-$set_data = mysqli_fetch_array($dat);
-echo '<br>';
-echo '<h2>';
-print_r($set_data);
-echo '</h2>';
+$id_data = $_SESSION['id'];
+
+// $id_generate = bin2hex(random_bytes(5));
+// $id_main = strtoupper($id_generate);
+// $id_generate2 = bin2hex(random_bytes(4));
+// $id_order = strtolower($id_generate2);
+
+// $idgenerate = bin2hex(random_bytes(4));
+
+// $id_cart = strtoupper($id_generate);
+
+// $dat = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = '$data'");
+// $set_data = mysqli_fetch_array($dat);
+
+$query = mysqli_query($connection, "SELECT * FROM detailorder 
+JOIN cart ON detailorder.orderid = cart.orderid 
+JOIN produk ON produk.id_produk = detailorder.id_produk 
+WHERE cart.id_user = '964F05A1'");
+
+$query2 = mysqli_query($connection, "SELECT * FROM detailorder 
+JOIN cart ON detailorder.orderid = cart.orderid 
+WHERE cart.id_user = '964F05A1'");
+
+$data = mysqli_fetch_array($query);
+$data2 = mysqli_fetch_array($query2);
+$cek_row = mysqli_num_rows($query);
+
+
+
+// echo '<br>';
+// echo '<h2>';
+// print_r($set_data);
+// echo '</h2>';
+// echo '<br>'.'<h1>'. $id_main . '\n' .'</h1>';
+echo '<br>'.'<h6>';
+if($cek_row > 0){
+    print_r($data); 
+}
+
+echo '</h6>';
+echo '<br>'.'<h3>';
+print_r($data2); 
+echo '</h3>';
 ?>
