@@ -56,4 +56,18 @@ if(!empty($array_data)){
 $id_generate = bin2hex(random_bytes(4));
 $id_generate = strtoupper($id_generate);
 echo '<h1>'.$id_generate.'</h1>';
+
+$data = $_SESSION['id'];
+$display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$data'");
+$no = 1;
+while($array_produk = mysqli_fetch_array($display_produk)){
+    $img_produk = $array_produk['gambar'];
+    $nama_produk = $array_produk['nama_produk'];
+    $set_kategori = $array_produk['kategori'];
+    $price = $array_produk['harga'];
+    $stok_barang = $array_produk['qty'];
+}
+
+$jml_data = mysqli_num_rows($array_produk);
+echo $jml_data;
 ?>

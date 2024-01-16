@@ -194,64 +194,65 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                         $data = $_SESSION['id'];
                                         $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$data'");
                                         $no = 1;
-                                        while($array_produk = mysqli_fetch_array($display_produk)){
-                                            $img_produk = $array_produk['gambar'];
-                                            $nama_produk = $array_produk['nama_produk'];
-                                            $set_kategori = $array_produk['kategori'];
-                                            $price = $array_produk['harga'];
-                                            $stok_barang = $array_produk['qty'];
-                                        }
-                                        ?>
-                                        <?php if(!empty($array_produk)): ?>
-                                        <td><?php echo $no++; ?></td>
-                                        <td>
-                                            <p>
-                                                <img src="<?php
-                                                if(!empty($img_produk)){
-                                                    echo $img_produk;
+                                        $row = mysqli_num_rows($display_produk);
+                                        if($row > 0) {
+                                            while($array_produk = mysqli_fetch_array($display_produk)){
+                                                $img_produk = $array_produk['gambar'];
+                                                $nama_produk = $array_produk['nama_produk'];
+                                                $set_kategori = $array_produk['kategori'];
+                                                $price = $array_produk['harga'];
+                                                $stok_barang = $array_produk['qty'];
+                                            
+                                            ?>
+                                            <td><?php echo $no++; ?></td>
+                                            <td>
+                                                <p>
+                                                    <img src="<?php
+                                                    if(!empty($img_produk)){
+                                                        echo $img_produk;
+                                                    }else{
+                                                        echo 'https://placehold.co/70x70';
+                                                    }?>
+                                                    " alt="" width="70" height="70" /> <?php
+                                                    echo $nama_produk ?>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <span class="badge <?php if($set_kategori == 'daun'){
+                                                    echo 'bg-warning'.' '.'text-dark';
+                                                }else if($set_kategori == 'diair'){
+                                                    echo 'bg-primary';
+                                                }else if ($set_kategori == 'berduri'){
+                                                    echo 'bg-success';
+                                                }else if($set_kategori == 'bunga'){
+                                                    echo 'bg-info';
                                                 }else{
-                                                    echo 'https://placehold.co/70x70';
-                                                }?>
-                                                " alt="" width="70" height="70" /> <?php
-                                                echo $nama_produk ?>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <span class="badge <?php if($set_kategori == 'daun'){
-                                                echo 'bg-warning'.' '.'text-dark';
-                                            }else if($set_kategori == 'diair'){
-                                                echo 'bg-primary';
-                                            }else{
-                                                echo 'bg-dark';
-                                            } ?>"><i class="fas fa-tags"></i> <?php echo $set_kategori ?></span>
-                                        </td>
-                                        <td>Rp.<?php echo $price ?></td>
-                                        <td><?php if(!empty($stok_barang)){
-                                            echo $stok_barang;
-                                        }else{
-                                            echo 'Stok Habis';
-                                        } ?></td>
-                                        <td>
-                                            <form action="#">
-                                                <a href="#">
-                                                    <button class="btn btn-sm">
-                                                        <i class="fas fa-edit text-info"></i>
+                                                    echo 'bg-secondary';
+                                                } ?>"><i class="fas fa-tags"></i> <?= $set_kategori ?></span>
+                                            </td>
+                                            <td>Rp.<?= $price; ?></td>
+                                            <td><?= $stok_barang; ?></td>
+                                            <td>
+                                                <form action="#">
+                                                    <a href="#">
+                                                        <button class="btn btn-sm">
+                                                            <i class="fas fa-edit text-info"></i>
+                                                        </button>
+                                                    </a>
+                                                    <button type="submit" onclick="return confirm('Are you Sure?')"
+                                                        class="btn btn-sm">
+                                                        <i class="fas fa-trash text-danger"></i>
                                                     </button>
-                                                </a>
-                                                <button type="submit" onclick="return confirm('Are you Sure?')"
-                                                    class="btn btn-sm">
-                                                    <i class="fas fa-trash text-danger"></i>
-                                                </button>
-                                                <?php else: ?>
-                                                <td class="bolder">data tidak ada!</td>
-                                                <td class="bolder">data tidak ada!</td>
-                                                <td class="bolder">data tidak ada!</td>
-                                                <td class="bolder">data tidak ada!</td>
-                                                <td class="bolder">data tidak ada!</td>
-                                                <?php endif ?>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php }} else{ ?>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                            <td>data tidak ditemukan!</td>
+                                        <?php } ?>
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example">

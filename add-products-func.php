@@ -27,12 +27,12 @@ $file_size = $_FILES['image']['size'];
 
 
 
-$query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', NULL, NOW(), '$stok', '$slug_data')");
+$query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '$nama', '$id_users', '$kategori', '$desc', '$harga', '$targetFilePath', 0, NOW(), '$stok', '$slug_data')");
 
 if($query){
     header("location: manage.php?success");
-}else{
-
+} else {
+    echo "Error: " . $query . "<br>". "<h1>" . mysqli_error($connection) . "</h1>";
 }
 
 

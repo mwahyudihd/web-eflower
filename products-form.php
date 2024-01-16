@@ -194,7 +194,7 @@
 								<span>Tambah Produk</span>
 							</div>
 							<div class="card-body">
-								<form action="add-products-func.php" class="signup" method="post">
+								<form action="add-products-func.php" class="signup" method="post" enctype="multipart/form-data">
 									<!-- kolom input pendaftaran -->
 									<div class="form-floating">
 										<input
