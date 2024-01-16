@@ -63,7 +63,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 						alert('SELAMAT! Akun anda telah berhasil dibuat.');
 					</script>
 				<?php endif ?>
-				<form action="login.php" class="login" method="post">
+				<form action="functions/login.php" class="login" method="post">
 					<!-- input login -->
 					<div class="md-2 form-floating">
 						<input class="form-control" type="email" name="user_mail" placeholder="Masukan Email "
@@ -95,7 +95,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 					</div>
 				</form>
 
-				<form action="register.php" class="signup" method="post">
+				<form action="functions/register.php" class="signup" method="post">
 					<!-- kolom input pendaftaran -->
 
 					<div class="mt-2 form-floating">

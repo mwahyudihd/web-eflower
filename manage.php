@@ -169,6 +169,26 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                         echo 'Anda Belum Membuka Toko';
                                     }
                                      ?></h4>
+
+                            <h4 class="text-center mt-2" id="kota-toko">
+                            <?php
+                                    if(!empty($_SESSION['kota'])){
+                                        echo $_SESSION['kota'];
+                                    } else {
+                                        echo NULL;
+                                    }
+                                     ?>
+                            </h4>
+
+                            <h4 class="text-center mt-2" id="alamat-toko">
+                                    <?php
+                                    if(!empty($_SESSION['alamat'])){
+                                        echo $_SESSION['alamat'];
+                                    } else {
+                                        echo NULL;
+                                    }
+                                     ?>
+                            </h4>
                             <a href="javascript:void(0);" class="btn btn-secondary mt-2" onclick="toggleEditForm()">
                             <?php if(empty($_SESSION['nama'])): ?>
                                 <i class="fas fa-file-pen"> BUKA</i>
@@ -181,14 +201,30 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                         <div id="edit-form" style="display: none;">
                             <form method="post" action="name-form.php">
                                 <div class="form-group">
-                                    <label for="toko">MASUKKAN NAMA TOKO :</label>
+                                    <label for="toko">MASUKKAN INFORMASI TOKO </label>
+                                    <label for="namatoko">NAMA TOKO : </label>
                                     <input class="form-control text-center" type="text" name="toko" id="edited-nama-toko" value="<?php
                                     if(!empty($_SESSION['nama'])){
                                         echo $_SESSION['nama'];
                                     } else {
                                         echo NULL;
                                     }
-                                     ?>">
+                                     ?>" <required>
+                                </div>
+                                <div class="form-group">
+                                     </required>
+                                     <label for="kota">KOTA : </label>
+                                     <input class="form-control text-center" type="text" name="kota" id="edited-nama-toko" value="<?php
+                                    if(!empty($_SESSION['kota'])){
+                                        echo $_SESSION['kota'];
+                                    } else {
+                                        echo NULL;
+                                    }
+                                     ?>" required>
+                                </div>
+                                <div class="form-group">
+                                     <label for="kota">ALAMAT LENGKAP : </label>
+                                     <input class="form-control text-center" type="text" name="alamat" id="edited-nama-toko" value="<?= $_SESSION['alamat']; ?>" required>
                                 </div>
                                 <button type="button" class="m-3 btn btn-danger" onclick="toggleEditForm()"><i class="fas fa-angle-left"></i></button>
                                 <button type="submit" class="m-3 btn btn-secondary float-end"><i class="fas fa-floppy-disk"></i></button>
@@ -240,7 +276,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                     <tr>
                                         <?php 
                                         $data = $_SESSION['id'];
-                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$data'");
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$data' AND status = 'aktif' ");
                                         $no = 1;
                                         $row = mysqli_num_rows($display_produk);
                                         if($row > 0) {
@@ -282,7 +318,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             <td>Rp.<?= $price; ?></td>
                                             <td><?= $stok_barang; ?></td>
                                             <td>
-                                                <form action="edit-product.php" method="get">
+                                                <form action="functions/edit-product.php" method="get">
                                                     <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
                                                     <a href="edit-product.php">
                                                         <button class="btn btn-sm">
@@ -290,11 +326,11 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                                         </button>
                                                     </a>
                                                 </form>
-                                                <form action="del-product.php" method="get">
+                                                <form action="functions/del-product.php" method="get">
                                                     <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
                                                     <button type="submit" onclick="return confirm('Yakin ingin menghapus produk?')"
                                                         class="btn btn-sm">
-                                                        <i class="fas fa-trash text-danger"></i>
+                                                        <i class="fas fa-circle-xmark text-danger"></i>
                                                     </button>
                                                 </form>
                                             </td>

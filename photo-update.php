@@ -161,7 +161,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header bg-leaf">Ganti Foto Profile</div>
-                    <form action="update-profile-photo.php" method="post" enctype="multipart/form-data">
+                    <form action="functions/update-profile-photo.php" method="post" enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="">Foto: </label>

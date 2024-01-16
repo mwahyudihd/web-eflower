@@ -207,7 +207,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 				<div class="col-md-9">
 					<div class="card">
 						<div class="card-header bg-leaf">Profile</div>
-						<form action="update-profile-func.php" method="post">
+						<form action="functions/update-profile-func.php" method="post">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="">Nama: </label>

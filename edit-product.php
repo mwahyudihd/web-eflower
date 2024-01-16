@@ -205,7 +205,7 @@ include 'data-connect.php';
 								<span>Tambah Produk</span>
 							</div>
 							<div class="card-body">
-								<form action="edit-product-func.php?id-produk=<?= $id_produk; ?>" method="post" enctype="multipart/form-data">
+								<form action="functions/edit-product-func.php?id-produk=<?= $id_produk; ?>" method="post" enctype="multipart/form-data">
 									<!-- kolom input pendaftaran -->
 									<div class="form-floating">
 										<input

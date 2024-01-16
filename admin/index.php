@@ -229,9 +229,21 @@ $link_poto = $dt_user[5];
 									<p class="card-text">
 										<?php echo substr($data['deskripsi'], 0, 100); ?>
 									</p>
-									<a href="#" class="badge bg-success non-deco"
-										><i class="fas fa-tags"></i> <?php $data['kategori'] ?></a
+									</p>
+									<a href="#" class="badge <?php if($set_kategori == 'daun'){
+                                                    echo 'bg-warning'.' '.'text-dark';
+                                                }else if($data['kategori'] == 'diair'){
+                                                    echo 'bg-primary';
+                                                }else if ($data['kategori'] == 'berduri'){
+                                                    echo 'bg-success';
+                                                }else if($data['kategori'] == 'bunga'){
+                                                    echo 'bg-info';
+                                                }else{
+                                                    echo 'bg-secondary';
+                                                } ?> non-deco"
+										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
 									>
+                                    <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-leaf">
                                     Dibuat pada :
