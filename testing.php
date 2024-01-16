@@ -1,6 +1,7 @@
 //file ini digunakan untuk latihan olah data
 
-<?php include 'data-connect.php'; session_start(); ?>
+<?php include 'functions/data-connect.php'; 
+session_start(); ?>
 
 <?php
 // echo 'data';

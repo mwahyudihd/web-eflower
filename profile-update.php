@@ -1,4 +1,4 @@
-<?php include 'data-connect.php';
+<?php include 'functions/data-connect.php';
 session_start();
 
 if (isset($_SESSION["user_mail"]) == NULL) {

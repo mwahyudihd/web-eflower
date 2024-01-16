@@ -2,7 +2,7 @@
 
 
 session_start();
-include 'data-connect.php';
+include 'functions/data-connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">

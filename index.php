@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'data-connect.php';
+include 'functions/data-connect.php';
 
 
 if (isset($_SESSION["user_mail"]) != NULL) {
