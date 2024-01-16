@@ -159,7 +159,7 @@ $link_poto = $dt_user[5];
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
                             <a href="profile.php" class="dropdown-item">Profile</a>
                             <a href="orders.php" class="dropdown-item">Orders</a>
-                            <a onclick="confirm('Apakah anda yakin?')" href="logout.php"
+                            <a onclick="logOut()"
                                 class="dropdown-item">Logout</a>
                         </div>
                     </li>
@@ -227,6 +227,7 @@ $link_poto = $dt_user[5];
     </main>
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+    <script src="assets/js-native/confirm.js"></script>
 </body>
 
 </html>

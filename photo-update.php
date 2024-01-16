@@ -135,7 +135,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
                             <a href="profile.php" class="dropdown-item active">Profile</a>
                             <a href="orders.php" class="dropdown-item">Orders</a>
-                            <a href="#" class="dropdown-item">Logout</a>
+                            <a onclick="logOut()" class="dropdown-item">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -180,6 +180,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
     </main>
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+    <script src="assets/js-native/confirm.js"></script>
 </body>
 
 </html>

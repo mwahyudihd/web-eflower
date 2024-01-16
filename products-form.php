@@ -177,7 +177,7 @@
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
 								<a href="profile.php" class="dropdown-item">Profile</a>
 								<a href="orders.php" class="dropdown-item">Orders</a>
-								<a href="logout.php" class="dropdown-item">Logout</a>
+								<a onclick="logOut()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -293,7 +293,8 @@
 		</main>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+		
+		<script src="assets/js-native/confirm.js"></script>
 		<script src="assets/js-native/product-form.js"></script>
 		<script src="assets/js-native/admin-category.js"></script>
 	</body>

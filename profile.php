@@ -113,28 +113,14 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" href="index.php">Home</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" id="dropdown-1" data-bs-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">Manage</a>
-						<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-							<a href="admin-category.php" class="dropdown-item">Kategori</a>
-							<a href="admin-product.php" class="dropdown-item">Produk</a>
-							<a href="admin-order.php" class="dropdown-item">Order</a>
-						</div>
-					</li>
 				</ul>
 				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i>Cart
-							(<span>0</span>)</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link active dropdown-toggle" id="dropdown-2" data-bs-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">User</a>
 						<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
 							<a href="profile.php" class="dropdown-item active">Profile</a>
-							<a href="orders.php" class="dropdown-item">Orders</a>
-							<a onclick="confirm('Apakah anda yakin?')" href="logout.php"
+							<a onclick="logOut()"
 								class="dropdown-item">Logout</a>
 						</div>
 					</li>
@@ -255,6 +241,6 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 	</main>
 	<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+	<script src="assets/js-native/confirm.js"></script>
 </body>
-
 </html>

@@ -126,7 +126,7 @@ $link_poto = $dt_user[5];
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href=".">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown-1" data-bs-toggle="dropdown"
@@ -154,11 +154,6 @@ $link_poto = $dt_user[5];
                             
                             <a class="nav-link" href="../profile.php"><?php echo $_SESSION['nama'] ?></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="cart.php" class="nav-link"
-                                ><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-                            >
-                        </li>
                        
                         <li class="nav-item dropdown">
                             <a
@@ -172,8 +167,7 @@ $link_poto = $dt_user[5];
                             >
                             <div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
                                 <a href="../profile.php" class="dropdown-item">Profile</a>
-                                <a href="orders.php" class="dropdown-item">Orders</a>
-                                <a onclick="confirm('Apakah anda yakin?')" href="../logout.php" class="dropdown-item">Logout</a>
+                                <a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -182,6 +176,11 @@ $link_poto = $dt_user[5];
         </nav>
 
         <main role="main" class="container">
+            <?php if(isset($_GET['admin'])): ?>
+            <script>
+                alert('Selamat Datang Admin!')
+            </script>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-md-9">
                     <div class="row">
@@ -234,22 +233,9 @@ $link_poto = $dt_user[5];
 										><i class="fas fa-tags"></i> <?php $data['kategori'] ?></a
 									>
 								</div>
-								<div class="card-footer bg-ktg-leaf">
-									<form action="cart.php" method="get">
-										<div class="input-group">
-											<input
-												type="number"
-												name="jumlah"
-												id=""
-												class="form-control"
-												pattern="[0-9]" />
-											<div class="input-group-append">
-												<button class="btn btn-success">
-													<i class="fas fa-cart-plus"></i>
-												</button>
-											</div>
-										</div>
-									</form>
+								<div class="card-footer bg-leaf">
+                                    Dibuat pada :
+									<?= $data['tgl_buat'] ?>
 								</div>
 							</div>
 						</div>
@@ -314,5 +300,6 @@ $link_poto = $dt_user[5];
         </main>
         <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
+        <script src="../assets/js-native/confirm.js"></script>
     </body>
 </html>
