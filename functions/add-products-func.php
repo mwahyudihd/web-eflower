@@ -35,7 +35,7 @@ $query = mysqli_query($connection, "INSERT INTO produk VALUES ( '$id_product', '
 
 if($query){
     move_uploaded_file($_FILES['image']["tmp_name"], $targetFilePath);
-    header("location: manage.php?success");
+    header("location: ../manage.php?success");
 } else {
     echo "Error: " . $query . "<br>". "<h1>" . mysqli_error($connection) . "</h1>";
 }

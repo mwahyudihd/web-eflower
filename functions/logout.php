@@ -1,10 +1,10 @@
 <?php
 
 session_start();
-$_SESSION = [];
+$_SESSION = ['id'];
 session_unset();
 session_destroy();
 
-header("location: .");
+header("location: ..");
 exit;
 ?>

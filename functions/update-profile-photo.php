@@ -19,5 +19,5 @@ if($query){
 }
 
 
-echo "<br><meta http-equiv='refresh' content='5; URL=profile.php'> You will be redirected to the form in 5 seconds";
+echo "<br><meta http-equiv='refresh' content='5; URL=../profile.php'> You will be redirected to the form in 5 seconds";
 ?>

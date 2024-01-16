@@ -28,10 +28,10 @@ if($img != NULL){
     $file_size = $_FILES['image']['size'];
     move_uploaded_file($_FILES['image']["tmp_name"], $targetFilePath);
     $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc', gamabar='$targetFilePath' WHERE id_produk='$idproduk'");
-    header("location: manage.php?success");
+    header("location: ../manage.php?success");
 }else{
     $send = mysqli_query($connection, "UPDATE produk SET nama_produk='$nama', kategori='$kategori', harga='$harga', qty='$stok', slug='$slug_data', deskripsi='$desc' WHERE id_produk='$idproduk'");
-    header("location: manage.php?success");
+    header("location: ../manage.php?success");
 }
 
 ?>

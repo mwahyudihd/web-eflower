@@ -25,12 +25,12 @@ if ($jml_data > 0) {
     $_SESSION["no-telp"] = $res['no_telp'];
 
     if ($_SESSION["role"] == 'admin') {
-        header("location: admin?admin");
+        header("location: ../admin?admin");
     } else if ($_SESSION["role"] == 'user') {
-        header("location: index.php");
+        header("location: ../index.php");
     }
 } else {
-    header("location: form.php?pesan");
+    header("location: ../form.php?pesan");
 }
 
 ?>

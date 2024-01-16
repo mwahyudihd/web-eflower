@@ -12,7 +12,7 @@ $send_data = mysqli_query($connection, "UPDATE users SET nama_user = '$nama_tk',
 
 
 if($send_data){
-    header("location: manage.php?success-info");
+    header("location: ../manage.php?success-info");
 }else{
     echo mysqli_error($connection);
 }
