@@ -6,11 +6,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-		<meta
-			name="author"
-			content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-		<meta name="generator" content="Hugo 0.118.2" />
-		<title>Checkout</title>
+
+		<title>Checkout Berhasil</title>
 
 		<link
 			rel="canonical"
@@ -21,37 +18,15 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="/assets/css-native/app.css" />
+		<link rel="stylesheet" href="assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -210,89 +185,40 @@
 
 		<main role="main" class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-12 bg-blur">
 					<div class="card">
-						<div class="card-header bg-leaf">Formulir Alamat Pengiriman</div>
+						<div class="card-header bg-leaf">Checkout Sukses!</div>
 						<div class="card-body">
-							<form action="">
-								<div class="form-group">
-									<label for="">Nama</label>
-									<input
-										type="text"
-										class="form-control"
-										name="name"
-										placeholder="Masukkan nama penerima" />
-									<small class="form-text text-danger"
-										>Kolom ini Wajib diisi*</small
-									>
-								</div>
-								<div class="form-group">
-									<label for="">Alamat</label
-									><textarea
-										name="address"
-										id=""
-										cols="30"
-										rows="5"
-										class="form-control"></textarea>
-                                        <small class="form-text text-danger">Alamat Wajib diisi*</small>
-								</div>
-                                <div class="form-group">
-									<label for="">No. Telepon</label>
-									<input
-										type="text"
-										class="form-control"
-										name="phone"
-                                        pattern="[0-9]"
-										placeholder="Masukkan no telp aktif penerima" />
-									<small class="form-text text-danger"
-										>Kolom ini Wajib diisi*</small
-									>
-								</div>
-                                <button class="btn btn-success" type="submit">Simpan <i class="fas fa-money-check"></i></button>
-							</form>
-						</div>
-					</div>
-				</div>
-
-				<!-- right side -->
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card mb-3">
-								<div class="card-header bg-leaf">Cart</div>
-								<div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Produk</th>
-                                                <th>Qty</th>
-                                                <th>Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Produk Title</td>
-                                                <td>5</td>
-                                                <td>Rp100.000,-</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">Subtotal</td>
-                                                <td>Rp500.000,-</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <th colspan="2">Total</th>
-                                            <th>Rp500.000,-</th>
-                                        </tfoot>
-                                    </table>
-                                </div>
-							</div>
+							<h5>Nomer Order: <strong>234567890</strong></h5>
+							<p>Terimakasih telah berbelanja di toko kami.</p>
+							<p>
+								Silahkan untuk melunasi tagihan anda agar dapat kami proses
+								pesanan anda dengan cara:
+							</p>
+							<ol>
+								<li>
+									Lakukan pembayaran pada no rekening
+									<strong>BCA 0987654321</strong> a / n Garden Market
+								</li>
+								<li>
+									Sertakan Keterangan dengan nomer order:
+									<strong>234567890</strong>
+								</li>
+								<li>dengan total pembayaran <strong>Rp500.000,-</strong></li>
+							</ol>
+							<p>
+								Jika sudah, silahkan kirim bukti pembayaran dihalaman konfirmasi
+								atau dapat diklik di
+								<a href="/orders-detail.html" class="non-deco">tautan ini</a>.
+							</p>
+                            <a href="/index.html" class="btn btn-success"><i class="fas fa-house"></i> Kembali</a>
+                            <span class="float-end me-3">Expired: <strong>18:00</strong> WIB</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 	</body>
 </html>

@@ -223,6 +223,7 @@ $data2 = mysqli_fetch_array($query2);
 
 								if($jml_array > 0){
 									while($data = mysqli_fetch_array($query)){
+									
 								?>
 
 								<tbody>
@@ -244,10 +245,15 @@ $data2 = mysqli_fetch_array($query2);
 										<td>
 											<form action="">
 												<div class="input-group">
+													<?php 
+													$orderid = $data['orderid'];
+													$query3 = mysqli_query($connection, "SELECT * FROM detailorder WHERE orderid = '$orderid'");
+													$get_data = mysqli_fetch_array($query3);
+													?>
 													<input
 														type="number"
 														class="form-control text-center"
-														value="<?= $data2['qty']; ?>" />
+														value="<?php echo $get_data['qty']; ?>" />
 													<div class="input-append-clas">
 														<button class="btn btn-info" type="submit">
 															<i class="fas fa-check"></i>
@@ -264,11 +270,15 @@ $data2 = mysqli_fetch_array($query2);
 										echo $subtotal;
 										?>,-</td>
 										<td>
-											<form action="">
+											<form action="remove-form-cart.php" method="get">
+												<input type="text" style="display: none;" name="id-order" value="<?= $data['orderid']; ?>" >
 												<button class="btn btn-danger">
 													<i class="fas fa-trash-alt"></i>
 												</button>
 											</form>
+										</td>
+										<td>
+										<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
 										</td>
 										<?php } $total = $subtotal + $subtotal; } ?>
                                         <tr>
@@ -284,7 +294,7 @@ $data2 = mysqli_fetch_array($query2);
 							</table>
 						</div>
                         <div class="card-footer">
-                            <a href="checkout.html" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
+                            
                             <a href="." class="btn btn-warning float-start text-white"><i class="fas fa-angle-left"></i> Beli Lagi</a>
                         </div>
 					</div>

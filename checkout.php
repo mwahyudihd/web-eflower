@@ -1,16 +1,21 @@
+<?php 
+session_start();
+include 'functions/data-connect.php';
+$user = $_SESSION['id'];
+$orderid = $_GET['id_order'];
+$query = mysqli_query($connection, "SELECT * FROM users WHERE id_user = '$user'");
+$data = mysqli_fetch_array($query);
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-		<meta
-			name="author"
-			content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-		<meta name="generator" content="Hugo 0.118.2" />
-		<title>Checkout Berhasil</title>
+
+		<title>Checkout</title>
 
 		<link
 			rel="canonical"
@@ -21,34 +26,14 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
+
+	
 
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="/assets/css-native/app.css" />
@@ -139,7 +124,7 @@
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top bg-success">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="#"
 					>E<span class="text-white">flower</span></a
@@ -210,40 +195,119 @@
 
 		<main role="main" class="container">
 			<div class="row">
-				<div class="col-md-12 bg-blur">
+				<div class="col-md-8">
 					<div class="card">
-						<div class="card-header bg-leaf">Checkout Sukses!</div>
+						<div class="card-header bg-leaf">Formulir Alamat Pengiriman</div>
 						<div class="card-body">
-							<h5>Nomer Order: <strong>234567890</strong></h5>
-							<p>Terimakasih telah berbelanja di toko kami.</p>
-							<p>
-								Silahkan untuk melunasi tagihan anda agar dapat kami proses
-								pesanan anda dengan cara:
-							</p>
-							<ol>
-								<li>
-									Lakukan pembayaran pada no rekening
-									<strong>BCA 0987654321</strong> a / n Garden Market
-								</li>
-								<li>
-									Sertakan Keterangan dengan nomer order:
-									<strong>234567890</strong>
-								</li>
-								<li>dengan total pembayaran <strong>Rp500.000,-</strong></li>
-							</ol>
-							<p>
-								Jika sudah, silahkan kirim bukti pembayaran dihalaman konfirmasi
-								atau dapat diklik di
-								<a href="/orders-detail.html" class="non-deco">tautan ini</a>.
-							</p>
-                            <a href="/index.html" class="btn btn-success"><i class="fas fa-house"></i> Kembali</a>
-                            <span class="float-end me-3">Expired: <strong>18:00</strong> WIB</span>
+							<form action="functions/check-out.php" method="post">
+								<input type="text" name="order-data" value="<?= $orderid; ?>" style="display: none;" readonly>
+								
+								<div class="form-group">
+									<label for="">Nama</label>
+									<input
+										type="text"
+										class="form-control"
+										name="name"
+										value="<?= $data['nama_lengkap'] ?>"
+										placeholder="Masukkan nama penerima" />
+										<?php if(empty($data['nama_lengkap'])) { ?>
+									<small class="form-text text-danger"
+										>Kolom ini Wajib diisi*</small>
+										<?php } ?>
+								</div>
+								<div class="form-group">
+									<label for="">Alamat</label
+									><textarea
+										name="address"
+										id=""
+										cols="30"
+										rows="5"
+										class="form-control"><?= $data['alamat'] ?></textarea>
+										<?php if(empty($data['alamat'])) { ?>
+                                        <small class="form-text text-danger">Alamat Wajib diisi*</small>
+										<?php } ?>
+								</div>
+                                <div class="form-group">
+									<label for="">No. Telepon</label>
+									<input
+										type="text"
+										class="form-control"
+										value="<?php echo $data['no_telp'] ?>"
+										name="phone"
+                                        pattern="[0-9]"
+										placeholder="Masukkan no telp aktif penerima" />
+										<?php if(empty($data['no_telp'])) { ?>
+									<small class="form-text text-danger"
+										>Kolom ini Wajib diisi*</small
+									> <?php } ?>
+								</div>
+                                <button class="btn btn-success" type="submit">Simpan <i class="fas fa-money-check"></i></button>
+							
+						</div>
+					</div>
+				</div>
+
+				<!-- right side -->
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card mb-3">
+								<div class="card-header bg-leaf">Cart</div>
+								<div class="card-body">
+                                    <table class="table">
+										<thead>
+											<tr>
+												<th>Produk</th>
+												<th>Qty</th>
+												<th>Harga</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$orderid = $_GET['id_order'];
+											$total = 0;
+											$query = mysqli_query($connection, "SELECT * FROM detailorder JOIN produk ON detailorder.id_produk = produk.id_produk WHERE detailorder.orderid = '$orderid'");
+											$query2 = mysqli_query($connection, "SELECT * FROM detailorder WHERE detailorder.orderid = '$orderid'");
+											$data2 = mysqli_fetch_array($query2);
+
+											if(mysqli_num_rows($query) > 0 ) {
+												while ($data = mysqli_fetch_array($query)) {
+													$nama_produk = $data['nama_produk'];
+													$qty = $data2['qty'];
+													$harga = $data['harga'];
+													$subtotal = $harga * $qty ;
+													$total += $subtotal;
+											?>
+													<tr>
+														<td><?= $nama_produk; ?></td>
+														<td><?= $qty; ?></td>
+														<td>Rp<?= number_format($harga, 0, ',', '.'); ?>,-</td>
+													</tr>
+											<?php
+												}}
+											?>
+											<tr>
+												<td colspan="2"><strong>Subtotal</strong></td>
+												<td>Rp<?= number_format($total, 0, ',', '.'); ?>,-</td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<th colspan="2"><strong>Total</strong></th>
+												<td><strong>Rp<?= number_format($total, 0, ',', '.'); ?>,-</strong></td>
+											</tr>
+										</tfoot>
+									</table>
+									<input type="text" name="tagihan" value="<?= $total; ?>" style="display: none;" readonly>
+									</form>
+                                </div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 	</body>
 </html>
