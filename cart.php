@@ -7,7 +7,7 @@ $sesi_id = $_SESSION['id'];
 $query = mysqli_query($connection, "SELECT * FROM detailorder 
 JOIN cart ON detailorder.orderid = cart.orderid 
 JOIN produk ON produk.id_produk = detailorder.id_produk 
-WHERE cart.id_user = '$sesi_id'");
+WHERE cart.id_user = '$sesi_id' AND cart.status = 'Cart'");
 
 $query2 = mysqli_query($connection, "SELECT * FROM detailorder 
 JOIN cart ON detailorder.orderid = cart.orderid 
