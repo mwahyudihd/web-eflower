@@ -121,7 +121,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 						<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
 							<a href="profile.php" class="dropdown-item active">Profile</a>
 							<a onclick="logOut()"
-								class="dropdown-item">Logout</a>
+								class="dropdown-item point">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -152,9 +152,6 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 					<div class="list-group list-group-flush">
 						<li class="list-group-item">
 							<a href="profile.php" class="non-deco" active>Profile</a>
-						</li>
-						<li class="list-group-item">
-							<a href="orders.php" class="non-deco">Order</a>
 						</li>
 					</div>
 				</div>

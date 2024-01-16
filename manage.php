@@ -112,7 +112,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href=".">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown-1" data-bs-toggle="dropdown"
@@ -136,7 +136,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
                             <a href="profile.php" class="dropdown-item">Profile</a>
                             <a href="orders.php" class="dropdown-item">Orders</a>
-                            <a onclick="logOut()" class="dropdown-item">Logout</a>
+                            <a onclick="logOut()" class="dropdown-item point">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -150,6 +150,37 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                 alert("Perubahan data telah berhasil dilakukan!")
             </script>
         <?php endif ?>
+        <?php if(isset($_GET['success+info'])): ?>
+            <script>
+                alert("Perubahan data telah berhasil dilakukan! harap login kembali untuk melihat perubahan")
+            </script>
+        <?php endif ?>
+        <div class="container-fluid">
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="form-group" id="id-nama-toko">
+                            NAMA TOKO :
+                            <input class="form-control" type="text" name="nama-toko" id="nama-toko" value="<?php echo $_SESSION['nama'] ?>" readonly>
+                            <a href="javascript:void(0);" class="btn btn-secondary mt-2" onclick="toggleEditForm()">
+                                <i class="fas fa-file-pen"></i>
+                            </a>
+                        </div>
+
+                        <div id="edit-form" style="display: none;">
+                            <form method="post" action="name-form.php">
+                                <div class="form-group">
+                                    <label for="edited-nama-toko">Edit NAMA TOKO :</label>
+                                    <input class="form-control" type="text" name="edited-nama-toko" id="edited-nama-toko" value="<?php echo $_SESSION['nama'] ?>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">Batal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="container-fluid">
                 <div class="col-md-10 mx-auto">
@@ -283,6 +314,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
     <script src="assets/js-native/confirm.js"></script>
+    <script src="assets/js-native/product-form.js"></script>
 </body>
 
 </html>

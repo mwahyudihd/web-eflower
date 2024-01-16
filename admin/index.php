@@ -167,7 +167,7 @@ $link_poto = $dt_user[5];
                             >
                             <div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
                                 <a href="../profile.php" class="dropdown-item">Profile</a>
-                                <a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
+                                <a onclick="logOutAdmin()" class="dropdown-item point">Logout</a>
                             </div>
                         </li>
                     </ul>

@@ -184,7 +184,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
 								<a href="/profile.html" class="dropdown-item active">Profile</a>
 								<a href="/orders.html" class="dropdown-item">Orders</a>
-								<a onclick="logOut()" class="dropdown-item">Logout</a>
+								<a onclick="logOut()" class="dropdown-item point">Logout</a>
 							</div>
 						</li>
 					</ul>

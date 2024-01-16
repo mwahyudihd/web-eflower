@@ -25,16 +25,28 @@
 									<p class="card-text">
 										<?php echo substr($data['deskripsi'], 0, 100); ?>
 									</p>
-									<a href="#" class="badge bg-success non-deco"
-										><i class="fas fa-tags"></i> <?php $data['kategori'] ?></a
+									<a href="#" class="badge <?php if($set_kategori == 'daun'){
+                                                    echo 'bg-warning'.' '.'text-dark';
+                                                }else if($data['kategori'] == 'diair'){
+                                                    echo 'bg-primary';
+                                                }else if ($data['kategori'] == 'berduri'){
+                                                    echo 'bg-success';
+                                                }else if($data['kategori'] == 'bunga'){
+                                                    echo 'bg-info';
+                                                }else{
+                                                    echo 'bg-secondary';
+                                                } ?> non-deco"
+										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
 									>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
 									<form action="cart.php" method="get">
 										<div class="input-group">
+                                            <input type="text" style="display: none;" value="<?= $data['id_produk'] ?>" name="id-produk" id="">
 											<input
 												type="number"
 												name="jumlah"
+                                                value="1"
 												id=""
 												class="form-control"
 												pattern="[0-9]" />

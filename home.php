@@ -160,7 +160,7 @@ $link_poto = $dt_user[5];
                             <a href="profile.php" class="dropdown-item">Profile</a>
                             <a href="orders.php" class="dropdown-item">Orders</a>
                             <a onclick="logOut()"
-                                class="dropdown-item">Logout</a>
+                                class="dropdown-item point">Logout</a>
                         </div>
                     </li>
                 </ul>
