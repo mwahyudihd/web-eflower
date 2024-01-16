@@ -104,7 +104,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
     <nav class="navbar navbar-expand-md fixed-top bg-leaf">
         <div class="container-fluid container">
-            <a class="navbar-brand text-leaf fw-bolder" href="#">E<span class="text-white">flower</span></a>
+            <a class="navbar-brand text-leaf fw-bolder" href=".">E<span class="text-white">flower</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -150,7 +150,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                 alert("Perubahan data telah berhasil dilakukan!")
             </script>
         <?php endif ?>
-        <?php if(isset($_GET['success+info'])): ?>
+        <?php if(isset($_GET['success-info'])): ?>
             <script>
                 alert("Perubahan data telah berhasil dilakukan! harap login kembali untuk melihat perubahan")
             </script>
@@ -161,20 +161,37 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                     <div class="card-header">
                         <div class="form-group" id="id-nama-toko">
                             NAMA TOKO :
-                            <input class="form-control" type="text" name="nama-toko" id="nama-toko" value="<?php echo $_SESSION['nama'] ?>" readonly>
+                            <h4 class="text-center mt-2" id="nama-toko">
+                                <?php
+                                if(!empty($_SESSION['nama'])){
+                                        echo $_SESSION['nama'];
+                                    } else {
+                                        echo 'Anda Belum Membuka Toko';
+                                    }
+                                     ?></h4>
                             <a href="javascript:void(0);" class="btn btn-secondary mt-2" onclick="toggleEditForm()">
-                                <i class="fas fa-file-pen"></i>
+                            <?php if(empty($_SESSION['nama'])): ?>
+                                <i class="fas fa-file-pen"> BUKA</i>
+                            <?php else : ?>
+                                <i class="fas fa-file-pen"> EDIT</i>
+                            <?php endif ?>
                             </a>
                         </div>
 
                         <div id="edit-form" style="display: none;">
                             <form method="post" action="name-form.php">
                                 <div class="form-group">
-                                    <label for="edited-nama-toko">Edit NAMA TOKO :</label>
-                                    <input class="form-control" type="text" name="edited-nama-toko" id="edited-nama-toko" value="<?php echo $_SESSION['nama'] ?>">
+                                    <label for="toko">MASUKKAN NAMA TOKO :</label>
+                                    <input class="form-control text-center" type="text" name="toko" id="edited-nama-toko" value="<?php
+                                    if(!empty($_SESSION['nama'])){
+                                        echo $_SESSION['nama'];
+                                    } else {
+                                        echo NULL;
+                                    }
+                                     ?>">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">Batal</button>
+                                <button type="button" class="m-3 btn btn-danger" onclick="toggleEditForm()"><i class="fas fa-angle-left"></i></button>
+                                <button type="submit" class="m-3 btn btn-secondary float-end"><i class="fas fa-floppy-disk"></i></button>
                             </form>
                         </div>
                     </div>
@@ -188,7 +205,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                         <div class="card-header bg-leaf">
                             <span>Produk</span>
                             <a href="products-form.php" class="btn btn-sm btn-secondary">
-                                <i class="fas fa-file-pen"></i>
+                                <i class="fas fa-square-plus"></i>
                             </a>
                             <div class="float-end">
                                 <form action="#">
@@ -232,6 +249,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                                 $nama_produk = $array_produk['nama_produk'];
                                                 $set_kategori = $array_produk['kategori'];
                                                 $price = $array_produk['harga'];
+                                                $idproduk = $array_produk['id_produk'];
                                                 $stok_barang = $array_produk['qty'];
                                             
                                             ?>
@@ -264,13 +282,17 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             <td>Rp.<?= $price; ?></td>
                                             <td><?= $stok_barang; ?></td>
                                             <td>
-                                                <form action="#">
-                                                    <a href="#">
+                                                <form action="edit-product.php" method="get">
+                                                    <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
+                                                    <a href="edit-product.php">
                                                         <button class="btn btn-sm">
                                                             <i class="fas fa-edit text-info"></i>
                                                         </button>
                                                     </a>
-                                                    <button type="submit" onclick="return confirm('Are you Sure?')"
+                                                </form>
+                                                <form action="del-product.php" method="get">
+                                                    <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
+                                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus produk?')"
                                                         class="btn btn-sm">
                                                         <i class="fas fa-trash text-danger"></i>
                                                     </button>
@@ -311,10 +333,15 @@ if (isset($_SESSION["user_mail"]) == NULL) {
             </div>
         </div>
     </main>
+    <?php if(isset($_GET['warning'])): ?>
+        <script>
+            alert('Anda Belum membuka toko! , Harap daftarkan nama toko anda.')
+        </script>
+    <?php endif; ?>
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
     <script src="assets/js-native/confirm.js"></script>
-    <script src="assets/js-native/product-form.js"></script>
+    <script src="assets/js-native/shop-name.js"></script>
 </body>
 
 </html>

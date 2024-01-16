@@ -1,11 +1,8 @@
 <?php
 
-session_start();
 
-if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
-    header("location: manage.php?warning");
-    exit;
-}
+session_start();
+include 'data-connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
@@ -128,7 +125,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 
 		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -144,7 +141,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
+							<a class="nav-link active" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -160,9 +157,8 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 								<a href="/admin-category.html" class="dropdown-item"
 									>Kategori</a
 								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
-								<a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+								<a href="#" class="dropdown-item">Kategori</a>
+								<a href="manage.php" class="dropdown-item">Toko</a>
 							</div>
 						</li>
 					</ul>
@@ -194,6 +190,12 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 			</div>
 		</nav>
 
+        <?php
+        $id_produk = $_GET['id-produk'];
+        $set_query = mysqli_query($connection, "SELECT * FROM produk WHERE id_produk = '$id_produk'");
+        
+        $data = mysqli_fetch_array($set_query);
+        ?>
 		<main role="main" class="container">
 			<div class="row">
 				<div class="container-fluid">
@@ -203,13 +205,14 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 								<span>Tambah Produk</span>
 							</div>
 							<div class="card-body">
-								<form action="add-products-func.php" class="signup" method="post" enctype="multipart/form-data">
+								<form action="edit-product-func.php?id-produk=<?= $id_produk; ?>" method="post" enctype="multipart/form-data">
 									<!-- kolom input pendaftaran -->
 									<div class="form-floating">
 										<input
 											class="form-control"
 											type="text"
 											id="title"
+                                            value="<?= $data['nama_produk'] ?>"
 											placeholder="produk"
 											name="product"
 											onkeyup="createSlug()"
@@ -221,6 +224,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 										<input
 											class="form-control"
 											type="number"
+                                            value="<?= $data['harga'] ?>"
 											placeholder="harga"
 											name="price"
 											required />
@@ -234,7 +238,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 											class="form-control"
 											required
 											onchange="checkOther(this)">
-											<option value=""></option>
+											<option value="<?= $data['kategori'] ?>"><?= $data['kategori'] ?></option>
 											<option value="bunga">Bunga</option>
 											<option value="daun">Daun</option>
 											<option value="berduri">Berduri</option>
@@ -255,6 +259,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 											class="form-control"
 											type="number"
 											placeholder="stock"
+                                            value="<?= $data['qty'] ?>"
 											id="stok_id"
 											name="stock"
 											pattern="[0-9]"
@@ -263,6 +268,15 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 									</div>
 									<div class="form-group">
 										<label for="">Foto: </label>
+                                        <div class="form-group">
+                                            <img src="<?php
+                                                if(!empty($data['gambar'])){
+                                                    echo $data['gambar'];
+                                                }else{
+                                                    echo 'https://placehold.co/70x70';
+                                                }?>
+                                            " alt="" width="70" height="70" />
+                                        </div>
 										<input type="file" class="form-control" name="image" />
 									</div>
 
@@ -272,6 +286,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 											type="text"
 											placeholder="slug"
 											name="slug"
+                                            value="<?= $data['slug'] ?>"
 											id="slug"
 											required />
 										<label for="slug">Slug</label>
@@ -279,7 +294,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 
                                     <div class="form-floating mt-3">
                                         <textarea name="description" class="form-control">
-
+                                            <?= $data['deskripsi'] ?>
                                         </textarea>
                                         <label for="desc">Deskripsi</label>
                                     </div>
@@ -291,7 +306,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 									<!-- akhir tombol login -->
 
 									<button class="float-end mt-3 btn btn-success" type="submit">
-										Simpan <i class="p-1 fas fa-folder-plus"></i>
+										Simpan <i class="p-1 fas fa-floppy-disk"></i>
 									</button>
 								</form>
 							</div>

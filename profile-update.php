@@ -125,7 +125,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
 		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -141,7 +141,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="#">Home</a>
+							<a class="nav-link" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -199,10 +199,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 						<div class="card-header bg-leaf">Menu</div>
 						<div class="list-group list-group-flush">
 							<li class="list-group-item">
-								<a href="/profil.html" class="non-deco">Profile</a>
-							</li>
-							<li class="list-group-item">
-								<a href="/orders.html" class="non-deco">Order</a>
+								<a href="profil.php" class="non-deco">Profile</a>
 							</li>
 						</div>
 					</div>
@@ -241,7 +238,10 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 								</div>
 							</div>
 							<div class="card-footer">
-								<button type="submit" class="btn btn-success">
+								<a href="profile.php" class="btn btn-success">
+									<i class="p-1 fas fa-angle-left"></i> Kembali
+								</a>
+								<button type="submit" class="btn btn-success float-end">
 									Simpan <i class="p-1 fas fa-floppy-disk"></i>
 								</button>
 							</div>

@@ -97,10 +97,6 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 
 				<form action="register.php" class="signup" method="post">
 					<!-- kolom input pendaftaran -->
-					<div class="form-floating">
-						<input class="form-control" type="text" placeholder="Username" name="username" required />
-						<label for="username" class="text-dark">Username</label>
-					</div>
 
 					<div class="mt-2 form-floating">
 						<input class="form-control" type="text" placeholder="nama" name="nama" required />

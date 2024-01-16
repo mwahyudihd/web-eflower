@@ -71,7 +71,9 @@
 // $jml_data = mysqli_num_rows($array_produk);
 // echo $jml_data;
 
-$dat = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_user");
+$data = $_SESSION['nama'];
+
+$dat = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = '$data'");
 $set_data = mysqli_fetch_array($dat);
 echo '<br>';
 echo '<h2>';

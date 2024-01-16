@@ -103,7 +103,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
 	<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 		<div class="container-fluid container">
-			<a class="navbar-brand text-leaf fw-bolder" href="#">E<span class="text-white">flower</span></a>
+			<a class="navbar-brand text-leaf fw-bolder" href=".">E<span class="text-white">flower</span></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
 				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>

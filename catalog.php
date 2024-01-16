@@ -21,7 +21,7 @@
 								<div class="card-body bg-blur">
 									<h5 class="card-title"><?= $data['nama_produk'] ?></h5>
 									<p class="card-text"><strong>Rp <?= $data['harga'] ?>,-</strong></p>
-									<p class="card-text"><strong>Penjual :</strong><?= $data['nama_user'] ?></p>
+									<p class="card-text"><strong>Penjual : </strong><?= $data['nama_user'] ?></p>
 									<p class="card-text">
 										<?php echo substr($data['deskripsi'], 0, 100); ?>
 									</p>
@@ -38,6 +38,7 @@
                                                 } ?> non-deco"
 										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
 									>
+                                    <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
 									<form action="cart.php" method="get">
