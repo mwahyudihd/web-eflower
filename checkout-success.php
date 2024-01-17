@@ -1,7 +1,15 @@
+<?php
+include 'functions/data-connect.php';
+session_start();
+$orderid = $_GET['no-order'];
+
+$query = mysqli_query($connection, "SELECT * FROM pembayaran WHERE no_pembayaran='$orderid'");
+$data = mysqli_fetch_array($query);
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -116,7 +124,7 @@
 
 		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -159,9 +167,6 @@
 								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
 							>
 						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
-						</li>
 						<li class="nav-item dropdown">
 							<a
 								href="#"
@@ -173,9 +178,9 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="profile.php" class="dropdown-item">Profile</a>
+								<a href="orders.php" class="dropdown-item">Orders</a>
+								<a onclick="logOut()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -189,7 +194,7 @@
 					<div class="card">
 						<div class="card-header bg-leaf">Checkout Sukses!</div>
 						<div class="card-body">
-							<h5>Nomer Order: <strong>234567890</strong></h5>
+							<h5>Nomer Order: <strong><?php echo $data['no_rek']; ?></strong></h5>
 							<p>Terimakasih telah berbelanja di toko kami.</p>
 							<p>
 								Silahkan untuk melunasi tagihan anda agar dapat kami proses
@@ -198,21 +203,23 @@
 							<ol>
 								<li>
 									Lakukan pembayaran pada no rekening
-									<strong>BCA 0987654321</strong> a / n Garden Market
+									<strong><?php echo $data['no_rek'] ?></strong> a / n <?= $data[5]; ?>
 								</li>
 								<li>
 									Sertakan Keterangan dengan nomer order:
-									<strong>234567890</strong>
+									<strong><?php echo $data['no_pembayaran'] ?></strong>
 								</li>
-								<li>dengan total pembayaran <strong>Rp500.000,-</strong></li>
+								<li>dengan total pembayaran <strong>Rp<?php echo $data['total_tagihan'] ?>,-</strong></li>
 							</ol>
 							<p>
 								Jika sudah, silahkan kirim bukti pembayaran dihalaman konfirmasi
 								atau dapat diklik di
-								<a href="/orders-detail.html" class="non-deco">tautan ini</a>.
+								<a href="orders-detail.html" class="non-deco">tautan ini</a>.
 							</p>
-                            <a href="/index.html" class="btn btn-success"><i class="fas fa-house"></i> Kembali</a>
-                            <span class="float-end me-3">Expired: <strong>18:00</strong> WIB</span>
+                            <a href="index.php" class="btn btn-success"><i class="fas fa-house"></i> Kembali</a>
+                            <span class="float-end me-3">Expired: <strong><?php 
+							echo $data['time_exp'];
+							?></strong> WIB</span>
 						</div>
 					</div>
 				</div>
@@ -220,5 +227,6 @@
 		</main>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/js-native/confirm.js"></script>
 	</body>
 </html>
