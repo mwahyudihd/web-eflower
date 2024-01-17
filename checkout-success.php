@@ -194,7 +194,7 @@ $data = mysqli_fetch_array($query);
 					<div class="card">
 						<div class="card-header bg-leaf">Checkout Sukses!</div>
 						<div class="card-body">
-							<h5>Nomer Order: <strong><?php echo $data['no_rek']; ?></strong></h5>
+							<h5>Nomer Order: <strong><?php echo $data['no_pembayaran']; ?></strong></h5>
 							<p>Terimakasih telah berbelanja di toko kami.</p>
 							<p>
 								Silahkan untuk melunasi tagihan anda agar dapat kami proses
