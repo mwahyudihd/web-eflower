@@ -115,6 +115,6 @@ if($cek_row > 0){
 
 echo '</h6>';
 echo '<br>'.'<h3>';
-print_r($data2); 
+print_r($data2) 
 echo '</h3>';
 ?>

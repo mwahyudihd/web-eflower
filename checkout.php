@@ -199,7 +199,7 @@ $data = mysqli_fetch_array($query);
 					<div class="card">
 						<div class="card-header bg-leaf">Formulir Alamat Pengiriman</div>
 						<div class="card-body">
-							<form action="functions/check-out.php" method="post">
+							<form action="functions/check-out.php" method="get" enctype="multipart/form-data">
 								<input type="text" name="order-data" value="<?= $orderid; ?>" style="display: none;" readonly>
 								
 								<div class="form-group">
@@ -230,11 +230,10 @@ $data = mysqli_fetch_array($query);
                                 <div class="form-group">
 									<label for="">No. Telepon</label>
 									<input
-										type="text"
+										type="number"
 										class="form-control"
 										value="<?php echo $data['no_telp'] ?>"
 										name="phone"
-                                        pattern="[0-9]"
 										placeholder="Masukkan no telp aktif penerima" />
 										<?php if(empty($data['no_telp'])) { ?>
 									<small class="form-text text-danger"
