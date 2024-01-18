@@ -203,7 +203,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                         </div>
 
                         <div id="edit-form" style="display: none;">
-                            <form method="post" action="name-form.php">
+                            <form method="post" action="functions/name-form.php">
                                 <div class="form-group">
                                     <label for="toko">MASUKKAN INFORMASI TOKO </label>
                                     <label for="namatoko">NAMA TOKO : </label>
