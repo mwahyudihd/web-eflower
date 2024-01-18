@@ -398,7 +398,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 								}
 							});
 						}else {
-							alert("Please select an option first.");
+							alert("Anda belum memasukkan kategori.");
 						}
 					});
 				});

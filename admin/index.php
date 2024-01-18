@@ -441,7 +441,7 @@ $link_poto = $dt_user[5];
 								}
 							});
 						}else {
-							alert("Please select an option first.");
+							alert("Anda belum memasukkan kategori.");
 						}
 					});
 				});

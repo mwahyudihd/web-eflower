@@ -313,11 +313,11 @@ else if (isset($_SESSION["user_mail"]) == NULL){
                                                         </button>
                                                     </a>
                                                 </form>
-                                                <form action="functions/del-product.php" method="get">
+                                                <form action="../functions/permanent-remove.php" method="post">
                                                     <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
-                                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus produk?')"
+                                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus produk secara permanent?')"
                                                         class="btn btn-sm">
-                                                        <i class="fas fa-circle-xmark text-danger"></i>
+                                                        <i class="fas fa-trash text-danger"></i>
                                                     </button>
                                                 </form>
                                             </td>
