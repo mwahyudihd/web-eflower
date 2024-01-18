@@ -25,18 +25,22 @@ $link_poto = $dt_user[5];
 <html lang="en" data-bs-theme="auto">
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="../assets/libs/bootstrap/js/color-modes.js"></script>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-    <meta name="generator" content="Hugo 0.118.2" />
-    <title>Beranda</title>
+    <title>Admin Beranda</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-fixed/" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <link href="../assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -45,6 +49,84 @@ $link_poto = $dt_user[5];
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../assets/css-native/app.css" />
+
+    <style>
+        .progress {
+        width: 211.2px;
+        height: 38.7px;
+        border-radius: 35.2px;
+        color: #fcd006;
+        border: 3.5px solid #252122;
+        position: relative;
+        }
+
+        .progress::before {
+        content: "";
+        position: absolute;
+        margin: 3.5px;
+        inset: 0 100% 0 0;
+        border-radius: inherit;
+        background: currentColor;
+        animation: progress-pf82op 2.4s infinite;
+        }
+
+        @keyframes progress-pf82op {
+        100% {
+            inset: 0;
+        }
+        }
+
+        .dots {
+        width: 25.1px;
+        height: 25.1px;
+        position: relative;
+        }
+
+        .dots::before,
+        .dots::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: #fcd006;
+        }
+
+        .dots::before {
+        box-shadow: -42.2px 0 #fcd006;
+        animation: dots-dm1l1chg 0.36s infinite linear;
+        }
+
+        .dots::after {
+        transform: rotate(0deg) translateX(42.2px);
+        animation: dots-dh1qq5hg 0.36s infinite linear;
+        }
+
+        @keyframes dots-dm1l1chg {
+        100% {
+            transform: translateX(42.2px);
+        }
+        }
+
+        @keyframes dots-dh1qq5hg {
+        100% {
+            transform: rotate(-180deg) translateX(42.2px);
+        }
+        }
+		.centered {				
+            position: relative;
+			top: 250px;
+			left: 50%;
+			padding: 9.5px;
+			}
+            @media (max-width: 890px) {
+                .centered {
+                    position: relative;
+                    top: 550px;
+                    left: 50%;
+                    padding: 9.5px;
+                }
+            }
+		</style>
 </head>
 
 <body>
@@ -178,7 +260,11 @@ $link_poto = $dt_user[5];
         <main role="main" class="container">
             <?php if(isset($_GET['admin'])): ?>
             <script>
-                alert('Selamat Datang Admin!')
+                alert('Selamat Datang Admin!');
+                var currentURL = window.location.href;
+                var urlWithoutAdmin = currentURL.split('?')[0];
+
+                window.location.href = urlWithoutAdmin;
             </script>
             <?php endif; ?>
             <div class="row">
@@ -206,57 +292,62 @@ $link_poto = $dt_user[5];
 					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_user");
 					$row = mysqli_num_rows($katalog);
 					?>
-					<div class="row">
-						<?php if($row > 0){
-							while($data = mysqli_fetch_array($katalog)){
-								?>
-						<div class="col-md-6">
-							<div class="card mb-3">
-								<img
-									src="<?php if(empty($data['gambar'])){
-										echo 'https://placeholder.co/100x70';
-									}else{
-										echo '../'.$data['gambar'];
-									}
-									?>
-									"
-									alt=""
-									class="card-img-top" width="300px" height="300px"/>
-								<div class="card-body bg-blur">
-									<h5 class="card-title"><?= $data['nama_produk'] ?></h5>
-									<p class="card-text"><strong>Rp <?= $data['harga'] ?>,-</strong></p>
-									<p class="card-text"><strong>Penjual :</strong><?= $data['nama_user'] ?></p>
-									<p class="card-text">
-										<?php echo substr($data['deskripsi'], 0, 100); ?>
-									</p>
-									</p>
-									<a href="#" class="badge <?php if($set_kategori == 'daun'){
-                                                    echo 'bg-warning'.' '.'text-dark';
-                                                }else if($data['kategori'] == 'diair'){
-                                                    echo 'bg-primary';
-                                                }else if ($data['kategori'] == 'berduri'){
-                                                    echo 'bg-success';
-                                                }else if($data['kategori'] == 'bunga'){
-                                                    echo 'bg-info';
-                                                }else{
-                                                    echo 'bg-secondary';
-                                                } ?> non-deco"
-										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
-									>
-                                    <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
-								</div>
-								<div class="card-footer bg-leaf text-dark">
-                                    Dibuat pada :
-									<?= $data['tgl_buat'] ?>
-                                    <p class="float-end mt-2 text-dark">
-                                        Terakhir Diedit : 
-                                        <?= $data['di_edit']; ?>
-                                    </p>
-								</div>
-							</div>
-						</div>
-						<?php	}}?>
-					</div>
+
+                    <div class="row catalog-data">
+                        <div class="row">
+                            <?php if($row > 0){
+                                while($data = mysqli_fetch_array($katalog)){
+                                    ?>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <img
+                                        src="<?php if(empty($data['gambar'])){
+                                            echo 'https://placeholder.co/100x70';
+                                        }else{
+                                            echo '../'.$data['gambar'];
+                                        }
+                                        ?>
+                                        "
+                                        alt=""
+                                        class="card-img-top" width="300px" height="300px"/>
+                                    <div class="card-body bg-blur">
+                                        <h5 class="card-title"><?= $data['nama_produk'] ?></h5>
+                                        <p class="card-text"><strong>Rp <?= $data['harga'] ?>,-</strong></p>
+                                        <p class="card-text"><strong>Penjual :</strong><?= $data['nama_user'] ?></p>
+                                        <p class="card-text">
+                                            <?php echo substr($data['deskripsi'], 0, 100); ?>
+                                        </p>
+                                        </p>
+                                        <a href="#" class="badge <?php if($set_kategori == 'daun'){
+                                                        echo 'bg-warning'.' '.'text-dark';
+                                                    }else if($data['kategori'] == 'diair'){
+                                                        echo 'bg-primary';
+                                                    }else if ($data['kategori'] == 'berduri'){
+                                                        echo 'bg-success';
+                                                    }else if($data['kategori'] == 'bunga'){
+                                                        echo 'bg-info';
+                                                    }else{
+                                                        echo 'bg-secondary';
+                                                    } ?> non-deco"
+                                            ><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
+                                        >
+                                        <span class="d-flex justify-content-center">STOK : <?= $data['qty']; ?></span>
+                                        <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
+                                    </div>
+                                    <div class="card-footer bg-leaf text-dark">
+                                        Dibuat pada :
+                                        <?= $data['tgl_buat'] ?>
+                                        <p class="float-end mt-2 text-dark">
+                                            Terakhir Diedit : 
+                                            <?= $data['di_edit']; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php	}}?>
+                        </div>
+                    </div>
+					
 
                     <!-- pagination area -->
                     <nav aria-label="...">
@@ -278,6 +369,14 @@ $link_poto = $dt_user[5];
                     </nav>
                 </div>
 
+                <?php
+
+                $option = mysqli_query($connection, "SELECT DISTINCT kategori FROM produk");
+                
+                $count_data = mysqli_num_rows($option);
+
+                ?>
+                
                 <!-- right side -->
                 <div class="col-md-3">
                     <div class="row">
@@ -285,16 +384,14 @@ $link_poto = $dt_user[5];
                             <div class="card mb-3">
                                 <div class="card-header bg-leaf">Pencarian</div>
                                 <div class="card-body">
-                                    <form action="">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-success">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <div class="input-group">
+										<input type="text" class="form-control" id="set-value" value="" />
+										<div class="input-group-append" id="search-data">
+											<button class="btn btn-success" >
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -303,17 +400,76 @@ $link_poto = $dt_user[5];
                         <div class="col-md-12">
                             <div class="card mb-3">
                                 <div class="card-header bg-leaf">Kategori</div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Semua Jenis</li>
-                                    <li class="list-group-item">Kategori 1</li>
-                                    <li class="list-group-item">Kategori 2</li>
-                                </ul>
+                                <div class="card-body">
+                                    <div class="input-group">
+										<select name="kategori" id="kategori" class="form-control">
+											<option value="" disabled selected >Semua Jenis</option>
+                                            <?php 
+                                            if($count_data > 0){
+                                                while($interface = mysqli_fetch_assoc($option)){ ?>
+								        			<option value="<?= $interface['kategori']; ?>"><?= ucfirst($interface['kategori']); ?></option>
+                                            <?php }} ?>
+										</select>
+										<div class="input-group-append" id="btn-kategori">
+										<button class="btn btn-success">
+												<i class="fas fa-angle-right"></i>
+											</button>
+										</div>
+									</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+		<script>
+			$(document).ready(function(){
+					$("#btn-kategori").click(function(){
+						var selectedOption = $("#kategori").val();
+						if(selectedOption) {					
+							$.ajax({
+								url:"../functions/admin-filtered-catalog.php",
+								type:"POST",
+								data:"request=" + selectedOption,
+								beforeSend:function(){
+									$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+								},
+								success:function(data){
+									$(".catalog-data").html(data);
+								}
+							});
+						}else {
+							alert("Please select an option first.");
+						}
+					});
+				});
+		</script>
+
+        <script>
+			$(document).ready(function(){
+					$("#search-data").click(function(){
+						var inputData = $("#set-value").val();
+						if(inputData) {					
+							$.ajax({
+								url:"../functions/admin-search-data.php",
+								type:"POST",
+								data:"data-req=" + inputData,
+								beforeSend:function(){
+									$(".catalog-data").html('<div class="progress col-md-12 centered"></div>');
+								},
+								success:function(data){
+									$(".catalog-data").html(data);
+								}
+							});
+						}else {
+							alert("Anda Belum memasukkan kata pencarian.");
+						}
+					});
+				});
+		</script>
+
         <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
         <script src="../assets/js-native/confirm.js"></script>

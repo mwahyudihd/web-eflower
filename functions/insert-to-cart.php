@@ -1,6 +1,10 @@
 <?php
-include 'data-connect.php';
 session_start();
+include 'data-connect.php';
+if (isset($_SESSION["user_mail"]) == NULL) {
+    header('location: ../form.php');
+    exit;
+}
 $user_id = $_SESSION['id'];
 $id_produk = $_GET['id-produk'];
 $qty = $_GET['jumlah'];
@@ -26,4 +30,5 @@ if($query_cart){
 }else{
     echo mysqli_error($connection);
 }
+
 ?>

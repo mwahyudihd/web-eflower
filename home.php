@@ -22,6 +22,10 @@ $link_poto = $dt_user[5];
 <head>
     <script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
@@ -186,8 +190,19 @@ $link_poto = $dt_user[5];
                         </div>
                     </div>
                 </div>
-                <?php include 'catalog.php' ?>
+                <div class="row catalog-data">
+						<?php include 'catalog.php' ?>
+				</div>
 					
+
+
+                <?php
+
+                $option = mysqli_query($connection, "SELECT DISTINCT kategori FROM produk");
+                
+                $count_data = mysqli_num_rows($option);
+
+                ?>
 
             <!-- right side -->
             <div class="col-md-3">
@@ -214,11 +229,23 @@ $link_poto = $dt_user[5];
                     <div class="col-md-12">
                         <div class="card mb-3">
                             <div class="card-header bg-leaf">Kategori</div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Semua Jenis</li>
-                                <li class="list-group-item">Kategori 1</li>
-                                <li class="list-group-item">Kategori 2</li>
-                            </ul>
+                            <div class="card-body">
+								<div class="input-group">
+									<select name="kategori" id="kategori" class="form-control">
+										<option value="" disabled selected >Semua Jenis</option>
+										<?php 
+										if($count_data > 0){
+											while($interface = mysqli_fetch_assoc($option)){ ?>
+												<option value="<?= $interface['kategori']; ?>"><?= ucfirst($interface['kategori']); ?></option>
+										<?php }} ?>
+									</select>
+									<div class="input-group-append" id="btn-kategori">
+										<button class="btn btn-success">
+											<i class="fas fa-angle-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -230,6 +257,52 @@ $link_poto = $dt_user[5];
             alert("Data Tidak Valid, Sikahkan Coba lagi Nanti");
         </script>
     <?php endif; ?>
+
+    <script>
+			$(document).ready(function(){
+					$("#btn-kategori").click(function(){
+						var selectedOption = $("#kategori").val();
+						if(selectedOption) {					
+							$.ajax({
+								url:"functions/fetch.php",
+								type:"POST",
+								data:"request=" + selectedOption,
+								beforeSend:function(){
+									$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+								},
+								success:function(data){
+									$(".catalog-data").html(data);
+								}
+							});
+						}else {
+							alert("Please select an option first.");
+						}
+					});
+				});
+		</script>
+		<script>
+			$(document).ready(function(){
+					$("#search-data").click(function(){
+						var inputData = $("#set-value").val();
+						if(inputData) {					
+							$.ajax({
+								url:"functions/fetch-search.php",
+								type:"POST",
+								data:"data-req=" + inputData,
+								beforeSend:function(){
+									$(".catalog-data").html('<div class="progress col-md-12 centered"></div>');
+								},
+								success:function(data){
+									$(".catalog-data").html(data);
+								}
+							});
+						}else {
+							alert("Anda Belum memasukkan kata pencarian.");
+						}
+					});
+				});
+		</script>
+
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
     <script src="assets/js-native/confirm.js"></script>

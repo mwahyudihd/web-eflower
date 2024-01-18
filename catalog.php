@@ -25,7 +25,7 @@
 									<p class="card-text">
 										<?php echo substr($data['deskripsi'], 0, 100); ?>
 									</p>
-									<a href="#" class="badge <?php if($set_kategori == 'daun'){
+									<a href="#" class="badge <?php if($data['kategori'] == 'daun'){
                                                     echo 'bg-warning'.' '.'text-dark';
                                                 }else if($data['kategori'] == 'diair'){
                                                     echo 'bg-primary';
@@ -37,7 +37,7 @@
                                                     echo 'bg-secondary';
                                                 } ?> non-deco"
 										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
-									>
+									> <span class="d-flex justify-content-center">STOK : <?= $data['qty'] ?></span>
                                     <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">

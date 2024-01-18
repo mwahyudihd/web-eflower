@@ -113,11 +113,13 @@ $id_data = $_SESSION['id'];
 //     print_r($data); 
 // }
 
-$query = mysqli_query($connection, "SELECT * FROM pembayaran WHERE no_pembayaran='27a7a276'");
-$data = mysqli_fetch_array($query);
+$query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.nama_produk LIKE 'ba%' AND produk.status = 'aktif' OR users.kota LIKE 'ba%' AND produk.status = 'aktif'";
+$result = mysqli_query($connection, $query);
+$dataSet  = mysqli_fetch_assoc($result);
+$set = mysqli_num_rows($result);
 
 echo '</h6>';
 echo '<br>'.'<h3>';
-print_r($data) ;
+print_r($dataSet) ;
 echo '</h3>';
 ?>

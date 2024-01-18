@@ -2,6 +2,16 @@ body {
 	min-height: 75rem;
 	padding-top: 4.5rem;
 }
+
+*{
+	font-family: "Poppins", sans-serif;
+	font-weight: 600;
+	font-style: normal;
+}
+
+
+
+
 .bd-placeholder-img {
 	font-size: 1.125rem;
 	text-anchor: middle;
@@ -93,6 +103,7 @@ body {
 	background-color: #FFF76A;
 	color: white;
 }
+
 
 .bg-leaf {
 	background-color: #EBA83A;
