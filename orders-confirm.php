@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
 		<meta
-			name="author"
-			content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-		<meta name="generator" content="Hugo 0.118.2" />
+
 		<title>Confirm Orders - Eflower</title>
 
 		<link
@@ -21,37 +19,15 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="/assets/css-native/app.css" />
+		<link rel="stylesheet" href="assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -170,23 +146,22 @@
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
+								<a href="admin-category.html" class="dropdown-item"
 									>Kategori</a
 								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
+								<a href="manage.php" class="dropdown-item">Toko</a>
+								<a href="manage-order.php" class="dropdown-item">Order</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
+							<?php include 'functions/cart-num.php'; ?>
+							<a href="cart.php" class="nav-link"
+								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
-						</li>
+
 						<li class="nav-item dropdown">
 							<a
 								href="#"
@@ -198,9 +173,9 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item active">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="profile.php" class="dropdown-item">Profile</a>
+								<a href="orders.php" class="dropdown-item active">Orders</a>
+								<a onclick="logOut()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -215,10 +190,10 @@
 						<div class="card-header bg-leaf">Menu</div>
 						<div class="list-group list-group-flush">
 							<li class="list-group-item">
-								<a href="/profile.html" class="non-deco">Profile</a>
+								<a href="profile.php" class="non-deco">Profile</a>
 							</li>
 							<li class="list-group-item">
-								<a href="/orders.html" class="non-deco">Order</a>
+								<a href="orders.php" class="non-deco">Order</a>
 							</li>
 						</div>
 					</div>
@@ -277,7 +252,8 @@
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="assets/js-native/confirm.js"></script>
 	</body>
 </html>

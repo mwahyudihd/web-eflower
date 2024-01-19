@@ -243,7 +243,7 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 									<tbody>
 									<?php 
                                         $data = $_SESSION['id'];
-                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_user = users.id_user");
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_pemilik = users.id_user");
                                         $no = 1;
                                         $row = mysqli_num_rows($display_produk);
                                         if($row > 0) {

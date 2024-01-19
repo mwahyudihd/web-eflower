@@ -7,6 +7,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 }
 
 $id_sesi = $_SESSION['id'];
+include 'functions/data-connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
@@ -196,10 +197,10 @@ $id_sesi = $_SESSION['id'];
 						<div class="card-header bg-leaf">Menu</div>
 						<div class="list-group list-group-flush">
 							<li class="list-group-item">
-								<a href="/profile.html" class="non-deco">Profile</a>
+								<a href="profile.php" class="non-deco">Profile</a>
 							</li>
 							<li class="list-group-item">
-								<a href="/orders.html" class="non-deco">Order</a>
+								<a href="orders.php" class="non-deco">Order</a>
 							</li>
 						</div>
 					</div>
@@ -212,58 +213,53 @@ $id_sesi = $_SESSION['id'];
 								<thead>
 									<tr>
 										<th>Nomor</th>
-										<th>Tanggal</th>
-										<th>Total</th>
+										<th>Tanggal Pesan</th>
+										<th>Total Tagihan</th>
 										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$query = mysqli_query($connection, "SELECT * FROM pembayaran WHERE id_user = '$id_sesi'");
-
+									$query = mysqli_query($connection, "SELECT * FROM pembayaran JOIN cart ON pembayaran.no_pembayaran = cart.orderid WHERE cart.id_user = '$id_sesi'");
+									$row = mysqli_num_rows($query);
+									if($row){
+										while($data = mysqli_fetch_array($query)) {
 									?>
 									<tr>
 										<td>
-											<a class="non-deco" href="/orders-detail.html"
-												>#234567890</a
+											<a class="non-deco" href="orders-detail.php?<?= $data['orderid']; ?>"
+												>#<?= $data['orderid']; ?></a
 											>
 										</td>
-										<td>2024/01/20</td>
-										<td>Rp500.000,-</td>
+										<td><?= $data['time_info']; ?></td>
+										<td>Rp<?= $data['total_tagihan']; ?>,-</td>
 										<td>
-											<span class="badge bg-warning rounded-pill text-dark"
-												>Menunggu Pembayaran</span
+											<span class="badge <?php
+											if($data['status'] == 'menunggu pembayaran'){
+												echo 'bg-warning';
+											}else if($data['status'] == 'menunggu konfirmasi'){
+												echo 'bg-secondary';
+											}else if($data['status'] == 'dikonfirmasi'){
+												echo 'bg-primary';
+											}else if($data['status'] == 'dalam pengiriman'){
+												echo 'bg-info';
+											}else if($data['status'] == 'selesai'){
+												echo 'bg-success';
+											}else if($data['status'] == 'dibatalkan'){
+												echo 'bg-danger';
+											}else{
+												echo 'bg-light';
+											}
+											 ?>
+
+											 rounded-pill text-dark"
+												><?= $data['status']; ?></span
 											>
 										</td>
 									</tr>
-									<tr>
-										<td>
-											<a class="non-deco" href="/orders-detail.html"
-												>#234567342</a
-											>
-										</td>
-										<td>2024/01/15</td>
-										<td>Rp50.000,-</td>
-										<td>
-											<span class="badge bg-danger rounded-pill"
-												>Dibatalkan</span
-											>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<a class="non-deco" href="/orders-detail.html"
-												>#233649420</a
-											>
-										</td>
-										<td>2024/01/17</td>
-										<td>Rp150.000,-</td>
-										<td>
-											<span class="badge bg-success rounded-pill"
-												>Dalam Pengirman</span
-											>
-										</td>
-									</tr>
+									<?php	}}else{ 
+										echo '<td row-span="4">Belum ada Oreder yang dibuat!</td>';
+									 }?>
 								</tbody>
 							</table>
 						</div>

@@ -288,7 +288,7 @@ $link_poto = $dt_user[5];
                         </div>
                     </div>
                     <?php 
-					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_user");
+					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_pemilik");
 					$row = mysqli_num_rows($katalog);
 					?>
 

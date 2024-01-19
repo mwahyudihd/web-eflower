@@ -154,7 +154,9 @@
 						</li>
 					</ul>
 					<ul class="navbar-nav">
-						<?php include 'functions/cart-num.php'; ?>
+						<?php
+						include 'functions/data-connect.php'; 
+						include 'functions/cart-num.php'; ?>
 						<li class="nav-item">
 							<a href="cart.php" class="nav-link"
 								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
@@ -240,7 +242,7 @@
 							</table>
 						</div>
                         <div class="card-footer">
-                            <a href="orders-confirm.html" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></a>
+                            <a href="orders-confirm.php" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></a>
                         </div>
 					</div>
 				</div>
