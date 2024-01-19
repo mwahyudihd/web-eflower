@@ -33,6 +33,9 @@ $link_poto = $dt_user[5];
     <meta name="generator" content="Hugo 0.118.2" />
     <title>Beranda</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-fixed/" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
@@ -44,6 +47,84 @@ $link_poto = $dt_user[5];
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="assets/css-native/app.css" />
+
+    <style>
+        .progress {
+        width: 211.2px;
+        height: 38.7px;
+        border-radius: 35.2px;
+        color: #fcd006;
+        border: 3.5px solid #252122;
+        position: relative;
+        }
+
+        .progress::before {
+        content: "";
+        position: absolute;
+        margin: 3.5px;
+        inset: 0 100% 0 0;
+        border-radius: inherit;
+        background: currentColor;
+        animation: progress-pf82op 2.4s infinite;
+        }
+
+        @keyframes progress-pf82op {
+        100% {
+            inset: 0;
+        }
+        }
+
+        .dots {
+        width: 25.1px;
+        height: 25.1px;
+        position: relative;
+        }
+
+        .dots::before,
+        .dots::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: #fcd006;
+        }
+
+        .dots::before {
+        box-shadow: -42.2px 0 #fcd006;
+        animation: dots-dm1l1chg 0.36s infinite linear;
+        }
+
+        .dots::after {
+        transform: rotate(0deg) translateX(42.2px);
+        animation: dots-dh1qq5hg 0.36s infinite linear;
+        }
+
+        @keyframes dots-dm1l1chg {
+        100% {
+            transform: translateX(42.2px);
+        }
+        }
+
+        @keyframes dots-dh1qq5hg {
+        100% {
+            transform: rotate(-180deg) translateX(42.2px);
+        }
+        }
+		.centered {				
+            position: relative;
+			top: 250px;
+			left: 50%;
+			padding: 9.5px;
+			}
+            @media (max-width: 890px) {
+                .centered {
+                    position: relative;
+                    top: 550px;
+                    left: 50%;
+                    padding: 9.5px;
+                }
+            }
+		</style>
 </head>
 
 <body>
@@ -172,29 +253,51 @@ $link_poto = $dt_user[5];
         </div>
     </nav>
 
-    <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card mb-3 bg-ktg-leaf">
-                            <div class="card-body">
-                                Kategori: <strong>Semua Jenis</strong>
-                                <span class="float-end">
-                                    Urutkan Harga:
-                                    <a href="#" class="badge bg-success non-deco rounded-pill">Termurah</a>
-                                    |
-                                    <a href="#" class="badge bg-success non-deco rounded-pill">Termahal</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row catalog-data">
+		<main role="main" class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card mb-3 bg-ktg-leaf">
+								<div class="card-body">
+									Kategori: <strong>Semua Jenis</strong>
+									<span class="float-end">
+										Urutkan Harga:
+										<button type="submit" id="min" class="badge bg-success non-deco rounded-pill"
+										>Termurah</button>
+										
+										|
+										<button id="max" class="badge bg-success non-deco rounded-pill"
+											>Termahal</button
+										>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row catalog-data">
 						<?php include 'catalog.php' ?>
-				</div>
+					</div>
 					
-
+					<!-- pagination area -->
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item disabled">
+								<span class="page-link">Previous</span>
+							</li>
+							<li class="page-item active" aria-current="page">
+								<a class="page-link" href="#">1</a>
+							</li>
+							<li class="page-item">
+								<span class="page-link">2</span>
+							</li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item">
+								<a class="page-link" href="#">Next</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 
                 <?php
 
@@ -204,65 +307,66 @@ $link_poto = $dt_user[5];
 
                 ?>
 
-            <!-- right side -->
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card mb-3">
-                            <div class="card-header bg-leaf">Pencarian</div>
-                            <div class="card-body">
-                                <form action="">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" />
-                                        <div class="input-group-append">
-                                            <button class="btn btn-success">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card mb-3">
-                            <div class="card-header bg-leaf">Kategori</div>
-                            <div class="card-body">
-								<div class="input-group">
-									<select name="kategori" id="kategori" class="form-control">
-										<option value="" disabled selected >Semua Jenis</option>
-										<?php 
-										if($count_data > 0){
-											while($interface = mysqli_fetch_assoc($option)){ ?>
-												<option value="<?= $interface['kategori']; ?>"><?= ucfirst($interface['kategori']); ?></option>
-										<?php }} ?>
-									</select>
-									<div class="input-group-append" id="btn-kategori">
-										<button class="btn btn-success">
-											<i class="fas fa-angle-right"></i>
-										</button>
+				<!-- right side -->
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card mb-3">
+								<div class="card-header bg-leaf">Pencarian</div>
+								<div class="card-body">
+										<div class="input-group">
+											<input type="text" class="form-control" id="set-value" value="" />
+											<div class="input-group-append" id="search-data">
+												<button class="btn btn-success" >
+													<i class="fas fa-search"></i>
+												</button>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card mb-3">
+								<div class="card-header bg-leaf">Kategori</div>
+									<div class="card-body">
+										<div class="input-group">
+											<select name="kategori" id="kategori" class="form-control">
+												<option value="" disabled selected >Semua Jenis</option>
+												<?php 
+												if($count_data > 0){
+													while($interface = mysqli_fetch_assoc($option)){ ?>
+														<option value="<?= $interface['kategori']; ?>"><?= ucfirst($interface['kategori']); ?></option>
+												<?php }} ?>
+											</select>
+											<div class="input-group-append" id="btn-kategori">
+											<button class="btn btn-success">
+													<i class="fas fa-angle-right"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <?php if(isset($_GET['error'])): ?>
-        <script>
-            alert("Data Tidak Valid, Sikahkan Coba lagi Nanti");
-        </script>
-    <?php endif; ?>
-
-    <script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<script>
 			$(document).ready(function(){
 					$("#btn-kategori").click(function(){
 						var selectedOption = $("#kategori").val();
-						if(selectedOption) {					
+						if(selectedOption) {
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');
 							$.ajax({
 								url:"functions/fetch.php",
 								type:"POST",
@@ -284,7 +388,15 @@ $link_poto = $dt_user[5];
 			$(document).ready(function(){
 					$("#search-data").click(function(){
 						var inputData = $("#set-value").val();
-						if(inputData) {					
+						if(inputData) {
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');					
 							$.ajax({
 								url:"functions/fetch-search.php",
 								type:"POST",
@@ -303,9 +415,52 @@ $link_poto = $dt_user[5];
 				});
 		</script>
 
-    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
-    <script src="assets/js-native/confirm.js"></script>
-</body>
-
+        <script>
+			$(document).ready(function(){
+					$("#min").click(function(){
+						var btnMin = $("#min");
+						var btnMax = $("#max");
+						btnMin.removeClass('bg-success');
+						btnMin.addClass('bg-warning');
+						btnMax.removeClass('bg-warning');
+						btnMax.addClass('bg-success');
+						$.ajax({
+							url:"functions/price-min.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
+					});
+				});
+		</script>
+		<script>
+			$(document).ready(function(){
+					$("#max").click(function(){
+						var btnMax = $("#max");
+						var btnMin = $("#min");
+						btnMax.removeClass('bg-success');
+						btnMax.addClass('bg-warning');
+						btnMin.removeClass('bg-warning');
+						btnMin.addClass('bg-success');
+						$.ajax({
+							url:"functions/price-max.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
+					});
+				});
+		</script>
+		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
+        <script src="assets/js-native-confirm.js"></script>
+	</body>
 </html>

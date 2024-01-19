@@ -263,7 +263,6 @@ $link_poto = $dt_user[5];
                 alert('Selamat Datang Admin!');
                 var currentURL = window.location.href;
                 var urlWithoutAdmin = currentURL.split('?')[0];
-
                 window.location.href = urlWithoutAdmin;
             </script>
             <?php endif; ?>

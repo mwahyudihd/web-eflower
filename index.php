@@ -290,12 +290,12 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 									Kategori: <strong>Semua Jenis</strong>
 									<span class="float-end">
 										Urutkan Harga:
-										<a href="#" class="badge bg-success non-deco rounded-pill"
-											>Termurah</a
-										>
+										<button type="submit" id="min" class="badge bg-success non-deco rounded-pill"
+										>Termurah</button>
+										
 										|
-										<a href="#" class="badge bg-success non-deco rounded-pill"
-											>Termahal</a
+										<button id="max" class="badge bg-success non-deco rounded-pill"
+											>Termahal</button
 										>
 									</span>
 								</div>
@@ -385,7 +385,15 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 			$(document).ready(function(){
 					$("#btn-kategori").click(function(){
 						var selectedOption = $("#kategori").val();
-						if(selectedOption) {					
+						if(selectedOption) {
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');
 							$.ajax({
 								url:"functions/fetch.php",
 								type:"POST",
@@ -407,7 +415,15 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 			$(document).ready(function(){
 					$("#search-data").click(function(){
 						var inputData = $("#set-value").val();
-						if(inputData) {					
+						if(inputData) {
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');					
 							$.ajax({
 								url:"functions/fetch-search.php",
 								type:"POST",
@@ -422,6 +438,51 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 						}else {
 							alert("Anda Belum memasukkan kata pencarian.");
 						}
+					});
+				});
+		</script>
+
+        <script>
+			$(document).ready(function(){
+					$("#min").click(function(){
+						var btnMin = $("#min");
+						var btnMax = $("#max");
+						btnMin.removeClass('bg-success');
+						btnMin.addClass('bg-warning');
+						btnMax.removeClass('bg-warning');
+						btnMax.addClass('bg-success');
+						$.ajax({
+							url:"functions/price-min.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
+					});
+				});
+		</script>
+		<script>
+			$(document).ready(function(){
+					$("#max").click(function(){
+						var btnMax = $("#max");
+						var btnMin = $("#min");
+						btnMax.removeClass('bg-success');
+						btnMax.addClass('bg-warning');
+						btnMin.removeClass('bg-warning');
+						btnMin.addClass('bg-success');
+						$.ajax({
+							url:"functions/price-max.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
 					});
 				});
 		</script>

@@ -9,7 +9,7 @@ $user_key = $_SESSION['id'];
 $tagihan = $_GET['tagihan'];
 $order_id = $_GET['idorder'];
 
-$query_to_order = mysqli_query($connection, "SELECT * FROM users JOIN produk ON users.id_user = produk.id_user JOIN detailorder ON produk.id_produk = detailorder.id_produk JOIN cart ON detailorder.orderid = cart.orderid WHERE cart.id_user = '$user_key' AND cart.status = 'Cart' AND detailorder.orderid = '$order_id';");
+$query_to_order = mysqli_query($connection, "SELECT * FROM users JOIN produk ON users.id_user = produk.id_pemilik JOIN detailorder ON produk.id_produk = detailorder.id_produk JOIN cart ON detailorder.orderid = cart.orderid WHERE cart.id_user = '$user_key' AND cart.status = 'Cart' AND detailorder.orderid = '$order_id';");
 $select_data_toko = mysqli_fetch_array($query_to_order);
 
 print_r($select_data_toko);

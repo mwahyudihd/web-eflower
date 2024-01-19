@@ -1,15 +1,13 @@
 <?php
-session_start();
-$sesi_id = $_SESSION['id'];
 sleep(2.5);
 include 'data-connect.php';
-if(isset($_POST['request'])){
-    $request = $_POST['request'];
 
-    $query = "SELECT * FROM produk JOIN users ON produk.id_pemilik = users.id_user WHERE produk.kategori = '$request' AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id'";
-    $result = mysqli_query($connection, $query);
-    $set = mysqli_num_rows($result);
-}
+$request = $_POST['request'];
+
+$query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.status = 'aktif' ORDER BY produk.harga DESC";
+$result = mysqli_query($connection, $query);
+$set = mysqli_num_rows($result);
+
 
 
 ?>

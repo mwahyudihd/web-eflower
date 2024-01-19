@@ -1,5 +1,5 @@
 <?php
-					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_user AND produk.status = 'aktif'");
+					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_pemilik AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id'");
 					$row = mysqli_num_rows($katalog);
 					?>
 					<div class="row">

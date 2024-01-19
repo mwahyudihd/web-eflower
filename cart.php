@@ -273,9 +273,9 @@ $data2 = mysqli_fetch_array($query2);
 										echo $subtotal;
 										?>,-</td>
 										<td>
-											<form action="remove-form-cart.php" method="get">
+											<form action="functions/remove-from-cart.php" method="post">
 												<input type="text" style="display: none;" name="id-order" value="<?= $data['orderid']; ?>" >
-												<button class="btn btn-danger">
+												<button class="btn btn-danger" type="submit">
 													<i class="fas fa-trash-alt"></i>
 												</button>
 											</form>

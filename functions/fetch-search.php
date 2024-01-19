@@ -1,10 +1,12 @@
 <?php
+session_start();
+$sesi_id = $_SESSION['id'];
 sleep(2.5);
 include 'data-connect.php';
 if(isset($_POST['data-req'])){
     $requestData = $_POST['data-req'];
 
-    $query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.nama_produk LIKE '%$requestData%' AND produk.status = 'aktif' OR users.kota LIKE '%$requestData%' AND produk.status = 'aktif' OR users.nama_user LIKE '%$requestData%' AND produk.status = 'aktif'";
+    $query = "SELECT * FROM produk JOIN users ON produk.id_pemilik = users.id_user WHERE (produk.nama_produk LIKE '%$requestData%' AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id') OR (users.kota LIKE '%$requestData%' AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id') OR (users.nama_user LIKE '%$requestData%' AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id')";
     $result = mysqli_query($connection, $query);
     $set = mysqli_num_rows($result);
 }
@@ -52,7 +54,7 @@ while($row = mysqli_fetch_assoc($result)){
                                     <p class="float-end"><strong>Kota : <?= $row['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
-									<form action="insert-to-cart.php" method="get">
+									<form action="functions/insert-to-cart.php" method="get">
 										<div class="input-group">
                                             <input type="text" style="display: none;" value="<?= $row['id_produk'] ?>" name="id-produk" id="">
 											<input

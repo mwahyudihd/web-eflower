@@ -4,7 +4,7 @@ include 'data-connect.php';
 if(isset($_POST['request'])){
     $request = $_POST['request'];
 
-    $query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE kategori = '$request'";
+    $query = "SELECT * FROM produk JOIN users ON produk.id_pemilik = users.id_user WHERE kategori = '$request'";
     $result = mysqli_query($connection, $query);
     $set = mysqli_num_rows($result);
 }

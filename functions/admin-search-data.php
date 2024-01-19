@@ -4,7 +4,7 @@ include 'data-connect.php';
 if(isset($_POST['data-req'])){
     $requestData = $_POST['data-req'];
 
-    $query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.nama_produk LIKE '%$requestData%' OR users.kota LIKE '%$requestData%' OR users.nama_user LIKE '%$requestData%'";
+    $query = "SELECT * FROM produk JOIN users ON produk.id_pemilik = users.id_user WHERE produk.nama_produk LIKE '%$requestData%' OR users.kota LIKE '%$requestData%' OR users.nama_user LIKE '%$requestData%'";
     $result = mysqli_query($connection, $query);
     $set = mysqli_num_rows($result);
 }

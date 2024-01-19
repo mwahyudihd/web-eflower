@@ -35,6 +35,14 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 </head>
 
 <body>
+	<?php if(isset($_GET['info'])) { ?>
+		<script>
+			alert('Silahkan login terlebih dahulu untuk melanjutkan pembelian!');
+			var currentURL = window.location.href;
+            var urlWithoutInfo = currentURL.split('?')[0];
+            window.location.href = urlWithoutInfo;
+		</script>
+	<?php } ?>
 	<div class="wrapper container">
 		<h4 id="title-1" class="text-center border border-2 p-3 border-danger-subtle rounded-5 text-white">
 			Get Your Session for Your Plant!

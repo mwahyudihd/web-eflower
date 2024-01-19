@@ -2,7 +2,7 @@
 session_start();
 include 'data-connect.php';
 if (isset($_SESSION["user_mail"]) == NULL) {
-    header('location: ../form.php');
+    header('location: ../form.php?info');
     exit;
 }
 $user_id = $_SESSION['id'];
