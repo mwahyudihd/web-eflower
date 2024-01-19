@@ -113,7 +113,7 @@ $id_data = $_SESSION['id'];
 //     print_r($data); 
 // }
 
-$query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.nama_produk LIKE 'ba%' AND produk.status = 'aktif' OR users.kota LIKE 'ba%' AND produk.status = 'aktif'";
+$query = "SELECT * FROM pembayaran JOIN users ON pembayaran.id_user = users.id_user JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid JOIN produk ON detailorder.id_produk = produk.id_produk JOIN cart ON cart.orderid = detailorder.orderid WHERE pembayaran.no_pembayaran = 'd03d4466'";
 $result = mysqli_query($connection, $query);
 $dataSet  = mysqli_fetch_assoc($result);
 $set = mysqli_num_rows($result);

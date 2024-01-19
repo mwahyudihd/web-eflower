@@ -1,3 +1,18 @@
+<?php
+include 'functions/data-connect.php';
+session_start();
+$sesi_id = $_SESSION['id'];
+$order_id = $_GET['order'];
+$query = mysqli_query($connection, "SELECT * FROM pembayaran JOIN users ON pembayaran.id_user = users.id_user
+JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid
+JOIN produk ON detailorder.id_produk = produk.id_produk WHERE pembayaran.no_pembayaran = '$order_id'
+");
+$query_stat = mysqli_query($connection, "SELECT * FROM cart JOIN detailorder ON cart.orderid = detailorder.orderid WHERE cart.orderid = '$order_id'");
+
+$status = mysqli_fetch_array($query_stat);
+$data = mysqli_fetch_array($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
@@ -132,7 +147,7 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="#">Home</a>
+							<a class="nav-link" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -155,7 +170,7 @@
 					</ul>
 					<ul class="navbar-nav">
 						<?php
-						include 'functions/data-connect.php'; 
+						
 						include 'functions/cart-num.php'; ?>
 						<li class="nav-item">
 							<a href="cart.php" class="nav-link"
@@ -201,15 +216,31 @@
 				</div>
 				<div class="col-md-9">
 					<div class="card">
-						<div class="card-header bg-leaf">Detail Order #234567890
+						<div class="card-header bg-leaf">Detail Order #<?= $data['no_pembayaran']; ?>
                             <div class="float-end">
-                                <span class="badge bg-warning text-dark badge-pill rounded-pill">Menunggu Pembayaran</span>
+                                <span class="badge <?php
+											if($status['status'] == 'menunggu pembayaran'){
+												echo 'bg-warning';
+											}else if($status['status'] == 'menunggu konfirmasi'){
+												echo 'bg-secondary';
+											}else if($status['status'] == 'dikonfirmasi'){
+												echo 'bg-primary';
+											}else if($status['status'] == 'dalam pengiriman'){
+												echo 'bg-info';
+											}else if($status['status'] == 'selesai'){
+												echo 'bg-success';
+											}else if($status['status'] == 'dibatalkan'){
+												echo 'bg-danger';
+											}else{
+												echo 'bg-light';
+											}
+											 ?> text-dark badge-pill rounded-pill"><?= $status['status']; ?></span>
                             </div>
                         </div>
 						<div class="card-body">
-                            <p>Nama: Nama_penerima</p>
-                            <p>Telp : 081234567890</p>
-                            <p>Alamat: Jl.Abc, Blok01, No.123, Nama_kota</p>
+                            <p>Nama Penerima: <?= $data['nama_lengkap']; ?></p>
+                            <p>Telp : +62<?= $data['no_telp']; ?></p>
+                            <p>Alamat: <?= $data['alamat']; ?></p>
                             <table class="table">
 								<thead>
 									<tr>
@@ -224,25 +255,35 @@
 									<tr>
 										<td scope="row">
 											<p>
-												<img src="https://placehold.co/50x50" alt="" />
-												<strong class="ms-3">Nama Produk</strong>
+											<img src="<?php
+                                                    if(!empty($data['gambar'])){
+                                                        echo $data['gambar'];
+                                                    }else{
+                                                        echo 'https://placehold.co/50x50';
+                                                    }?>
+                                                    " alt="" width="50" height="50" /> 
+												<strong class="ms-3"><?= $data['nama_produk']; ?></strong>
 											</p>
 										</td>
-										<td class="p-3 text-center">Rp100.000,-</td>
+										<td class="p-3 text-center">Rp<?= $data['harga']; ?>,-</td>
 										<td class="text-center p-3">
-											1
+											<?= $status['qty']; ?>
 										</td>
-										<td class="text-center p-3">Rp100.000,-</td>
+										<td class="text-center p-3">Rp<?= $data['total_tagihan']; ?>.,-</td>
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
-                                            <td class="text-center"><strong>Rp100.000,-</strong></td>
+                                            <td class="text-center"><strong>Rp<?= $data['total_tagihan']; ?>,-</strong></td>
                                         </tr>
 									</tr>
 								</tbody>
 							</table>
 						</div>
                         <div class="card-footer">
-                            <a href="orders-confirm.php" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></a>
+							<form action="orders-confirm.php" method="post">
+								<input type="text" name="data_order" style="display: none;" value="<?= $order_id; ?>" readonly>
+								<button type="submit" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></button>
+							</form>
+                            
                         </div>
 					</div>
 				</div>

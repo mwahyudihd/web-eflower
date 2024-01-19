@@ -227,7 +227,7 @@ include 'functions/data-connect.php';
 									?>
 									<tr>
 										<td>
-											<a class="non-deco" href="orders-detail.php?<?= $data['orderid']; ?>"
+											<a class="non-deco" href="orders-detail.php?order=<?= $data['orderid']; ?>"
 												>#<?= $data['orderid']; ?></a
 											>
 										</td>

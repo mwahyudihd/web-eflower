@@ -6,8 +6,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-		<meta
-
 		<title>Confirm Orders - Eflower</title>
 
 		<link
@@ -156,7 +154,10 @@
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<?php include 'functions/cart-num.php'; ?>
+							<?php
+							include 'functions/data-connect.php';
+							include 'functions/cart-num.php'; 
+							?>
 							<a href="cart.php" class="nav-link"
 								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
@@ -198,16 +199,21 @@
 						</div>
 					</div>
 				</div>
+
+				<?php
+				$id_data_order = $_POST['data_order']; 
+				?>
 				<div class="col-md-9">
 					<div class="card">
 						<div class="card-header bg-leaf">
-							Konfirmasi Order #234567890
+							Konfirmasi Order #<?= $id_data_order; ?>
 							<div class="float-end">
 								<span class="badge bg-warning text-dark badge-pill rounded-pill"
 									>Menunggu Pembayaran</span
 								>
 							</div>
 						</div>
+
 						<form action="">
 							<div class="card-body">
 								<div class="form-group">
@@ -215,7 +221,7 @@
 									<input
 										type="text"
 										class="form-control"
-										value="#234567890"
+										value="#<?= $id_data_order; ?>"
 										readonly />
 								</div>
 								<div class="form-group">
