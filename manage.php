@@ -280,7 +280,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                     <tr>
                                         <?php 
                                         $data = $_SESSION['id'];
-                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_user = '$data' AND status = 'aktif' ");
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_pemilik = '$data' AND status = 'aktif' ");
                                         $no = 1;
                                         $row = mysqli_num_rows($display_produk);
                                         if($row > 0) {

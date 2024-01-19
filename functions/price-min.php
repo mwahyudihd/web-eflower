@@ -1,10 +1,12 @@
 <?php
 sleep(2.5);
+session_start();
+$sesi_id = $_SESSION['id'];
 include 'data-connect.php';
 
 $request = $_POST['request'];
 
-$query = "SELECT * FROM produk JOIN users ON produk.id_user = users.id_user WHERE produk.status = 'aktif' ORDER BY produk.harga ASC";
+$query = "SELECT * FROM produk JOIN users ON produk.id_pemilik = users.id_user WHERE produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id' ORDER BY produk.harga ASC";
 $result = mysqli_query($connection, $query);
 $set = mysqli_num_rows($result);
 
