@@ -4,16 +4,7 @@ session_start();
 
 $sesi_id = $_SESSION['id'];
 
-$query = mysqli_query($connection, "SELECT * FROM detailorder 
-JOIN cart ON detailorder.orderid = cart.orderid 
-JOIN produk ON produk.id_produk = detailorder.id_produk 
-WHERE cart.id_user = '$sesi_id' AND cart.status = 'Cart'");
 
-$query2 = mysqli_query($connection, "SELECT * FROM detailorder 
-JOIN cart ON detailorder.orderid = cart.orderid 
-WHERE cart.id_user = '$sesi_id'");
-$data = mysqli_fetch_array($query);
-$data2 = mysqli_fetch_array($query2);
 ?>
 
 <!DOCTYPE html>
@@ -152,7 +143,7 @@ $data2 = mysqli_fetch_array($query2);
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="#">Home</a>
+							<a class="nav-link" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -175,8 +166,16 @@ $data2 = mysqli_fetch_array($query2);
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
+							<?php
+								$query = "SELECT * FROM cart 
+								JOIN detailorder ON cart.orderid = detailorder.orderid
+								JOIN produk ON detailorder.id_produk = produk.id_produk WHERE cart.status = 'Cart' AND cart.id_user = '$sesi_id'";
+
+								$query_conn = mysqli_query($connection, $query);
+								$jml_array = mysqli_num_rows($query_conn);
+							?>
 							<a href="/cart.html" class="nav-link active"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
+								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
 						<li class="nav-item">
@@ -222,10 +221,12 @@ $data2 = mysqli_fetch_array($query2);
 
 								<?php 
 
-								$jml_array = mysqli_num_rows($query);
 
-								if($jml_array > 0){
-									while($data = mysqli_fetch_array($query)){
+
+								if($jml_array){
+									$count_loop = 0;
+									$total = 0;
+									while($data = mysqli_fetch_array($query_conn)){
 									
 								?>
 
@@ -266,10 +267,13 @@ $data2 = mysqli_fetch_array($query2);
 											</form>
 										</td>
 										<td class="text-center p-3">Rp<?php
-										$jml_beli = $data2['qty'];
 										$harga = $data['harga'];
+										$jml_beli = $get_data['qty'];
+									
 										$subtotal = $harga * $jml_beli;
-										
+	
+											$total += $subtotal;
+
 										echo $subtotal;
 										?>,-</td>
 										<td>
@@ -283,7 +287,9 @@ $data2 = mysqli_fetch_array($query2);
 										<td>
 										<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
 										</td>
-										<?php } $total = $subtotal + $subtotal; } ?>
+										<?php $count_loop++; }
+										
+										 } ?>
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
                                             <td class="text-center"><strong>Rp<?php

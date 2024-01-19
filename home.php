@@ -234,9 +234,13 @@ $link_poto = $dt_user[5];
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i>Cart
-                            (<span>0</span>)</a>
-                    </li>
+							<?php
+                            include 'functions/cart-num.php';
+							?>
+							<a href="cart.php" class="nav-link"
+								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
+							>
+					</li>
 
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown-2" data-bs-toggle="dropdown"

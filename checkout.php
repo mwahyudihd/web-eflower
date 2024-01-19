@@ -168,8 +168,9 @@ $data = mysqli_fetch_array($query);
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link active"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
+							<?php include 'functions/cart-num.php'; ?>
+							<a href="cart.php" class="nav-link active"
+								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
 						<li class="nav-item">

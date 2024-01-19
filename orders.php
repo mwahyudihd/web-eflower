@@ -162,9 +162,10 @@ $id_sesi = $_SESSION['id'];
 						</li>
 					</ul>
 					<ul class="navbar-nav">
+						<?php include 'functions/cart-num.php'; ?>
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
+							<a href="cart.php" class="nav-link"
+								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
 						<li class="nav-item">
@@ -222,7 +223,7 @@ $id_sesi = $_SESSION['id'];
 								<tbody>
 									<?php
 									$query = mysqli_query($connection, "SELECT * FROM pembayaran WHERE id_user = '$id_sesi'");
-									
+
 									?>
 									<tr>
 										<td>

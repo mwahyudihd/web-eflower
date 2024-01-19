@@ -144,7 +144,7 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
+							<a class="nav-link" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -157,21 +157,13 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
-								<a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+								<a href="category.html" class="dropdown-item">Kategori</a>
+								<a href="manage.php" class="dropdown-item">Toko</a>
+								<a href="manage-order.php" class="dropdown-item">Order</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a href="cart.php" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-							>
-						</li>
 		
 						<li class="nav-item dropdown">
 							<a

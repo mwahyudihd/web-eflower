@@ -253,8 +253,8 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
+							<a href="form.php" class="nav-link"
+								><i class="fas fa-shopping-cart"></i>Cart (<span>X</span>)</a
 							>
 						</li>
 						<li class="nav-item">
