@@ -159,8 +159,8 @@ $sesi_id = $_SESSION['id'];
 								<a href="/admin-category.html" class="dropdown-item"
 									>Kategori</a
 								>
-								<a href="admin-product.php" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
+								<a href="manage.php" class="dropdown-item">Toko</a>
+								<a href="manage-order.php" class="dropdown-item">Order</a>
 							</div>
 						</li>
 					</ul>
@@ -177,9 +177,6 @@ $sesi_id = $_SESSION['id'];
 							<a href="/cart.html" class="nav-link active"
 								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
-						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a

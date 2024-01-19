@@ -50,7 +50,7 @@
                                                 value="1"
 												id=""
 												class="form-control"
-												pattern="[0-9]" />
+												pattern="[1-9]" />
 											<div class="input-group-append">
 												<button class="btn btn-success">
 													<i class="fas fa-cart-plus"></i>

@@ -303,11 +303,9 @@ include 'functions/data-connect.php';
                                         <label for="desc">Deskripsi</label>
                                     </div>
 
-									<!-- bagian ini dalah tombol Daftar -->
 									<a href="manage.php" class="mt-3 btn btn-warning">
 										<i class="p-1 fas fa-angle-left"></i>Kembali
 									</a>
-									<!-- akhir tombol login -->
 
 									<button class="float-end mt-3 btn btn-success" type="submit">
 										Simpan <i class="p-1 fas fa-floppy-disk"></i>

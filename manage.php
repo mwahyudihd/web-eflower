@@ -123,9 +123,8 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                             aria-haspopup="true" aria-expanded="false">Manage</a>
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
                             <a href="/admin-category.html" class="dropdown-item">Kategori</a>
-                            <a href="/admin-product.html" class="dropdown-item">Produk</a>
-                            <a href="/admin-order.html" class="dropdown-item">Order</a>
-                            <a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+                            <a href="manage.php" class="dropdown-item">Toko</a>
+                            <a href="manage-order.html" class="dropdown-item">Order</a>
                         </div>
                     </li>
                 </ul>

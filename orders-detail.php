@@ -160,9 +160,7 @@
 								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
-						<li class="nav-item">
-							<a href="form.php" class="nav-link">Login</a>
-						</li>
+
 						<li class="nav-item dropdown">
 							<a
 								href="#"
