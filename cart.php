@@ -282,7 +282,7 @@ $sesi_id = $_SESSION['id'];
 											</form>
 										</td>
 										<td>
-										
+										<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
 										</td>
 										<?php $count_loop++; }
 										
@@ -294,16 +294,13 @@ $sesi_id = $_SESSION['id'];
 										echo $total;
 										?>
                                         </tr>
-										
 									</tr>
 								</tbody>
 						
 							</table>
 						</div>
                         <div class="card-footer">
-                            <form action="">
-								<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
-							</form>
+                            
                             <a href="." class="btn btn-warning float-start text-white"><i class="fas fa-angle-left"></i> Beli Lagi</a>
                         </div>
 					</div>

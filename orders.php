@@ -258,7 +258,7 @@ include 'functions/data-connect.php';
 										</td>
 									</tr>
 									<?php	}}else{ 
-										echo '<td row-span="4">Belum ada Oreder yang dibuat!</td>';
+										echo '<td colspan="4" class="text-center">Belum ada Order yang dibuat!</td>';
 									 }?>
 								</tbody>
 							</table>
