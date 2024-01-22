@@ -113,13 +113,31 @@ $id_data = $_SESSION['id'];
 //     print_r($data); 
 // }
 
-$query = "SELECT * FROM pembayaran JOIN users ON pembayaran.id_user = users.id_user JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid JOIN produk ON detailorder.id_produk = produk.id_produk JOIN cart ON cart.orderid = detailorder.orderid WHERE pembayaran.no_pembayaran = 'd03d4466'";
+$query = "SELECT no_pembayaran FROM pembayaran WHERE id_user_toko = '7E92C3D5' AND id_user = '964F05A1'";
 $result = mysqli_query($connection, $query);
-$dataSet  = mysqli_fetch_assoc($result);
-$set = mysqli_num_rows($result);
 
-echo '</h6>';
-echo '<br>'.'<h3>';
-print_r($dataSet) ;
-echo '</h3>';
+$dataArray = array(); // inisialisasi array kosong
+
+if(mysqli_num_rows($result) > 0){
+    while($dataSet = mysqli_fetch_row($result)){
+        $dat = $dataSet[0]; // mengambil data dari kolom no_pembayaran
+
+        $dataArray[] = $dat; // menambahkan data ke array
+
+        echo '<h3>';
+        echo $dat;
+        print_r($dataSet);
+        echo '</h3>';
+    }
+} else {
+    echo '<h3>No results found</h3>';
+}
+
+print_r($dataArray); // mencetak array yang berisi semua data
+$jml = 0;
+
+foreach($dataArray as $dat){
+    echo '<br>';
+    echo $dat;
+}
 ?>

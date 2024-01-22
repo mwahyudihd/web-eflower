@@ -279,11 +279,14 @@ $data = mysqli_fetch_array($query);
 							</table>
 						</div>
                         <div class="card-footer">
+							<?php if($status['status'] == 'menunggu pembayaran'){ ?>
 							<form action="orders-confirm.php" method="post">
 								<input type="text" name="data_order" style="display: none;" value="<?= $order_id; ?>" readonly>
 								<button type="submit" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></button>
 							</form>
-                            
+							<?php }else{ ?>
+								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
+                            <?php } ?>
                         </div>
 					</div>
 				</div>

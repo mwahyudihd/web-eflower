@@ -218,7 +218,7 @@ $data = mysqli_fetch_array($query);
 							<p>
 								Jika sudah, silahkan kirim bukti pembayaran dihalaman konfirmasi
 								atau dapat diklik di
-								<a href="orders-detail.html" class="non-deco">tautan ini</a>.
+								<a href="orders.php" class="non-deco">tautan ini</a>.
 							</p>
                             <a href="index.php" class="btn btn-success"><i class="fas fa-house"></i> Kembali</a>
                             <span class="float-end me-3">Expired: <strong><?php 

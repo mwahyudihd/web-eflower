@@ -174,7 +174,7 @@ $sesi_id = $_SESSION['id'];
 								$query_conn = mysqli_query($connection, $query);
 								$jml_array = mysqli_num_rows($query_conn);
 							?>
-							<a href="/cart.html" class="nav-link active"
+							<a href="cart.php" class="nav-link active"
 								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
 							>
 						</li>
@@ -189,8 +189,8 @@ $sesi_id = $_SESSION['id'];
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="profile.html" class="dropdown-item">Profile</a>
-								<a href="orders.html" class="dropdown-item">Orders</a>
+								<a href="profile.php" class="dropdown-item">Profile</a>
+								<a href="orders.php" class="dropdown-item">Orders</a>
 								<a onclick="logOut()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
@@ -282,7 +282,7 @@ $sesi_id = $_SESSION['id'];
 											</form>
 										</td>
 										<td>
-										<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
+										
 										</td>
 										<?php $count_loop++; }
 										
@@ -294,13 +294,16 @@ $sesi_id = $_SESSION['id'];
 										echo $total;
 										?>
                                         </tr>
+										
 									</tr>
 								</tbody>
 						
 							</table>
 						</div>
                         <div class="card-footer">
-                            
+                            <form action="">
+								<a href="checkout.php?id_order=<?= $data['orderid']; ?>" class="btn bg-success float-end text-white">Pembayaran <i class="fas fa-angle-right"></i></a>
+							</form>
                             <a href="." class="btn btn-warning float-start text-white"><i class="fas fa-angle-left"></i> Beli Lagi</a>
                         </div>
 					</div>

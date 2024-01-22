@@ -142,7 +142,7 @@ include 'functions/data-connect.php';
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="#">Home</a>
+							<a class="nav-link" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -266,6 +266,11 @@ include 'functions/data-connect.php';
 					</div>
 				</div>
 			</div>
+			<?php if(isset($_GET['success'])): ?>
+				<script>
+					alert('Permintaan anda berhasil dikirim Mohon tunggu konfirmasi dari Penjual...!');
+				</script>
+			<?php endif ?>
 		</main>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>

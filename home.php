@@ -423,7 +423,7 @@ $link_poto = $dt_user[5];
 			$(document).ready(function(){
 					$("#min").click(function(){
 						var btnMin = $("#min");
-						var btnMax = $("#max");
+						var btnMax = $("#max");                        
 						btnMin.removeClass('bg-success');
 						btnMin.addClass('bg-warning');
 						btnMax.removeClass('bg-warning');

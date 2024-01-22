@@ -340,11 +340,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             </td>
                                         </tr>
                                         <?php }} else{ ?>
-                                            <td>data tidak ditemukan!</td>
-                                            <td>data tidak ditemukan!</td>
-                                            <td>data tidak ditemukan!</td>
-                                            <td>data tidak ditemukan!</td>
-                                            <td>data tidak ditemukan!</td>
+                                            <td colspan="5" class="text-center"><h2>Belum ada <span class="text-leaf">Produk</span> yang anda masukkan!</h2></td>                                           
                                         <?php } ?>
                                 </tbody>
                             </table>

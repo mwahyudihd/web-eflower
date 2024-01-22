@@ -214,25 +214,40 @@
 							</div>
 						</div>
 
-						<form action="">
+						<form action="functions/confirm.php" method="post" enctype="multipart/form-data">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="">Kode Transaksi: </label>
 									<input
 										type="text"
+										name="order-id"
 										class="form-control"
-										value="#<?= $id_data_order; ?>"
+										value="<?= $id_data_order; ?>"
 										readonly />
+								</div>
+								<div class="form-group">
+									<label for="jenis pemayaran">Metode: </label>
+									<select name="payment" class="form-control" id="" required>
+										<option value="" disabled selected>Pilih Metode</option>
+										<option value="bank">Transfer Bank</option>
+										<option value="internet-banking">Internet Banking</option>
+										<option value="e-wallet">E-Wallet</option>
+										<option value="m-banking">Mobile Banking</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="">Tanggal Bayar: </label>
+									<input type="date" name="tgl-bayar" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<label for=""
 										>Dari Rekening yang melakukan pembayaran:
 									</label>
-									<input type="text" class="form-control" />
+									<input name="atasnama" type="text" value="a/n ..." class="form-control" required/>
 								</div>
 								<div class="form-group">
 									<label for="">Nominal: </label>
-									<input type="number" class="form-control" />
+									<input name="total" type="number" class="form-control" required/>
 								</div>
 								<div class="form-group">
 									<label for="">Catatan</label>
@@ -241,15 +256,17 @@
 										id=""
 										cols="30"
 										rows="5"
-										class="form-control"></textarea>
+										class="form-control"
+										required></textarea>
 								</div>
 								<div class="form-group">
-									<label for="">Bukti Transfer: </label>
-									<input type="file" class="form-control" name="image" />
+									<label for="set-image">Bukti Transfer: </label>
+									<input type="file" class="form-control" name="set-image" required/>
 								</div>
 							</div>
 							<div class="card-footer">
-								<button type="submit" class="btn btn-success">
+								<a href="orders.php" class="btn btn-warning float-start m-3" onclick="return confirm('Yakin untuk tidak menlanjutkan transaksi?')"><i class="fas fa-angle-left"></i> Kembali</a>
+								<button type="submit" class="btn btn-success float-end m-3">
 									Konfirmasi Pembayaran <i class="fas fa-clipboard-check"></i>
 								</button>
 							</div>
