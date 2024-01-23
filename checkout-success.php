@@ -40,6 +40,9 @@ $data = mysqli_fetch_array($query);
 		<link rel="stylesheet" href="assets/css-native/app.css" />
 	</head>
 	<body>
+		<script>
+			alert("Ongkir akan segera kami tampilkan Mohon untuk menuggu beberapa saat... @Admin")
+		</script>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
 			<symbol id="check2" viewBox="0 0 16 16">
 				<path
@@ -214,6 +217,7 @@ $data = mysqli_fetch_array($query);
 									<strong><?php echo $data['no_pembayaran'] ?></strong>
 								</li>
 								<li>dengan total pembayaran <strong>Rp<?php echo $data['total_tagihan'] ?>,-</strong></li>
+								<li>Untuk biaya ongkir akan tampil dalam beberapa saat mohon tunggu, dan periksa pada halaman order</li>
 							</ol>
 							<p>
 								Jika sudah, silahkan kirim bukti pembayaran dihalaman konfirmasi

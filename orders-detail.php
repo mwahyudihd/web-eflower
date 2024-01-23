@@ -17,6 +17,7 @@ $data = mysqli_fetch_array($query);
 <html lang="en" data-bs-theme="auto">
 	<head>
 		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,6 +43,36 @@ $data = mysqli_fetch_array($query);
 
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="assets/css-native/app.css" />
+
+		<style>
+			.custom-loader {
+			width: 50px;
+			height: 50px;
+			display: grid;
+			color:#F4B916;
+			background: radial-gradient(farthest-side, currentColor calc(100% - 6px),#0000 calc(100% - 5px) 0);
+			-webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 13px),#000 calc(100% - 12px));
+			border-radius: 50%;
+			animation: s9 1s infinite linear;
+			}
+			.custom-loader::before,
+			.custom-loader::after {    
+			content:"";
+			grid-area: 1/1;
+			background:
+				linear-gradient(currentColor 0 0) center,
+				linear-gradient(currentColor 0 0) center;
+			background-size: 100% 10px,10px 100%;
+			background-repeat: no-repeat;
+			}
+			.custom-loader::after {
+			transform: rotate(45deg);
+			}
+
+			@keyframes s9 { 
+			100%{transform: rotate(1turn)}
+			}
+		</style>
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -238,9 +269,9 @@ $data = mysqli_fetch_array($query);
                             </div>
                         </div>
 						<div class="card-body">
-                            <p>Nama Penerima: <?= $data['nama_lengkap']; ?></p>
-                            <p>Telp : +62<?= $data['no_telp']; ?></p>
-                            <p>Alamat: <?= $data['alamat']; ?></p>
+                            <p>Nama Penerima: <?= $data['nama_pembeli']; ?></p>
+                            <p>Telp : +62<?= $data['nmr_telp_pembeli']; ?></p>
+                            <p>Alamat: <?= $data['alamat_pembeli']; ?></p>
                             <table class="table">
 								<thead>
 									<tr>
@@ -269,22 +300,44 @@ $data = mysqli_fetch_array($query);
 										<td class="text-center p-3">
 											<?= $status['qty']; ?>
 										</td>
-										<td class="text-center p-3">Rp<?= $data['total_tagihan']; ?>.,-</td>
+										<td class="text-center p-3">Rp<?= $data['total_tagihan']; ?>,-</td>
+										<tr>
+											<td colspan="3">Ongkir</td>
+											<td class="text-center">Rp<?= $data['ongkir']; ?>,-</td>
+										</tr>
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
-                                            <td class="text-center"><strong>Rp<?= $data['total_tagihan']; ?>,-</strong></td>
+                                            <td class="text-center"><strong>Rp<?php $ongkir = $data['ongkir']; 
+											$tagihan = $data['total_tagihan'];
+											$total_tagihan = $ongkir + $tagihan;
+											echo $total_tagihan; ?>,-</strong></td>
                                         </tr>
 									</tr>
 								</tbody>
 							</table>
 						</div>
                         <div class="card-footer">
-							<?php if($status['status'] == 'menunggu pembayaran'){ ?>
+							<?php if($status['status'] == 'menunggu pembayaran' && $data['ongkir'] != NULL){ ?>
 							<form action="orders-confirm.php" method="post">
+								<input type="number" name="total-tagihan" style="display: none;" value="<?= $total_tagihan; ?>" readonly>
 								<input type="text" name="data_order" style="display: none;" value="<?= $order_id; ?>" readonly>
 								<button type="submit" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></button>
 							</form>
-							<?php }else{ ?>
+							<?php }elseif($status['status'] == 'menunggu pembayaran'){ ?>
+								<div class="container">
+									
+									<div class="alert alert-success alert-dismissible" id="myAlert">
+										
+										<div class="custom-loader float-end"></div>
+										<a href="#" class="close btn btn-danger rounded-pill mb-4"><i class="fas fa-xmark"></i></a>
+										<strong>Perhatian !</strong> Mohon untuk menunggu..., ongkir sedang kami proses. <span class="pt-4">Terimakasih </span>
+										<p class="pt-3 float-end">@Admin</p>
+									</div>
+									
+								</div>
+								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
+							<?php }
+							else{ ?>
 								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
                             <?php } ?>
                         </div>
@@ -292,6 +345,13 @@ $data = mysqli_fetch_array($query);
 				</div>
 			</div>
 		</main>
+		<script>
+			$(document).ready(function(){
+				$(".close").click(function(){
+					$("#myAlert").alert("close");
+				});
+			});
+		</script>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 		<script src="assets/js-native/confirm.js"></script>

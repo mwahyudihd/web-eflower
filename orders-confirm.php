@@ -202,6 +202,7 @@
 
 				<?php
 				$id_data_order = $_POST['data_order']; 
+				$total_tagihan_get = $_POST['total-tagihan'];
 				?>
 				<div class="col-md-9">
 					<div class="card">
@@ -215,6 +216,7 @@
 						</div>
 
 						<form action="functions/confirm.php" method="post" enctype="multipart/form-data">
+							<input type="number" name="total-tagihan-data" style="display: none;" value="<?= $total_tagihan_get; ?>" readonly>
 							<div class="card-body">
 								<div class="form-group">
 									<label for="">Kode Transaksi: </label>

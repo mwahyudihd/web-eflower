@@ -10,6 +10,7 @@ $payment_method = $_POST['payment'];
 $tgl_bayar = $_POST['tgl-bayar'];
 $payyer = $_POST['atasnama'];
 $total_bayar = $_POST['total'];
+$total_tagihan = $_POST['total-tagihan-data'];
 $note = $_POST['description'];
 $id_generate = bin2hex(random_bytes(4));
 $id_konfirmasi = strtoupper($id_generate);
@@ -27,7 +28,7 @@ $targetFilePathData = '../' . $targetDir . $fileName;
 $fileType = $_FILES['set-image']['type'];
 $file_size = $_FILES['set-image']['size'];
 
-$query = "INSERT INTO konfirmasi VALUES ('$id_konfirmasi', '$kode_transaksi', '$current_id', '$payment_method', '$payyer', '$tgl_bayar', '$current_date', '$produkid', '$targetFilePath', '$note', '$id_pemilik_produk')";
+$query = "INSERT INTO konfirmasi VALUES ('$id_konfirmasi', '$kode_transaksi', '$current_id', '$payment_method', '$payyer', '$tgl_bayar', '$current_date', '$produkid', '$targetFilePath', '$note', '$id_pemilik_produk', '$total_bayar', '$total_tagihan')";
 
 if(move_uploaded_file($_FILES['set-image']["tmp_name"], $targetFilePathData)){
     $send_data = mysqli_query($connection, $query);

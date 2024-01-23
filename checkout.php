@@ -209,6 +209,7 @@ $data = mysqli_fetch_array($query);
 										type="text"
 										class="form-control"
 										name="name"
+										required
 										value="<?= $data['nama_lengkap'] ?>"
 										placeholder="Masukkan nama penerima" />
 										<?php if(empty($data['nama_lengkap'])) { ?>
@@ -219,6 +220,7 @@ $data = mysqli_fetch_array($query);
 								<div class="form-group">
 									<label for="">Alamat</label
 									><textarea
+										required
 										name="address"
 										id=""
 										cols="30"
@@ -235,6 +237,7 @@ $data = mysqli_fetch_array($query);
 										class="form-control"
 										value="<?php echo $data['no_telp'] ?>"
 										name="phone"
+										required
 										placeholder="Masukkan no telp aktif penerima" />
 										<?php if(empty($data['no_telp'])) { ?>
 									<small class="form-text text-danger"

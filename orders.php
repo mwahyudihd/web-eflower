@@ -37,6 +37,162 @@ include 'functions/data-connect.php';
 
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="assets/css-native/app.css" />
+		<style>
+			.progress {
+				position: relative;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				border: 1px solid #95d900;
+				box-sizing: content-box;
+			}
+
+			.progress:before,
+			.progress:after {
+				content: "";
+				position: absolute;
+				width: 1px;
+				background: #95d900;
+				border-radius: 1px;
+				transform-origin: 0.5px 0;
+			}
+
+			.progress:before {
+				height: 8px;
+				top: 10.2px;
+				left: 9.1px;
+				animation: progress-t59zy9 2.8s linear infinite;
+			}
+
+			.progress:after {
+				height: 5.3px;
+				top: 10.3px;
+				left: 9.1px;
+				animation: progress-t59zy9 16.8s linear infinite;
+			}
+
+			@keyframes progress-t59zy9 {
+				0% {
+					tranform: rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+
+			.loader {
+			transform: translateZ(1px);
+			}
+			.loader:after {
+			content: '$';
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			border-radius: 50%;
+			text-align: center;
+			line-height:15px;
+			font-size: 15px;
+			font-weight: bold;
+			background: #FFD700;
+			color: #DAA520;
+			border: 4px double ;
+			box-sizing: border-box;
+			box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+			animation: coin-flip 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+			}
+			@keyframes coin-flip {
+			0%, 100% {
+				animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+			}
+			0% {
+				transform: rotateY(0deg);
+			}
+			50% {
+				transform: rotateY(1800deg);
+				animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+			}
+			100% {
+				transform: rotateY(3600deg);
+			}
+			}
+				
+
+			.loader-confirm {
+			box-sizing: border-box;
+			display: inline-block;
+			width: 20px;
+			height: 40px;
+			border-top: 5px solid #fff;
+			border-bottom: 5px solid #fff;
+			position: relative;
+			background: linear-gradient(#FF3D00 30px, transparent 0) no-repeat;
+			background-size: 2px 40px;
+			background-position: 50% 0px;
+			animation: spinx 5s linear infinite;
+			}
+			.loader-confirm:before, .loader-confirm:after {
+			content: "";
+			width: 40px;
+			left: 50%;
+			height: 35px;
+			position: absolute;
+			top: 0;
+			transform: translatex(-50%);
+			background: rgba(255, 255, 255, 0.4);
+			border-radius: 0 0 20px 20px;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-position: 0 0px;
+			animation: lqt 5s linear infinite;
+			}
+			.loader-confirm:after {
+			top: auto;
+			bottom: 0;
+			border-radius: 20px 20px 0 0;
+			animation: lqb 5s linear infinite;
+			}
+			@keyframes lqt {
+			0%, 100% {
+				background-image: linear-gradient(#FF3D00 40px, transparent 0);
+				background-position: 0% 0px;
+			}
+			50% {
+				background-image: linear-gradient(#FF3D00 40px, transparent 0);
+				background-position: 0% 40px;
+			}
+			50.1% {
+				background-image: linear-gradient(#FF3D00 40px, transparent 0);
+				background-position: 0% -40px;
+			}
+			}
+			@keyframes lqb {
+			0% {
+				background-image: linear-gradient(#FF3D00 40px, transparent 0);
+				background-position: 0 40px;
+			}
+			100% {
+				background-image: linear-gradient(#FF3D00 40px, transparent 0);
+				background-position: 0 -40px;
+			}
+			}
+			@keyframes spinx {
+			0%, 49% {
+				transform: rotate(0deg);
+				background-position: 50% 36px;
+			}
+			51%, 98% {
+				transform: rotate(180deg);
+				background-position: 50% 4px;
+			}
+			100% {
+				transform: rotate(360deg);
+				background-position: 50% 36px;
+			}
+			}
+    
+				
+		</style>
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -216,6 +372,7 @@ include 'functions/data-connect.php';
 										<th>Tanggal Pesan</th>
 										<th>Total Tagihan</th>
 										<th>Status</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -232,7 +389,7 @@ include 'functions/data-connect.php';
 											>
 										</td>
 										<td><?= $data['time_info']; ?></td>
-										<td>Rp<?= $data['total_tagihan']; ?>,-</td>
+										<td>Rp<?= $data['total_tagihan'] + $data['ongkir']; ?>,-</td>
 										<td>
 											<span class="badge <?php
 											if($data['status'] == 'menunggu pembayaran'){
@@ -255,6 +412,15 @@ include 'functions/data-connect.php';
 											 rounded-pill text-dark"
 												><?= $data['status']; ?></span
 											>
+										</td>
+										<td>
+											<?php if($data['ongkir'] == NULL){ ?>
+												<div class="progress"></div>
+											<?php } elseif ($data['ongkir'] != NULL && $data['status'] == 'menunggu pembayaran'){ ?>
+												<div class="loader"></div>
+											<?php } else { ?>
+												<div class="loader-confirm"></div>
+											<?php } ?>
 										</td>
 									</tr>
 									<?php	}}else{ 
