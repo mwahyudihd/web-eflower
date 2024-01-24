@@ -230,7 +230,7 @@ $link_poto = $dt_user[5];
                     <li class="nav-item">
 
                         <a class="nav-link" href="profile.php">
-                            <?php echo $_SESSION['nama'] ?>
+                            <?php echo $_SESSION['nama_lengkap'] ?>
                         </a>
                     </li>
                     <li class="nav-item">

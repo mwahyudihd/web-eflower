@@ -1,3 +1,7 @@
+<?php
+session_start();
+$default_rekening = $_SESSION['no-rek'];
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
@@ -236,6 +240,11 @@
 										<option value="e-wallet">E-Wallet</option>
 										<option value="m-banking">Mobile Banking</option>
 									</select>
+								</div>
+								<div class="form-group">
+									<label for="no-rek">No Rekening/VA Pembayar:</label>
+									<input type="text" class="form-control" name="no-rek-data" value="<?= $default_rekening; ?>" required>
+									<small class="text-danger">EX. 0000000000(DANA)</small>
 								</div>
 								<div class="form-group">
 									<label for="">Tanggal Bayar: </label>

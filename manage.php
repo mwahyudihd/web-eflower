@@ -213,7 +213,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                     } else {
                                         echo NULL;
                                     }
-                                     ?>" <required>
+                                     ?>" required>
                                 </div>
                                 <div class="form-group">
                                      </required>

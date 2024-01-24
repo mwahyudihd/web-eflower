@@ -1,19 +1,34 @@
+<?php 
+include '../functions/data-connect.php';
+session_start();
+if (isset($_SESSION["user_mail"]) != NULL) {
+    if ($_SESSION["role"] != 'admin') {
+        header("location: ../index.php");
+        exit;
+    }
+}
+else if (isset($_SESSION["user_mail"]) == NULL){
+    header('location: ../index.php');
+    exit;
+}
+
+$query_data = "SELECT * FROM pembayaran JOIN cart ON pembayaran.no_pembayaran = cart.orderid";
+$get_data = mysqli_query($connection, $query_data);
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-		<script src="/assets/libs/bootstrap/js/color-modes.js"></script>
+		<script src="../assets/libs/bootstrap/js/color-modes.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-		<meta
-			name="author"
-			content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-		<meta name="generator" content="Hugo 0.118.2" />
-		<title>Orders - Eflower</title>
+		<title>Order</title>
 
 		<link
 			rel="canonical"
@@ -24,37 +39,14 @@
 			href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
 		<link
-			href="/assets/libs/bootstrap/css/bootstrap.min.css"
+			href="../assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
 		<!-- fontawesome CSS -->
-		<link rel="stylesheet" href="/assets/libs/fontawesome/css/all.min.css" />
-
-		<!-- Favicons -->
-		<link
-			rel="apple-touch-icon"
-			href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-			sizes="180x180" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-			sizes="32x32"
-			type="image/png" />
-		<link
-			rel="icon"
-			href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-			sizes="16x16"
-			type="image/png" />
-		<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-		<link
-			rel="mask-icon"
-			href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-			color="#712cf9" />
-		<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
-		<meta name="theme-color" content="#712cf9" />
+		<link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css" />
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" href="/assets/css-native/app.css" />
+		<link rel="stylesheet" href="../assets/css-native/app.css" />
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -144,7 +136,7 @@
 
 		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -160,7 +152,7 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="#">Home</a>
+							<a class="nav-link active" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -173,11 +165,9 @@
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
+								<a href="admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin-users.php" class="dropdown-item">Pengguna</a>
 							</div>
 						</li>
 					</ul>
@@ -187,13 +177,10 @@
 								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
 							>
 						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
-						</li>
 						<li class="nav-item dropdown">
 							<a
 								href="#"
-								class="nav-link dropdown-toggle active"
+								class="nav-link dropdown-toggle"
 								id="dropdown-2"
 								data-bs-toggle="dropdown"
 								aria-haspopup="true"
@@ -201,9 +188,8 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item active">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="../profile.php" class="dropdown-item">Profile</a>
+								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -213,92 +199,129 @@
 
 		<main role="main" class="container">
 			<div class="row">
-				<div class="col-md-10 mx-auto">
-                    <div class="col-md-12">
-						<div class="card">
-                            <div class="card-header bg-leaf">Detail Order #234567890
-                            <div class="float-end">
-                                <span class="badge bg-warning text-dark badge-pill rounded-pill">Menunggu Pembayaran</span>
-                            </div>
-                        </div>
-						<div class="card-body">
-                            <p>Nama: Nama_penerima</p>
-                            <p>Telp : 081234567890</p>
-                            <p>Alamat: Jl.Abc, Blok01, No.123, Nama_kota</p>
-                            <table class="table">
-								<thead>
-									<tr>
-										<th scope="col">Produk</th>
-										<th scope="col" class="text-center">Harga</th>
-										<th scope="col" class="text-center">Jumlah</th>
-										<th scope="col" class="text-center">Subtotal</th>
-										<th scope="col"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td scope="row">
-											<p>
-												<img src="https://placehold.co/50x50" alt="" />
-												<strong class="ms-3">Nama Produk</strong>
-											</p>
-										</td>
-										<td class="p-3 text-center">Rp100.000,-</td>
-										<td class="text-center p-3">
-											1
-										</td>
-										<td class="text-center p-3">Rp100.000,-</td>
-                                        <tr>
-                                            <td colspan="3"><strong>Total</strong></td>
-                                            <td class="text-center"><strong>Rp100.000,-</strong></td>
-                                        </tr>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="card-footer">
-							<form action="#">
-								<div class="input-group">
-									<select name="" id="" class="form-control">
-										<option value="wait">Menunggu pembayaran</option>
-										<option value="paid">Dibayar</option>
-										<option value="delivered">Dikirim</option>
-										<option value="cencel">Dibatalkan</option>
-									</select>
-									<div class="input-group p-2">
-										<button type="submit" class="btn btn-success">Update<i class="fas fa-paper-plane p-1"></i></button>
-									</div>
+				<div class="container-fluid">
+					<div class="col-md-10 mx-auto">
+						<div class="card float-center">
+							<div class="card-header bg-leaf">
+								<span>Order</span>
+								<div class="float-end">
+									<form action="#">
+										<div class="input-group">
+											<input
+												type="text"
+												class="form-control form-control-sm text-center"
+												placeholder="Cari" />
+											<div class="input-group-append">
+												<button type="submit" class="btn btn-secondary btn-sm">
+													<i class="fas fa-search"></i>
+												</button>
+												<a href="#" class="btn btn-secondary btn-sm">
+													<i class="fas fa-eraser"></i>
+												</a>
+											</div>
+										</div>
+									</form>
 								</div>
-							</form>
+							</div>
+							<div class="card-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Nomor</th>
+											<th scope="col">Tanggal</th>
+											<th scope="col">Total</th>
+											<th scope="col">Status</th>
+											<th scope="col">Ongkir</th>
+											<th scope="col"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										$row = mysqli_num_rows($get_data);
+										if($row > 0){
+											while($set_data = mysqli_fetch_array($get_data)){
+										?>
+										<tr>
+											<td>
+												<a class="non-deco" href="admin-orders-detail.php?orderid=<?= $set_data['no_pembayaran']; ?>"
+													>#<?= $set_data['no_pembayaran']; ?></a
+												>
+											</td>
+											<td><?= $set_data['time_info']; ?></td>
+											<td>Rp<?= $set_data['total_tagihan'] + $set_data['ongkir']; ?>,-</td>
+											<td>
+											<span class="badge <?php
+												if($set_data['status'] == 'menunggu pembayaran'){
+														echo 'bg-warning text-dark';
+													}else if($set_data['status'] == 'menunggu konfirmasi'){
+														echo 'bg-secondary text-white';
+													}else if($set_data['status'] == 'dikonfirmasi'){
+														echo 'bg-primary text-white';
+													}else if($set_data['status'] == 'dalam pengiriman'){
+														echo 'bg-info text-dark';
+													}else if($set_data['status'] == 'selesai'){
+														echo 'bg-success text-white';
+													}else if($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan admin' || $data['status'] == 'dibatalkan penjual'){
+														echo 'bg-danger text-white';
+													}else{
+														echo 'bg-light text-dark';
+													}
+													?>
+
+											 rounded-pill text-dark"
+												><?= $set_data['status']; ?></span
+											>
+											</td>
+											<form action="../functions/send-ongkir.php" method="post">
+												<div class="input-group">
+													<td>
+														<input type="text" name="nobayar" value="<?= $set_data['no_pembayaran']?>" id="" hidden readonly>
+														<input type="number" class="form-control" name="ongkir" value="<?= $set_data['ongkir']; ?>">
+													</td>
+													<td>
+														<button type="submit" class="btn btn-success"><i class="fas fa-circle-check"></i></button>
+													</td>
+												</div>
+											</form>
+										</tr>
+										<?php }} ?>
+									</tbody>
+								</table>
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item">
+											<a class="page-link" href="#">Previous</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="#">1</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="#">2</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="#">3</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="#">Next</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
 						</div>
 					</div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-8 mt-2">
-							<div class="card">
-								<div class="card-header">
-									Bukti Pembayaran
-								</div>
-								<div class="card-body">
-									<p>Dari Rekening : 234567890</p>
-									<p>Atas Nama : Eflower_user</p>
-									<p>Nominal : Rp100.000,-</p>
-									<p>catatan : -</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 mt-2">
-							<div class="card">
-								<div class="card-body"><img src="https://placehold.co/150x200" alt=""></div>
-								
-							</div>
-							
-						</div>
-                    </div>
 				</div>
 			</div>
 		</main>
-		<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<?php if(isset($_GET['success'])): ?>
+			<script>
+				alert("Data berhasil dikirim");
+				var currentURL = window.location.href;
+                var urlWithoutAdmin = currentURL.split('?')[0];
+                window.location.href = urlWithoutAdmin;
+			</script>
+		<?php endif; ?>
+		<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="../assets/js-native/confirm.js"></script>
 	</body>
 </html>

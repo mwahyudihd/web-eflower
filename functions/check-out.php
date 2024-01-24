@@ -23,7 +23,7 @@ if($query_to_users){
     $select_data_toko = mysqli_fetch_array($query_to_order);
 
     $no_bayar = $order_id;
-    $id_user_toko = $select_data_toko['13'];
+    $id_user_toko = $select_data_toko['id_pemilik'];
     $current_user = $user_key;
     $rek = $select_data_toko['no_rek'];
     $nama_toko = $select_data_toko['nama_user'];

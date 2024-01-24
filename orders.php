@@ -38,6 +38,67 @@ include 'functions/data-connect.php';
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="assets/css-native/app.css" />
 		<style>
+			.send {
+			position: relative;
+			width: 32.5px; /* reduced to 50% */
+			height: 25px; /* reduced to 50% */
+			background-repeat: no-repeat;
+			background-image: linear-gradient(#0277bd, #0277bd),
+			linear-gradient(#29b6f6, #4fc3f7), linear-gradient(#29b6f6, #4fc3f7);
+			background-size: 20px 17.5px, 7.5px 12.5px, 7.5px 7.5px; /* reduced to 50% */
+			background-position: 0 0, 20px 5px, 25px 10px; /* reduced to 50% */
+			}
+
+			.send:after {
+			content: "";
+			position: absolute;
+			bottom: 2.5px; /* reduced to 50% */
+			left: 3px; /* reduced to 50% */
+			width: 2.5px; /* reduced to 50% */
+			height: 2.5px; /* reduced to 50% */
+			background: #fff;
+			border-radius: 50%;
+			box-sizing: content-box;
+			border: 2.5px solid #000; /* reduced to 50% */
+			box-shadow: 19.5px 0 0 -2.5px #fff, 19.5px 0 #000; /* reduced to 50% */
+			animation: wheelSk 0.75s ease-in infinite alternate;
+			}
+
+			.send:before {
+			content: "";
+			position: absolute;
+			right: 100%;
+			top: 0px;
+			height: 17.5px; /* reduced to 50% */
+			width: 17.5px; /* reduced to 50% */
+			background-image: linear-gradient(#fff 11.25px, transparent 0),
+				linear-gradient(#fff 11.25px, transparent 0),
+				linear-gradient(#fff 11.25px, transparent 0); /* reduced to 50% */
+			background-repeat: no-repeat;
+			background-size: 7.5px 1px; /* reduced to 50% */
+			background-position: 0px 2.75px, 2px 8.75px, 0px 15px; /* reduced to 50% */
+			animation: lineDropping 0.75s linear infinite;
+			}
+
+			@keyframes wheelSk {
+			0%, 50%, 100% { transform: translatey(0) }
+			30%, 90% { transform: translatey(-0.75px) } /* reduced to 50% */
+			}
+
+			@keyframes lineDropping {
+			0% {
+				background-position: 25px 2.75px, 28.75px 8.75px, 26.25px 15px; /* reduced to 50% */
+				opacity: 1;
+			}
+			50% { background-position: 0px 2.75px, 5px 8.75px, 1.25px 15px } /* reduced to 50% */
+			60% { background-position: -7.5px 2.75px, 0px 8.75px, -2.5px 15px } /* reduced to 50% */
+			75%, 100% {
+				background-position: -7.5px 2.75px, -7.5px 8.75px, -7.5px 15px; /* reduced to 50% */
+				opacity: 0;
+			}
+			}
+
+
 			.progress {
 				position: relative;
 				width: 20px;
@@ -191,6 +252,65 @@ include 'functions/data-connect.php';
 			}
 			}
     
+			.box {
+			width: 24px; /* reduced to 50% */
+			height: 24px; /* reduced to 50% */
+			display: inline-block;
+			position: relative;
+			}
+			.box::before {
+			content: '';  
+			box-sizing: border-box;
+			width: 12px; /* reduced to 50% */
+			height: 12px; /* reduced to 50% */
+			position: absolute;
+			left: 0;
+			top: -12px; /* reduced to 50% */
+			animation: animloader1 2s linear infinite alternate;
+			}
+			.box::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 12px; /* reduced to 50% */
+			height: 12px; /* reduced to 50% */
+			background: rgba(255, 255, 255, 0.85);
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); /* reduced to 50% */
+			box-sizing: border-box;
+			animation: animloader2 2s linear infinite alternate;
+			}
+
+			@keyframes animloader1 {
+			0%, 32% {
+				box-shadow: 0 12px white, 12px 12px rgba(255, 255, 255, 0), 12px 24px rgba(255, 255, 255, 0), 0px 24px rgba(255, 255, 255, 0); /* reduced to 50% */
+			}
+			33%, 65% {
+				box-shadow: 0 12px white, 12px 12px white, 12px 24px rgba(255, 255, 255, 0), 0px 24px rgba(255, 255, 255, 0); /* reduced to 50% */
+			}
+			66%, 99% {
+				box-shadow: 0 12px white, 12px 12px white, 12px 24px white, 0px 24px rgba(255, 255, 255, 0); /* reduced to 50% */
+			}
+			100% {
+				box-shadow: 0 12px white, 12px 12px white, 12px 24px white, 0px 24px white; /* reduced to 50% */
+			}
+			}
+
+			@keyframes animloader2 {
+			0% {
+				transform: translate(0, 0) rotateX(0) rotateY(0);
+			}
+			33% {
+				transform: translate(50%, 0) rotateX(0) rotateY(180deg); /* reduced to 50% */
+			}
+			66% {
+				transform: translate(50%, 50%) rotateX(-180deg) rotateY(180deg); /* reduced to 50% */
+			}
+			100% {
+				transform: translate(50%, 50%) rotateX(-180deg) rotateY(360deg); /* reduced to 50% */
+			}
+			}
+
 				
 		</style>
 	</head>
@@ -392,22 +512,22 @@ include 'functions/data-connect.php';
 										<td>Rp<?= $data['total_tagihan'] + $data['ongkir']; ?>,-</td>
 										<td>
 											<span class="badge <?php
-											if($data['status'] == 'menunggu pembayaran'){
-												echo 'bg-warning';
-											}else if($data['status'] == 'menunggu konfirmasi'){
-												echo 'bg-secondary';
-											}else if($data['status'] == 'dikonfirmasi'){
-												echo 'bg-primary';
-											}else if($data['status'] == 'dalam pengiriman'){
-												echo 'bg-info';
-											}else if($data['status'] == 'selesai'){
-												echo 'bg-success';
-											}else if($data['status'] == 'dibatalkan'){
-												echo 'bg-danger';
-											}else{
-												echo 'bg-light';
-											}
-											 ?>
+												if($data['status'] == 'menunggu pembayaran'){
+														echo 'bg-warning text-dark';
+													}else if($data['status'] == 'menunggu konfirmasi'){
+														echo 'bg-secondary text-white';
+													}else if($data['status'] == 'dikonfirmasi'){
+														echo 'bg-primary text-white';
+													}else if($data['status'] == 'dalam pengiriman'){
+														echo 'bg-info text-dark';
+													}else if($data['status'] == 'selesai'){
+														echo 'bg-success text-white';
+													}else if($data['status'] == 'dibatalkan' || $data['status'] == 'dibatalkan admin' || $data['status'] == 'dibatalkan penjual'){
+														echo 'bg-danger text-white';
+													}else{
+														echo 'bg-light text-dark';
+													}
+													?>
 
 											 rounded-pill text-dark"
 												><?= $data['status']; ?></span
@@ -418,8 +538,12 @@ include 'functions/data-connect.php';
 												<div class="progress"></div>
 											<?php } elseif ($data['ongkir'] != NULL && $data['status'] == 'menunggu pembayaran'){ ?>
 												<div class="loader"></div>
-											<?php } else { ?>
+											<?php } elseif ($data['status'] == 'menunggu konfirmasi') { ?>
 												<div class="loader-confirm"></div>
+											<?php } elseif ($data['status'] == 'dikirim') { ?>
+												<div class="send"></div>
+											<?php } elseif ($data['status'] == 'dikemas') { ?>
+												<div class="box"></div>
 											<?php } ?>
 										</td>
 									</tr>

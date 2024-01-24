@@ -200,7 +200,7 @@ $link_poto = $dt_user[5];
 
     <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
         <div class="container-fluid container">
-            <a class="navbar-brand text-leaf fw-bolder" href="#">E<span class="text-white">flower</span></a>
+            <a class="navbar-brand text-leaf fw-bolder" href=".">E<span class="text-white">flower</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -216,8 +216,8 @@ $link_poto = $dt_user[5];
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
                             <a href="/admin-category.html" class="dropdown-item">Kategori</a>
                             <a href="admin-product.php" class="dropdown-item">Produk</a>
-                            <a href="/admin-order.html" class="dropdown-item">Order</a>
-                            <a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+                            <a href="admin-order.php" class="dropdown-item">Order</a>
+                            <a href="admin-users.html" class="dropdown-item">Pengguna</a>
                         </div>
                     </li>
                 </ul>
