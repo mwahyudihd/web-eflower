@@ -24,7 +24,7 @@ $password = $_POST['passReg'];
 //encrypt password
 $end_pw = md5($password);
 
-$setquery = mysqli_query($connection, "INSERT INTO users VALUES ('$id_generate', null, '$end_pw', 'user', '$mail', null, '$no_telp', '$nm_lengkap', '$address', '$no_rek')");
+$setquery = mysqli_query($connection, "INSERT INTO users VALUES ('$id_generate', null, '$end_pw', 'user', '$mail', null, '$no_telp', '$nm_lengkap', '$address', '$no_rek', 'aktif')");
 
 header ("location: ../form.php?new-login");
 ?>

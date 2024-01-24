@@ -140,7 +140,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 					</div>
 
 					<div class="mt-2 form-floating">
-						<input class="form-control" type="text" placeholder="rek" name="no-rek" maxlength="20" required />
+						<input class="form-control" type="text" value="0000000000000(Nama_E-Wallet/Nama_Bank)" placeholder="rek" name="no-rek" maxlength="20" required />
 						<label for="no-rek" class="text-dark">No Rekening</label>
 					</div>
 

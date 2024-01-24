@@ -117,41 +117,41 @@ include 'functions/data-connect.php';
 			}
 			}
 				
-
 			.loader-confirm {
-			box-sizing: border-box;
-			display: inline-block;
-			width: 20px;
-			height: 40px;
-			border-top: 5px solid #fff;
-			border-bottom: 5px solid #fff;
-			position: relative;
-			background: linear-gradient(#FF3D00 30px, transparent 0) no-repeat;
-			background-size: 2px 40px;
-			background-position: 50% 0px;
-			animation: spinx 5s linear infinite;
+				box-sizing: border-box;
+				display: inline-block;
+				width: 16px;  
+				height: 20px;  
+				border-top: 2.5px solid #fff;  
+				border-bottom: 2.5px solid #fff;  
+				position: relative;
+				background: linear-gradient(#FF3D00 15px, transparent 0) no-repeat;  
+				background-size: 1px 20px;  
+				background-position: 50% 0px;
+				animation: spinx 5s linear infinite;
 			}
 			.loader-confirm:before, .loader-confirm:after {
-			content: "";
-			width: 40px;
-			left: 50%;
-			height: 35px;
-			position: absolute;
-			top: 0;
-			transform: translatex(-50%);
-			background: rgba(255, 255, 255, 0.4);
-			border-radius: 0 0 20px 20px;
-			background-size: 100% auto;
-			background-repeat: no-repeat;
-			background-position: 0 0px;
-			animation: lqt 5s linear infinite;
+				content: "";
+				width: 18px;
+				left: 50%;
+				height: 8.3px; 
+				position: absolute;
+				top: 0;
+				transform: translatex(-50%);
+				background: rgba(255, 255, 255, 0.4);
+				border-radius: 0 0 10px 10px; 
+				background-size: 100% auto;
+				background-repeat: no-repeat;
+				background-position: 0 0px;
+				animation: lqt 5s linear infinite;
 			}
 			.loader-confirm:after {
-			top: auto;
-			bottom: 0;
-			border-radius: 20px 20px 0 0;
-			animation: lqb 5s linear infinite;
+				top: auto;
+				bottom: 0;
+				border-radius: 10px 10px 0 0; 
+				animation: lqb 5s linear infinite;
 			}
+
 			@keyframes lqt {
 			0%, 100% {
 				background-image: linear-gradient(#FF3D00 40px, transparent 0);
