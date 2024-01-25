@@ -33,7 +33,12 @@ $query = "INSERT INTO konfirmasi VALUES ('$id_konfirmasi', '$kode_transaksi', '$
 
 if(move_uploaded_file($_FILES['set-image']["tmp_name"], $targetFilePathData)){
     $send_data = mysqli_query($connection, $query);
-    header("location: ../orders.php?success");
+    if($send_data){
+        header("location: ../orders.php?success");
+    }else{
+        echo mysqli_error($connection);
+    }
+    
 }else{
     echo '<h1>';
     echo mysqli_error($connection);

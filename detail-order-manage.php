@@ -1,28 +1,28 @@
 <?php
 include 'functions/data-connect.php';
 session_start();
-$sesi_id = $_SESSION['id'];
-$order_id = $_GET['order'];
-$query = mysqli_query($connection, "SELECT * FROM pembayaran JOIN users ON pembayaran.id_user = users.id_user
-JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid
-JOIN produk ON detailorder.id_produk = produk.id_produk WHERE pembayaran.no_pembayaran = '$order_id'
-");
-$query_stat = mysqli_query($connection, "SELECT * FROM cart JOIN detailorder ON cart.orderid = detailorder.orderid WHERE cart.orderid = '$order_id'");
+$get_order_id = $_GET['orderid'];
+$query_set = mysqli_query($connection, "SELECT * FROM pembayaran JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid
+JOIN users ON pembayaran.id_user_toko = users.id_user
+JOIN produk ON detailorder.id_produk = produk.id_produk
+JOIN cart ON pembayaran.no_pembayaran = cart.orderid WHERE pembayaran.no_pembayaran = '$get_order_id'");
 
-$status = mysqli_fetch_array($query_stat);
-$data = mysqli_fetch_array($query);
+$konfirmasi_get_data = mysqli_query($connection, "SELECT * FROM konfirmasi WHERE orderid = '$get_order_id'");
+
+$data_bukti = mysqli_fetch_array($konfirmasi_get_data);
+$data = mysqli_fetch_array($query_set);
 ?>
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 		<script src="assets/libs/bootstrap/js/color-modes.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="" />
-
 		<title>Orders - Eflower</title>
 
 		<link
@@ -40,39 +40,8 @@ $data = mysqli_fetch_array($query);
 		<!-- fontawesome CSS -->
 		<link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
-
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="assets/css-native/app.css" />
-
-		<style>
-			.custom-loader {
-			width: 50px;
-			height: 50px;
-			display: grid;
-			color:#F4B916;
-			background: radial-gradient(farthest-side, currentColor calc(100% - 6px),#0000 calc(100% - 5px) 0);
-			-webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 13px),#000 calc(100% - 12px));
-			border-radius: 50%;
-			animation: s9 1s infinite linear;
-			}
-			.custom-loader::before,
-			.custom-loader::after {    
-			content:"";
-			grid-area: 1/1;
-			background:
-				linear-gradient(currentColor 0 0) center,
-				linear-gradient(currentColor 0 0) center;
-			background-size: 100% 10px,10px 100%;
-			background-repeat: no-repeat;
-			}
-			.custom-loader::after {
-			transform: rotate(45deg);
-			}
-
-			@keyframes s9 { 
-			100%{transform: rotate(1turn)}
-			}
-		</style>
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -162,7 +131,7 @@ $data = mysqli_fetch_array($query);
 
 		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
-				<a class="navbar-brand text-leaf fw-bolder" href="#"
+				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
 				>
 				<button
@@ -191,24 +160,17 @@ $data = mysqli_fetch_array($query);
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="admin-product.html" class="dropdown-item">Produk</a>
-								<a href="admin-order.html" class="dropdown-item">Order</a>
+								<a href="admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin-order.php" class="dropdown-item">Order</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
-						<?php
-						
-						include 'functions/cart-num.php'; ?>
 						<li class="nav-item">
-							<a href="cart.php" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array; ?></span>)</a
+							<a href="/cart.html" class="nav-link"
+								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
 							>
 						</li>
-
 						<li class="nav-item dropdown">
 							<a
 								href="#"
@@ -220,9 +182,8 @@ $data = mysqli_fetch_array($query);
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="profile.php" class="dropdown-item">Profile</a>
-								<a href="orders.php" class="dropdown-item active">Orders</a>
-								<a onclick="logOut()" class="dropdown-item">Logout</a>
+								<a href="../profile.html" class="dropdown-item">Profile</a>
+								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -230,61 +191,47 @@ $data = mysqli_fetch_array($query);
 			</div>
 		</nav>
 
-		<?php 
-		$get_catatan = mysqli_query($connection, "SELECT * FROM konfirmasi WHERE orderid = '$order_id'");
-		$set_data = mysqli_fetch_array($get_catatan);
-		?>
-
 		<main role="main" class="container">
 			<div class="row">
-				<div class="col-md-3">
-					<div class="card mb-3">
-						<div class="card-header bg-leaf">Menu</div>
-						<div class="list-group list-group-flush">
-							<li class="list-group-item">
-								<a href="profile.php" class="non-deco">Profile</a>
-							</li>
-							<li class="list-group-item">
-								<a href="orders.php" class="non-deco active">Order</a>
-							</li>
-						</div>
-						<div class="card-header">
-							CATATAN PENJUAL :
-						</div>
-						<div class="card-body">
-							<?php if(!empty($set_data['catatan_penjual'])) { ?>
-								<p><?= $set_data['catatan_penjual']; ?></p>
-							<?php } ?>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-9">
-					<div class="card">
-						<div class="card-header bg-leaf">Detail Order #<?= $data['no_pembayaran']; ?>
+				<div class="col-md-10 mx-auto">
+                    <div class="col-md-12">
+						<div class="card">
+                            <div class="card-header bg-leaf">Detail Order #<?= $data['orderid']; ?>
                             <div class="float-end">
                                 <span class="badge <?php
-											if($status['status'] == 'menunggu pembayaran'){
-												echo 'bg-warning';
-											}else if($status['status'] == 'menunggu konfirmasi'){
-												echo 'bg-secondary';
-											}else if($status['status'] == 'dikonfirmasi'){
-												echo 'bg-primary';
-											}else if($status['status'] == 'dalam pengiriman'){
-												echo 'bg-info';
-											}else if($status['status'] == 'selesai'){
-												echo 'bg-success';
-											}else if($status['status'] == 'dibatalkan'){
-												echo 'bg-danger';
-											}else{
-												echo 'bg-light';
-											}
-											 ?> text-dark badge-pill rounded-pill"><?= $status['status']; ?></span>
+								if($data['status'] == 'menunggu pembayaran'){
+										echo 'bg-warning text-dark';
+									}else if($data['status'] == 'menunggu konfirmasi'){
+										echo 'bg-secondary text-white';
+									}else if($data['status'] == 'dikonfirmasi'){
+										echo 'bg-primary text-white';
+									}else if($data['status'] == 'dalam pengiriman'){
+										echo 'bg-info text-dark';
+									}else if($data['status'] == 'selesai'){
+										echo 'bg-success text-white';
+									}else if($data['status'] == 'dibatalkan' || $data['status'] == 'dibatalkan admin' || $data['status'] == 'dibatalkan penjual'){
+										echo 'bg-danger text-white';
+									}else{
+										echo 'bg-light text-dark';
+									}
+									 ?> badge-pill rounded-pill"><?= $data['status']; ?></span>
                             </div>
                         </div>
 						<div class="card-body">
-                            <p>Nama Penerima: <?= $data['nama_pembeli']; ?></p>
-                            <p>Telp : +62<?= $data['nmr_telp_pembeli']; ?></p>
-                            <p>Alamat: <?= $data['alamat_pembeli']; ?></p>
+							<div class="d-flex">
+								<div class="col-md-5 card-body border">
+									<p>Nama Pemesan: <?= $data['nama_pembeli']; ?></p>
+									<p>Telp : <?= $data['nmr_telp_pembeli']; ?></p>
+									<p>Alamat: <?= $data['alamat_pembeli']; ?></p>
+								</div>
+								<div class="col-md-6 float-end mb-5 m-3">
+									<p class="text-left">Nama Penjual: <?= $data['nama_user'];?></p>
+									<p class="text-left">Alamat Penjual: <?= $data['alamat'];?></p>
+								</div>
+							</div>
+							
+							
+                            
                             <table class="table">
 								<thead>
 									<tr>
@@ -292,79 +239,90 @@ $data = mysqli_fetch_array($query);
 										<th scope="col" class="text-center">Harga</th>
 										<th scope="col" class="text-center">Jumlah</th>
 										<th scope="col" class="text-center">Subtotal</th>
-										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td scope="row">
-											<p>
-											<img src="<?php
-                                                    if(!empty($data['gambar'])){
-                                                        echo $data['gambar'];
-                                                    }else{
-                                                        echo 'https://placehold.co/50x50';
-                                                    }?>
-                                                    " alt="" width="50" height="50" /> 
+											<p><a href="../<?= $data['gambar']; ?>">
+												<?php if(empty($data['gambar'])) { ?>
+													<img src="https://placehold.co/50x50" alt="produk" />
+												<?php } else { ?>
+													<img src="<?= $data['gambar']; ?>" height="70"width="70" alt="produk">
+												<?php } ?>
+												</a>
 												<strong class="ms-3"><?= $data['nama_produk']; ?></strong>
 											</p>
 										</td>
 										<td class="p-3 text-center">Rp<?= $data['harga']; ?>,-</td>
 										<td class="text-center p-3">
-											<?= $status['qty']; ?>
+											<?= $data['15']; ?>
 										</td>
-										<td class="text-center p-3">Rp<?= $data['total_tagihan']; ?>,-</td>
+										<td class="p-3 text-center">
+											<p>Rp.<?= $data['total_tagihan']; ?>,-</p>
+										</td>
 										<tr>
-											<td colspan="3">Ongkir</td>
-											<td class="text-center">Rp<?= $data['ongkir']; ?>,-</td>
+											<td colspan="3"><strong>Ongkir</strong></td>
+											<td class="text-center p-3">Rp<?= $data['ongkir']; ?>,-</td>
 										</tr>
+										
                                         <tr>
                                             <td colspan="3"><strong>Total</strong></td>
-                                            <td class="text-center"><strong>Rp<?php $ongkir = $data['ongkir']; 
-											$tagihan = $data['total_tagihan'];
-											$total_tagihan = $ongkir + $tagihan;
-											echo $total_tagihan; ?>,-</strong></td>
+                                            <td class="text-center"><strong>Rp<?= $data['total_tagihan'] + $data['ongkir']; ?>,-</strong></td>
                                         </tr>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-                        <div class="card-footer">
-							<?php if($status['status'] == 'menunggu pembayaran' && $data['ongkir'] != NULL){ ?>
-							<form action="orders-confirm.php" method="post">
-								<input type="number" name="total-tagihan" style="display: none;" value="<?= $total_tagihan; ?>" readonly>
-								<input type="text" name="data_order" style="display: none;" value="<?= $order_id; ?>" readonly>
-								<button type="submit" class="btn btn-success">Konfirmasi Pembayaran <i class="fas fa-money-check"></i></button>
-							</form>
-							<?php }elseif($status['status'] == 'menunggu pembayaran'){ ?>
-								<div class="container">
-									
-									<div class="alert alert-success alert-dismissible" id="myAlert">
-										
-										<div class="custom-loader float-end"></div>
-										<a href="#" class="close btn btn-danger rounded-pill mb-4"><i class="fas fa-xmark"></i></a>
-										<strong>Perhatian !</strong> Mohon untuk menunggu..., ongkir sedang kami proses. <span class="pt-4">Terimakasih </span>
-										<p class="pt-3 float-end">@Admin</p>
+						<div class="card-footer">
+							<form action="functions/seller-notes.php" method="post">
+								<div class="input-group">
+									<input type="text" name="orderid" hidden readonly value="<?= $get_order_id; ?>">
+									<textarea name="note" id="" cols="10" rows="5" class="form-control"></textarea>
+									<div class="input-group p-2">
+										<button type="submit" class="btn btn-success">Update<i class="fas fa-paper-plane p-1"></i></button>
 									</div>
-									
 								</div>
-								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
-							<?php }
-							else{ ?>
-								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
-                            <?php } ?>
-                        </div>
+							</form>
+						</div>
 					</div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-8 mt-2">
+							<div class="card">
+								<div class="card-header">
+									Bukti Pembayaran
+								</div>
+								<?php if(isset($data_bukti) != NULL){ ?>
+									<div class="card-body m-4">
+										<p>Dari Rekening : <?= $data_bukti['no_rek_pembayar']; ?></p>
+										<p>Atas Nama : <?= $data_bukti['namarekening']; ?></p>
+										<p>Nominal : Rp.<?= $data_bukti['total_bayar']; ?>,-</p>
+										<p>catatan : <?= $data_bukti['catatan']; ?></p>
+									</div>
+								<?php } else { ?>
+									<div class="card-body"><h3 class="text-center m-5">Pembeli Belum Mengkonfirmasi Pembayaran</h3></div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="col-md-4 mt-2">
+							<div class="card">
+								<div class="card-body">
+									<a href="<?= $data_bukti['bukti']; ?>">
+									<?php if(empty($data_bukti['bukti'])) { ?>
+										<img src="https://placehold.co/255x260" alt="produk" />
+									<?php } else { ?>
+										<img src="<?= $data_bukti['bukti']; ?>" height="260"width="220" class="m-2" alt="produk">
+									<?php } ?>
+									</a>
+								</div>
+							</div>
+							
+						</div>
+                    </div>
 				</div>
 			</div>
 		</main>
-		<script>
-			$(document).ready(function(){
-				$(".close").click(function(){
-					$("#myAlert").alert("close");
-				});
-			});
-		</script>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 		<script src="assets/js-native/confirm.js"></script>
