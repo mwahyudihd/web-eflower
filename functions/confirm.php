@@ -29,7 +29,7 @@ $targetFilePathData = '../' . $targetDir . $fileName;
 $fileType = $_FILES['set-image']['type'];
 $file_size = $_FILES['set-image']['size'];
 
-$query = "INSERT INTO konfirmasi VALUES ('$id_konfirmasi', '$kode_transaksi', '$current_id', '$payment_method', '$payyer', '$tgl_bayar', '$current_date', '$produkid', '$targetFilePath', '$note', '$id_pemilik_produk', '$total_bayar', '$total_tagihan', '$no_rek_data')";
+$query = "INSERT INTO konfirmasi VALUES ('$id_konfirmasi', '$kode_transaksi', '$current_id', '$payment_method', '$payyer', '$tgl_bayar', '$current_date', '$produkid', '$targetFilePath', '$note', '$id_pemilik_produk', '$total_bayar', '$total_tagihan', '$no_rek_data', NULL)";
 
 if(move_uploaded_file($_FILES['set-image']["tmp_name"], $targetFilePathData)){
     $send_data = mysqli_query($connection, $query);

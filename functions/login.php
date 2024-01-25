@@ -23,6 +23,8 @@ if ($jml_data > 0) {
     $_SESSION["role"] = $res['role'];
     $_SESSION["no-rek"] = $res['no_rek'];
     $_SESSION["no-telp"] = $res['no_telp'];
+    $_SESSION['kota'] = $res['kota'];
+    $_SESSION['alamat'] = $res['alamat'];
 
     if ($_SESSION["role"] == 'admin') {
         header("location: ../admin?admin");

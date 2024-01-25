@@ -147,6 +147,12 @@ if (isset($_SESSION["user_mail"]) == NULL) {
         </div>
     </nav>
 
+    <?php
+    $current_user = $_SESSION['id']; 
+    $set = mysqli_query($connection, "SELECT * FROM users WHERE id_user = '$current_user'");
+    $place =mysqli_fetch_array($set);
+    ?>
+
     <main role="main" class="container">
         <?php if(isset($_GET['success'])): ?>
             <script>
@@ -175,8 +181,8 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
                             <h4 class="text-center mt-2" id="kota-toko">
                             <?php
-                                    if(!empty($_SESSION['kota'])){
-                                        echo $_SESSION['kota'];
+                                    if(!empty($place['kota'])){
+                                        echo $place['kota'];
                                     } else {
                                         echo NULL;
                                     }
@@ -185,8 +191,8 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
                             <h4 class="text-center mt-2" id="alamat-toko">
                                     <?php
-                                    if(!empty($_SESSION['alamat'])){
-                                        echo $_SESSION['alamat'];
+                                    if(!empty($place['alamat'])){
+                                        echo $place['alamat'];
                                     } else {
                                         echo NULL;
                                     }
@@ -218,8 +224,8 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                      </required>
                                      <label for="kota">KOTA : </label>
                                      <input class="form-control text-center" type="text" name="kota" id="edited-nama-toko" value="<?php
-                                    if(!empty($_SESSION['kota'])){
-                                        echo $_SESSION['kota'];
+                                    if(!empty($place['kota'])){
+                                        echo $place['kota'];
                                     } else {
                                         echo NULL;
                                     }
@@ -227,7 +233,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                 </div>
                                 <div class="form-group">
                                      <label for="kota">ALAMAT LENGKAP : </label>
-                                     <input class="form-control text-center" type="text" name="alamat" id="edited-nama-toko" value="<?= $_SESSION['alamat']; ?>" required>
+                                     <input class="form-control text-center" type="text" name="alamat" id="edited-nama-toko" value="<?= $place['alamat']; ?>" required>
                                 </div>
                                 <button type="button" class="m-3 btn btn-danger" onclick="toggleEditForm()"><i class="fas fa-angle-left"></i></button>
                                 <button type="submit" class="m-3 btn btn-secondary float-end"><i class="fas fa-floppy-disk"></i></button>
