@@ -1,5 +1,13 @@
 <?php
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 $default_rekening = $_SESSION['no-rek'];
 ?>
 <!DOCTYPE html>

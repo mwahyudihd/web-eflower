@@ -11,7 +11,7 @@ $password = $_POST['password'];
 $end_pw = md5($password);
 
 //validation login
-$getQuery = mysqli_query($connection, "SELECT * FROM users WHERE user_mail = '$usermail' AND password = '$end_pw'");
+$getQuery = mysqli_query($connection, "SELECT * FROM users WHERE user_mail = '$usermail' AND password = '$end_pw' AND status_user = 'aktif'");
 
 $jml_data = mysqli_num_rows($getQuery);
 if ($jml_data > 0) {
@@ -21,6 +21,7 @@ if ($jml_data > 0) {
     $_SESSION["nama_lengkap"] = $res['nama_lengkap'];
     $_SESSION["id"] = $res['id_user'];
     $_SESSION["role"] = $res['role'];
+    $_SESSION['stat'] = $res['status_user'];
     $_SESSION["no-rek"] = $res['no_rek'];
     $_SESSION["no-telp"] = $res['no_telp'];
     $_SESSION['kota'] = $res['kota'];

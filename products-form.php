@@ -1,6 +1,14 @@
 <?php
 
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 
 if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
     header("location: manage.php?warning");

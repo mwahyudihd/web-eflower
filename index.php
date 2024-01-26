@@ -9,7 +9,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 	if ($_SESSION["role"] == 'admin') {
 	header("location: admin/index.php");
 	exit;
-}
+	}
 }
 
 ?>

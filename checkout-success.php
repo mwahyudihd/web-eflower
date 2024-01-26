@@ -1,6 +1,14 @@
 <?php
 include 'functions/data-connect.php';
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 $orderid = $_GET['no-order'];
 
 $query = mysqli_query($connection, "SELECT * FROM pembayaran WHERE no_pembayaran='$orderid'");

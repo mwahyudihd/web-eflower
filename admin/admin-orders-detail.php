@@ -1,6 +1,16 @@
 <?php
 include '../functions/data-connect.php';
 session_start();
+if (isset($_SESSION["user_mail"]) != NULL) {
+    if ($_SESSION["role"] != 'admin') {
+        header("location: ../index.php");
+        exit;
+    }
+}
+else if (isset($_SESSION["user_mail"]) == NULL){
+    header('location: ../index.php');
+    exit;
+}
 $get_order_id = $_GET['orderid'];
 $query_set = mysqli_query($connection, "SELECT * FROM pembayaran JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid
 JOIN users ON pembayaran.id_user_toko = users.id_user

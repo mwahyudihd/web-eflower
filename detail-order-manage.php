@@ -1,6 +1,14 @@
 <?php
 include 'functions/data-connect.php';
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 $get_order_id = $_GET['orderid'];
 $query_set = mysqli_query($connection, "SELECT * FROM pembayaran JOIN detailorder ON pembayaran.no_pembayaran = detailorder.orderid
 JOIN users ON pembayaran.id_user_toko = users.id_user
@@ -11,6 +19,9 @@ $konfirmasi_get_data = mysqli_query($connection, "SELECT * FROM konfirmasi WHERE
 
 $data_bukti = mysqli_fetch_array($konfirmasi_get_data);
 $data = mysqli_fetch_array($query_set);
+
+$kwitansi_query = mysqli_query($connection, "SELECT * FROM kwitansi WHERE id_order = '$get_order_id'");
+$row_invoice = mysqli_num_rows($kwitansi_query);
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
@@ -284,6 +295,12 @@ $data = mysqli_fetch_array($query_set);
 									</div>
 								</div>
 							</form>
+							<?php if($row_invoice > 0 ){ ?>
+								<form action="invoice.php" class="float-end" method="post">
+									<input type="text" name="orderid" value="<?= $get_order_id; ?>" hidden readonly>
+									<button type="submit" class="btn btn-warning text-dark"><i class="fas fa-check"> INVOICE</i></button>
+								</form>
+							<?php } ?>
 						</div>
 					</div>
 

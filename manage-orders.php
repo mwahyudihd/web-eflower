@@ -3,7 +3,7 @@ include 'functions/data-connect.php';
 session_start();
 if (isset($_SESSION["user_mail"]) != NULL) {
     if ($_SESSION["role"] == 'admin') {
-        header("location: ../index.php");
+        header("location: admin/index.php");
         exit;
     }
 }
@@ -237,8 +237,6 @@ $get_data = mysqli_query($connection, $query_data);
 											<th scope="col">Tanggal</th>
 											<th scope="col">Total</th>
 											<th scope="col">Status</th>
-                                            <th scope="col">Tindakan</th>
-                                            <th scope="col">Batal?</th>
                                             <th scope="col">Alamat</th>
                                             
 											<th scope="col"></th>
@@ -286,34 +284,7 @@ $get_data = mysqli_query($connection, $query_data);
 												><?= $set_data['status']; ?></span
 											>
 											</td>
-                                            <td>
-                                                <form action="functions/seller-update-status.php" method="post">
-                                                    <input type="text" name="orderid" id="" value="<?= $set_data['no_pembayaran']; ?>" hidden>
-                                                    <?php if($set_data['status'] == 'menunggu konfirmasi'){ ?>
-                                                        <button type="submit" onclick="return confirm('Anda yakin? \ndata yang telah disubmit tidak bisa diubah kembali.')" class="btn btn-primary"><i class="fas fa-clipboard-check"></i></button>
-                                                    <?php }elseif($set_data['status'] == 'dikonfirmasi'){ ?>
-                                                        <button type="submit" class="btn btn-primary"><i class="fas fa-receipt"></i></button>
-                                                    <?php }elseif($set_data['status'] == 'dikemas'){ ?>
-                                                        <button type="submit" class="btn btn-primary"><i class="fas fa-truck-fast"></i></button>
-                                                    <?php }elseif($set_data['status'] == 'barang diterima'){ ?>
-                                                        <button disabled="disabled" class="btn rounded-pill bg-warning text-dark"><i class="fas fa-hand-holding"></i></button>
-                                                    <?php }elseif($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan penjual' || $set_data['status'] == 'dibatalkan admin'){?>
-                                                        <button disabled="disabled" class="btn btn-danger text-white"><i class="fas fa-xmark"></i></button>
-                                                    <?php } ?>
-                                                </form>
-                                                
-                                            </td>
-                                            <td>
-                                                <form action="functions/cenceling-order.php" method="post">
-                                                    <input type="text" name="orderid" id="" value="<?= $set_data['no_pembayaran']; ?>" readonly hidden>
-                                                    <?php if($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan penjual' || $set_data['status'] == 'dibatalkan admin' || $set_data['status'] == 'barang diterima' || $set_data['status'] == 'selesai' || $set_data['status'] == 'dikirim'){?>
-                                                        <button disabled="disabled" class="btn btn-danger text-white"><i class="fas fa-ban"></i></button>
-                                                    <?php } else { ?>
-                                                        <button type="submit" onclick="return confirm('Yakin ingin membatalkan?')" class="btn btn-danger"><i class="fas fa-ban"></i></button>
-                                                    <?php } ?>
-                                                </form>
                                             
-                                            </td>
                                             <td><?= $set_data['alamat_pembeli']; ?></td>
                                             <tr class="card-footer">
                                                 <th scope="col">Ongkir</th>
@@ -332,6 +303,34 @@ $get_data = mysqli_query($connection, $query_data);
                                                         </td>
                                                     </div>
                                                 </form>
+												<td>
+                                                <form action="functions/seller-update-status.php" method="post">
+                                                    <input type="text" name="orderid" id="" value="<?= $set_data['no_pembayaran']; ?>" hidden>
+                                                    <?php if($set_data['status'] == 'menunggu konfirmasi'){ ?>
+                                                        <button type="submit" onclick="return confirm('Anda yakin? \ndata yang telah disubmit tidak bisa diubah kembali.')" class="btn btn-primary"><i class="fas fa-clipboard-check"> konfirmasi</i></button>
+                                                    <?php }elseif($set_data['status'] == 'dikonfirmasi'){ ?>
+                                                        <button type="submit" class="btn btn-primary"><i class="fas fa-receipt"> </i>Set Dikemas</button>
+                                                    <?php }elseif($set_data['status'] == 'dikemas'){ ?>
+                                                        <button type="submit" class="btn btn-primary"><i class="fas fa-truck-fast"> </i>Set Dikirim</button>
+                                                    <?php }elseif($set_data['status'] == 'barang diterima'){ ?>
+                                                        <button disabled="disabled" class="btn rounded-pill bg-warning text-dark"><i class="fas fa-hand-holding"> </i>Diterima</button>
+                                                    <?php }elseif($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan penjual' || $set_data['status'] == 'dibatalkan admin'){?>
+                                                        <button disabled="disabled" class="btn btn-danger text-white">Dibatalkan</button>
+                                                    <?php } ?>
+                                                </form>
+                                                
+                                            </td>
+                                            <td>
+                                                <form action="functions/cenceling-order.php" method="post">
+                                                    <input type="text" name="orderid" id="" value="<?= $set_data['no_pembayaran']; ?>" readonly hidden>
+                                                    <?php if($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan penjual' || $set_data['status'] == 'dibatalkan admin' || $set_data['status'] == 'barang diterima' || $set_data['status'] == 'selesai' || $set_data['status'] == 'dikirim'){?>
+                                                        <button disabled="disabled" class="btn btn-danger text-white">dibatalkan</button>
+                                                    <?php } else { ?>
+                                                        <button type="submit" onclick="return confirm('Yakin ingin membatalkan?')" class="btn btn-danger"><i class="fas fa-ban"> </i>batalkan</button>
+                                                    <?php } ?>
+                                                </form>
+                                            
+                                            </td>
                                             </tr> 
 										</tr>
 										<?php }} ?>

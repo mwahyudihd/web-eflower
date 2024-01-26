@@ -1,5 +1,13 @@
 <?php 
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 include 'functions/data-connect.php';
 $user = $_SESSION['id'];
 $orderid = $_GET['id_order'];

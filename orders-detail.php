@@ -1,6 +1,14 @@
 <?php
 include 'functions/data-connect.php';
 session_start();
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 $sesi_id = $_SESSION['id'];
 $order_id = $_GET['order'];
 $query = mysqli_query($connection, "SELECT * FROM pembayaran JOIN users ON pembayaran.id_user = users.id_user
@@ -11,6 +19,10 @@ $query_stat = mysqli_query($connection, "SELECT * FROM cart JOIN detailorder ON 
 
 $status = mysqli_fetch_array($query_stat);
 $data = mysqli_fetch_array($query);
+$id_pemilik = $data['id_pemilik'];
+$quer_pemilik = mysqli_query($connection, "SELECT * FROM users WHERE id_user = '$id_pemilik'");
+$array_pemilik = mysqli_fetch_array($quer_pemilik);
+
 ?>
 
 <!DOCTYPE html>
@@ -233,6 +245,9 @@ $data = mysqli_fetch_array($query);
 		<?php 
 		$get_catatan = mysqli_query($connection, "SELECT * FROM konfirmasi WHERE orderid = '$order_id'");
 		$set_data = mysqli_fetch_array($get_catatan);
+		$kwitansi_query = mysqli_query($connection, "SELECT * FROM kwitansi WHERE id_order = '$order_id'");
+		$row_invoice = mysqli_num_rows($kwitansi_query);
+		$array_invoice = mysqli_fetch_array($kwitansi_query);
 		?>
 
 		<main role="main" class="container">
@@ -255,6 +270,12 @@ $data = mysqli_fetch_array($query);
 							<?php if(!empty($set_data['catatan_penjual'])) { ?>
 								<p><?= $set_data['catatan_penjual']; ?></p>
 							<?php } ?>
+							<?php if($row_invoice > 0 ){ ?>
+								<form action="invoice.php" method="post">
+									<input type="text" name="orderid" value="<?= $order_id; ?>" hidden readonly>
+									<button type="submit" class="btn btn-warning text-dark"><i class="fas fa-check"> INVOICE</i></button>
+								</form>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -273,7 +294,7 @@ $data = mysqli_fetch_array($query);
 												echo 'bg-info';
 											}else if($status['status'] == 'selesai'){
 												echo 'bg-success';
-											}else if($status['status'] == 'dibatalkan'){
+											}else if($status['status'] == 'dibatalkan' || $status['status'] == 'dibatalkan penjual' || $status['status'] == 'dibatalkan admin'){
 												echo 'bg-danger';
 											}else{
 												echo 'bg-light';
@@ -285,6 +306,10 @@ $data = mysqli_fetch_array($query);
                             <p>Nama Penerima: <?= $data['nama_pembeli']; ?></p>
                             <p>Telp : +62<?= $data['nmr_telp_pembeli']; ?></p>
                             <p>Alamat: <?= $data['alamat_pembeli']; ?></p>
+							<div class="float-end card-body card">
+								<p>Toko : <span><?= $array_pemilik['nama_user']; ?></span></p>
+								<p>Alamat : <span><?= $array_pemilik['alamat']; ?></span></p>
+							</div>
                             <table class="table">
 								<thead>
 									<tr>
@@ -349,6 +374,12 @@ $data = mysqli_fetch_array($query);
 									
 								</div>
 								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
+							<?php } elseif($status['status'] == 'dikirim'){ ?>
+								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>
+								<form action="functions/received.php" method="post" class="float-end">
+									<input type="text" name="data_order" style="display: none;" value="<?= $order_id; ?>" readonly>
+									<button type="submit" class="btn btn-success" onclick="return confirm('Pastikan Anda Sudah menerima Paket yang dipesan, Apakah anda yakin?')"><i class="fas fa-circle-check"></i> Pesanana Diterima</button>
+								</form>
 							<?php }
 							else{ ?>
 								<a href="orders.php" class="btn btn-warning text-dark"><i class="fas fa-angle-left"></i> Kembali</a>

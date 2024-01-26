@@ -3,6 +3,14 @@
 
 session_start();
 include 'functions/data-connect.php';
+if (isset($_SESSION["user_mail"]) == NULL) {
+	header('location: form.php');
+	exit;
+	
+}elseif ($_SESSION["role"] == 'admin') {
+	header("location: admin/index.php");
+	exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
