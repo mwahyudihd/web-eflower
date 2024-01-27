@@ -1,0 +1,54 @@
+CREATE TRIGGER `check_stock_before_update` BEFORE UPDATE ON `produk`
+ FOR EACH ROW BEGIN
+    IF NEW.qty < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stok tidak bisa kurang dari 0';
+    END IF;
+END
+
+CREATE TRIGGER `delete_cart_if_orderid_deleted` AFTER DELETE ON `detailorder`
+ FOR EACH ROW BEGIN
+   DELETE FROM cart
+   WHERE orderid = OLD.orderid;
+END
+
+CREATE TRIGGER `delete_row_if_qty_zero` AFTER UPDATE ON `detailorder`
+ FOR EACH ROW BEGIN
+   IF NEW.qty = 0 THEN
+      DELETE FROM detailorder
+      WHERE id_produk = NEW.id_produk;
+   END IF;
+END
+
+CREATE TRIGGER `insert_konfirmasi` AFTER INSERT ON `konfirmasi`
+ FOR EACH ROW BEGIN
+    UPDATE `cart`
+    SET `status` = 'menunggu konfirmasi'
+    WHERE orderid = NEW.orderid;
+END
+
+CREATE TRIGGER `update_cart_status` AFTER INSERT ON `pembayaran`
+ FOR EACH ROW BEGIN
+   UPDATE cart
+   SET status = 'menunggu pembayaran'
+   WHERE orderid = NEW.no_pembayaran;
+END
+
+CREATE TRIGGER `update_qty` AFTER INSERT ON `detailorder`
+ FOR EACH ROW BEGIN
+   UPDATE produk
+   SET qty = qty - NEW.qty
+   WHERE id_produk = NEW.id_produk;
+END
+
+CREATE TRIGGER `update_qty_after_update` AFTER UPDATE ON `detailorder`
+ FOR EACH ROW BEGIN
+   IF NEW.qty < OLD.qty THEN
+      UPDATE produk
+      SET qty = qty + (OLD.qty - NEW.qty)
+      WHERE id_produk = NEW.id_produk;
+   ELSEIF NEW.qty > OLD.qty THEN
+      UPDATE produk
+      SET qty = qty - (NEW.qty - OLD.qty)
+      WHERE id_produk = NEW.id_produk;
+   END IF;
+END
