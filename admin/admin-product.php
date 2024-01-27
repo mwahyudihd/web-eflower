@@ -390,6 +390,7 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 				</div>
 			</div>
 		</main>
+		<?php include '../footer.php'; ?>
 		<script>
 			$(document).ready(function(){
 				$("#search-data").click(function(){

@@ -349,6 +349,7 @@ $row_data = mysqli_num_rows($query);
 			</div>
 			
 		</main>
+		<?php include '../footer.php'; ?>
 		<script>
 			$(document).ready(function(){
 				$("#search-data").click(function(){

@@ -213,7 +213,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-success">
+		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="#"
 					>E<span class="text-white">flower</span></a
@@ -380,6 +380,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 				</div>
 			</div>
 		</main>
+		<?php include 'footer.php'; ?>
 		<script>
 			$(document).ready(function(){
 					$("#btn-kategori").click(function(){

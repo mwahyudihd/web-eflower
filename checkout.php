@@ -316,6 +316,7 @@ $data = mysqli_fetch_array($query);
 				</div>
 			</div>
 		</main>
+		<?php include 'footer.php'; ?>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 	</body>

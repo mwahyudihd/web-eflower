@@ -359,6 +359,7 @@ $link_poto = $dt_user[5];
 				</div>
 			</div>
 		</main>
+        <?php include 'footer.php'; ?>
 		<script>
 			$(document).ready(function(){
 					$("#btn-kategori").click(function(){

@@ -387,6 +387,7 @@ $array_pemilik = mysqli_fetch_array($quer_pemilik);
 				</div>
 			</div>
 		</main>
+		<?php include 'footer.php'; ?>
 		<script>
 			$(document).ready(function(){
 				$(".close").click(function(){

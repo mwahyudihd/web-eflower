@@ -341,6 +341,7 @@ $row_invoice = mysqli_num_rows($kwitansi_query);
 				</div>
 			</div>
 		</main>
+		<?php include 'footer.php'; ?>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="assets/libs/jquery/jquery-3.7.1.min.js"></script>
 		<script src="assets/js-native/confirm.js"></script>

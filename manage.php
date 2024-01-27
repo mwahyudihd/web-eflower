@@ -30,6 +30,9 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
     <link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- fontawesome CSS -->
     <link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css" />
 
@@ -254,21 +257,23 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                 <i class="fas fa-square-plus"></i>
                             </a>
                             <div class="float-end">
-                                <form action="#">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center"
-                                            placeholder="Cari" />
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-secondary btn-sm">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                            <a href="#" class="btn btn-secondary btn-sm">
-                                                <i class="fas fa-eraser"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+								<div class="input-group">
+									<input
+										type="text"
+										class="form-control form-control-sm text-center"
+										id="get-value"
+										value=""
+										placeholder="Cari" />
+									<div class="input-group-append" id="search-data">
+										<button type="submit" class="btn btn-secondary btn-sm">
+											<i class="fas fa-search"></i>
+										</button>	
+									</div>
+									<button type="reset" class="btn btn-danger btn-sm" id="clear">
+										<i class="fas fa-eraser"></i>
+									</button>
+								</div>
+							</div>
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -282,7 +287,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="product-data">
                                     <tr>
                                         <?php 
                                         $data = $_SESSION['id'];
@@ -375,6 +380,39 @@ if (isset($_SESSION["user_mail"]) == NULL) {
             </div>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
+    <script>
+			$(document).ready(function(){
+				$("#search-data").click(function(){
+					var Data = $("#get-value").val();
+					if(Data) {			
+						$.ajax({
+							url:"functions/search-product.php",
+							type:"POST",
+							data: {data: Data},
+							beforeSend:function(){
+								$(".product-data").html('<td colspan="7"><center><div class="spinner m-5"></div></center></td>');
+							},
+							success:function(data){
+								$(".product-data").html(data);
+							}
+						});
+					}else {
+						alert("Anda Belum memasukkan kata pencarian.");
+					}
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function(){
+				var inputColumn = $("#get-value");
+				var btnRemove = $("#clear");
+				btnRemove.on('click', function(){
+					inputColumn.val('');
+				});
+			});
+		</script>
+
     <?php if(isset($_GET['warning'])): ?>
         <script>
             alert('Anda Belum membuka toko! , Harap daftarkan nama toko anda.')

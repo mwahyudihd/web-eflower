@@ -362,6 +362,7 @@ $get_data = mysqli_query($connection, $query_data);
 				</div>
 			</div>
 		</main>
+		<?php include 'footer.php'; ?>
 		<?php if(isset($_GET['success'])): ?>
 			<script>
 				alert("Berhasil dikirim...");
