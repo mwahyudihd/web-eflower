@@ -152,7 +152,10 @@ if (isset($_SESSION["user_mail"]) == NULL) {
     </nav>
 
     <?php
-    $current_user = $_SESSION['id']; 
+    $current_user = $_SESSION['id'];
+    $batas = 10;
+    $halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+    $halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
     $set = mysqli_query($connection, "SELECT * FROM users WHERE id_user = '$current_user'");
     $place =mysqli_fetch_array($set);
     ?>
@@ -291,8 +294,13 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                     <tr>
                                         <?php 
                                         $data = $_SESSION['id'];
-                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_pemilik = '$data' AND status = 'aktif' ");
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk WHERE id_pemilik = '$data' AND status = 'aktif' LIMIT $halaman_awal, $batas");
                                         $no = 1;
+                                        $previous = $halaman - 1;
+                                        $next = $halaman + 1;
+                                        $data_conn = mysqli_query($connection,"SELECT * FROM produk WHERE id_pemilik = '$data' AND status = 'aktif'");
+                                        $jumlah_data = mysqli_num_rows($data_conn);
+                                        $total_halaman = ceil($jumlah_data / $batas);
                                         $row = mysqli_num_rows($display_produk);
                                         if($row > 0) {
                                             while($array_produk = mysqli_fetch_array($display_produk)){
@@ -358,20 +366,18 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <li class="page-item">
-                                        <a class="page-link" href="#">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+										<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
+									</li>
+									<?php 
+									for($x=1;$x<=$total_halaman;$x++){
+									?> 
+									<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+									<?php
+									}
+									?>				
+									<li class="page-item">
+										<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
+									</li>
                                 </ul>
                             </nav>
                         </div>

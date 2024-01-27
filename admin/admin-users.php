@@ -2,8 +2,16 @@
 include '../functions/data-connect.php';
 session_start();
 $userid = $_SESSION['id'];
-$query = mysqli_query($connection, "SELECT * FROM users WHERE id_user != '$userid'");
+$batas = 5;
+$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
+$query = mysqli_query($connection, "SELECT * FROM users WHERE id_user != '$userid' LIMIT $halaman_awal, $batas");
 $row_data = mysqli_num_rows($query);
+$previous = $halaman - 1;
+$next = $halaman + 1;
+$data_conn = mysqli_query($connection,"SELECT * FROM users WHERE id_user != '$userid'");
+$jumlah_data = mysqli_num_rows($data_conn);
+$total_halaman = ceil($jumlah_data / $batas);
 
 ?>
 <!DOCTYPE html>
@@ -323,22 +331,20 @@ $row_data = mysqli_num_rows($query);
 										<?php }} ?>
 									</tbody>
 								</table>
-								<nav aria-label="Page navigation example">
+								<nav aria-label="...">
 									<ul class="pagination">
 										<li class="page-item">
-											<a class="page-link" href="#">Previous</a>
+											<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
 										</li>
+										<?php 
+										for($x=1;$x<=$total_halaman;$x++){
+											?> 
+										<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+											<?php
+										}
+										?>				
 										<li class="page-item">
-											<a class="page-link" href="#">1</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">2</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">3</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">Next</a>
+											<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
 										</li>
 									</ul>
 								</nav>

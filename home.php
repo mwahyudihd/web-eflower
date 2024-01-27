@@ -287,18 +287,18 @@ $link_poto = $dt_user[5];
 					<!-- pagination area -->
 					<nav aria-label="...">
 						<ul class="pagination">
-							<li class="page-item disabled">
-								<span class="page-link">Previous</span>
+                            <li class="page-item">
+								<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
 							</li>
-							<li class="page-item active" aria-current="page">
-								<a class="page-link" href="#">1</a>
-							</li>
+							<?php 
+							for($x=1;$x<=$total_halaman;$x++){
+							?> 
+							<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+							<?php
+							}
+							?>				
 							<li class="page-item">
-								<span class="page-link">2</span>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#">Next</a>
+								<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
 							</li>
 						</ul>
 					</nav>

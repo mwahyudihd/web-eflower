@@ -276,8 +276,16 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 									<tbody class="product-data">
 									<?php 
                                         $data = $_SESSION['id'];
-                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_pemilik = users.id_user");
-                                        $no = 1;
+										$batas = 10;
+										$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+										$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
+                                        $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_pemilik = users.id_user LIMIT $halaman_awal, $batas");
+										$previous = $halaman - 1;
+										$next = $halaman + 1;
+										$data_conn = mysqli_query($connection,"SELECT * FROM produk JOIN users WHERE produk.id_pemilik = users.id_user");
+										$jumlah_data = mysqli_num_rows($data_conn);
+										$total_halaman = ceil($jumlah_data / $batas);
+										$no = 1;
                                         $row = mysqli_num_rows($display_produk);
                                         if($row > 0) {
                                             while($array_produk = mysqli_fetch_array($display_produk)){
@@ -368,19 +376,17 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 								<nav aria-label="Page navigation example">
 									<ul class="pagination">
 										<li class="page-item">
-											<a class="page-link" href="#">Previous</a>
+											<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
 										</li>
+										<?php 
+										for($x=1;$x<=$total_halaman;$x++){
+											?> 
+										<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+											<?php
+										}
+										?>				
 										<li class="page-item">
-											<a class="page-link" href="#">1</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">2</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">3</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="#">Next</a>
+											<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
 										</li>
 									</ul>
 								</nav>

@@ -1,6 +1,14 @@
 <?php
-					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_pemilik AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id'");
+					$batas = 6;
+					$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+					$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;	
+					$katalog = mysqli_query($connection, "SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_pemilik AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id' LIMIT $halaman_awal, $batas");
 					$row = mysqli_num_rows($katalog);
+					$previous = $halaman - 1;
+					$next = $halaman + 1;
+					$data_conn = mysqli_query($connection,"SELECT * FROM users JOIN produk WHERE users.id_user = produk.id_pemilik AND produk.status = 'aktif' AND produk.id_pemilik != '$sesi_id'");
+					$jumlah_data = mysqli_num_rows($data_conn);
+					$total_halaman = ceil($jumlah_data / $batas);
 					?>
 					<div class="row">
 						<?php if($row > 0){
@@ -72,4 +80,5 @@
 							</div>
 						</div>
 						<?php	}}?>
+						
 					</div>
