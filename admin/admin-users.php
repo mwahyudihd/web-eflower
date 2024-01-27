@@ -1,3 +1,11 @@
+<?php
+include '../functions/data-connect.php';
+session_start();
+$userid = $_SESSION['id'];
+$query = mysqli_query($connection, "SELECT * FROM users WHERE id_user != '$userid'");
+$row_data = mysqli_num_rows($query);
+
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 	<head>
@@ -24,12 +32,52 @@
 			href="../assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 		<!-- fontawesome CSS -->
 		<link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css" />
 
 
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="../assets/css-native/app.css" />
+		<style>
+			.spinner {
+			width: 88px;
+			height: 88px;
+			display: grid;
+			border: 7px solid #0000;
+			border-radius: 50%;
+			border-color: #5eff00 #0000;
+			animation: spinner-e04l1k 1s infinite linear;
+			}
+
+			.spinner::before,
+			.spinner::after {
+			content: "";
+			grid-area: 1/1;
+			margin: 3.5px;
+			border: inherit;
+			border-radius: 50%;
+			}
+
+			.spinner::before {
+			border-color: #947c2d #0000;
+			animation: inherit;
+			animation-duration: 0.5s;
+			animation-direction: reverse;
+			}
+
+			.spinner::after {
+			margin: 14px;
+			}
+
+			@keyframes spinner-e04l1k {
+			100% {
+				transform: rotate(1turn);
+			}
+			}
+		</style>
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -117,7 +165,7 @@
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="#"
 					>E<span class="text-white">flower</span></a
@@ -135,7 +183,7 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
+							<a class="nav-link active" aria-current="page" href=".">Home</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -148,23 +196,15 @@
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
-								<a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+								<a href="admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin-users.php" class="dropdown-item">Pengguna</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-							>
-						</li>
-						<li class="nav-item">
-							<a href="/form.html" class="nav-link">Login</a>
+							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama_lengkap'] ?></p>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -177,9 +217,9 @@
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="/profile.html" class="dropdown-item">Profile</a>
-								<a href="/orders.html" class="dropdown-item">Orders</a>
-								<a href="#" class="dropdown-item">Logout</a>
+								<a href="../profile.php" class="dropdown-item">Profile</a>
+								<a href="admin-orders.php" class="dropdown-item">Orders</a>
+								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -194,28 +234,23 @@
 						<div class="card float-center">
 							<div class="card-header bg-leaf">
 								<span>Pengguna</span>
-								<a
-									href="admin-users-form.html"
-									class="btn btn-sm btn-secondary">
-									<i class="fas fa-user-pen"></i>
-								</a>
 								<div class="float-end">
-									<form action="#">
 										<div class="input-group">
 											<input
 												type="text"
 												class="form-control form-control-sm text-center"
+												id="get-value"
+												value=""
 												placeholder="Cari" />
-											<div class="input-group-append">
+											<div class="input-group-append" id="search-data">
 												<button type="submit" class="btn btn-secondary btn-sm">
 													<i class="fas fa-search"></i>
-												</button>
-												<a href="#" class="btn btn-secondary btn-sm">
-													<i class="fas fa-eraser"></i>
-												</a>
+												</button>	
 											</div>
+											<button type="reset" class="btn btn-danger btn-sm" id="clear">
+												<i class="fas fa-eraser"></i>
+											</button>
 										</div>
-									</form>
 								</div>
 							</div>
 							<div class="card-body">
@@ -224,39 +259,68 @@
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">Pengguna</th>
+											<th scope="col">Nama Toko</th>
 											<th scope="col">Email</th>
 											<th scope="col">Role</th>
 											<th scope="col">Status</th>
-											<th scope="col"></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="user-data" id="data-user">
 										<tr>
-											<td>1</td>
+										<?php
+										$number = 0; 
+										if($row_data > 0){
+											while($data = mysqli_fetch_array($query)) {
+												$number++;
+												?>
+											<td><?= $number; ?></td>
 											<td>
 												<p>
-													<img src="https://placehold.co/70x70" alt="" /> Admin
+													<img src="<?php if(empty($data['foto'])) { ?> ../assets/img/profile/user-profile.png <?php } else { ?> ../<?= $data['foto']; ?> <?php } ?>" width="70" height="70" alt="profil" class="rounded-pill" /> <?= $data['nama_lengkap']; ?>
 												</p>
 											</td>
-											<td>admin@mail.com</td>
-											<td>Admin</td>
-											<td>Aktif</td>
+											<td><?php if(empty($data['nama_user'])) {
+												echo 'Belum Membuka Toko';
+											} else {
+												echo $data['nama_user'];
+											} ?></td>
+											<td><?= $data['user_mail']; ?></td>
 											<td>
-												<form action="#">
-													<a href="#">
-														<button class="btn btn-sm">
-															<i class="fas fa-edit text-info"></i>
-														</button>
-													</a>
-													<button
-														type="submit"
-														onclick="return confirm('Are you Sure?')"
-														class="btn btn-sm">
-														<i class="fas fa-trash text-danger"></i>
-													</button>
+												<form action="../functions/update-user.php" method="post">
+													<input type="text" name="id_user" readonly value="<?= $data['id_user']; ?>" hidden>
+													<div class="input-group">
+														<select class="form-control" name="role" id="">
+															<option value="" disabled selected><?= $data['role']; ?></option>
+															<option value="admin">Admin</option>
+															<option value="user">User</option>
+														</select>
+														<div class="input-group-append">
+															<button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
+														</div>
+													</div>
+													
+													
+												</form>
+											</td>
+											<td>
+												<form action="../functions/update-user.php" method="post">
+													<input type="text" name="id_user" readonly value="<?= $data['id_user']; ?>" hidden>
+													<div class="input-group">
+														<select class="form-control" name="stat" id="">
+															<option value="" disabled selected><?= $data['status_user']; ?></option>
+															<option value="aktif">Aktif</option>
+															<option value="nonaktif">Non-Aktif</option>	
+														</select>
+														<div class="input-group-append">
+															<button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
+														</div>
+													</div>
+													
+													
 												</form>
 											</td>
 										</tr>
+										<?php }} ?>
 									</tbody>
 								</table>
 								<nav aria-label="Page navigation example">
@@ -283,8 +347,41 @@
 					</div>
 				</div>
 			</div>
+			
 		</main>
-		<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$("#search-data").click(function(){
+					var Data = $("#get-value").val();
+					if(Data) {			
+						$.ajax({
+							url:"../functions/admin-search-user.php",
+							type:"POST",
+							data: {data: Data},
+							beforeSend:function(){
+								$(".user-data").html('<td colspan="6"><center><div class="spinner m-5"></div></center></td>');
+							},
+							success:function(data){
+								$(".user-data").html(data);
+							}
+						});
+					}else {
+						alert("Anda Belum memasukkan kata pencarian.");
+					}
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function(){
+				var inputColumn = $("#get-value");
+				var btnRemove = $("#clear");
+				btnRemove.on('click', function(){
+					inputColumn.val('');
+				});
+			});
+		</script>
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="../assets/js-native/confirm.js"></script>
 	</body>
 </html>

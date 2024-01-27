@@ -134,7 +134,7 @@ $get_data = mysqli_query($connection, $query_data);
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
@@ -173,9 +173,7 @@ $get_data = mysqli_query($connection, $query_data);
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-							>
+							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama_lengkap'] ?></p>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -253,15 +251,15 @@ $get_data = mysqli_query($connection, $query_data);
 											<span class="badge <?php
 												if($set_data['status'] == 'menunggu pembayaran'){
 														echo 'bg-warning text-dark';
-													}else if($set_data['status'] == 'menunggu konfirmasi'){
+													}elseif($set_data['status'] == 'menunggu konfirmasi'){
 														echo 'bg-secondary text-white';
-													}else if($set_data['status'] == 'dikonfirmasi'){
+													}elseif($set_data['status'] == 'dikonfirmasi'){
 														echo 'bg-primary text-white';
-													}else if($set_data['status'] == 'dalam pengiriman'){
+													}elseif($set_data['status'] == 'dalam pengiriman'){
 														echo 'bg-info text-dark';
-													}else if($set_data['status'] == 'selesai'){
+													}elseif($set_data['status'] == 'selesai'){
 														echo 'bg-success text-white';
-													}else if($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan admin' || $data['status'] == 'dibatalkan penjual'){
+													}elseif($set_data['status'] == 'dibatalkan' || $set_data['status'] == 'dibatalkan admin' || $data['status'] == 'dibatalkan penjual'){
 														echo 'bg-danger text-white';
 													}else{
 														echo 'bg-light text-dark';

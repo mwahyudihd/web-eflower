@@ -165,9 +165,9 @@ if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="category.html" class="dropdown-item">Kategori</a>
 								<a href="manage.php" class="dropdown-item">Toko</a>
-								<a href="manage-order.php" class="dropdown-item">Order</a>
+                            	<a href="manage-orders.php" class="dropdown-item">Order</a>
+                            	<a href="report.php" class="dropdown-item">Laporan Penjualan</a>
 							</div>
 						</li>
 					</ul>

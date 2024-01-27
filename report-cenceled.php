@@ -65,6 +65,7 @@ $current_time = date('y-m-d');
                 #report-data{
                     color: black;
                     background: #ffff;
+                    border: 15px solid #0000;
                 }
                 #btn, #btn2, #btn3{
                     display: none;
@@ -78,7 +79,7 @@ $current_time = date('y-m-d');
         <div class="card-header container mb-5 bg-dark">
             <a href="report.php" class="btn btn-secondary" id="btn2"> Laporan Pesanan Untung </a>
             <span><a href="report-cenceled.php" class="float-end btn btn-warning" id="btn3" disabled="disabled"> Laporan Pesanan Batal </a></span>
-            <h3 class="text-center">LAPORAN PENJUALAN</h3>
+            <h3 class="text-center">LAPORAN PEMBATALAN</h3>
             
         </div>
     </div>
@@ -137,6 +138,7 @@ $current_time = date('y-m-d');
         </div>
     </div>
     <div class="d-flex justify-content-center">
+        <a href="." class="btn btn-warning float-start m-5"><i class="fas fa-angle-left"></i> Kembali</a>
         <button id="btn" class="btn btn-primary align-self-center m-5" onclick="window.print()"><i class="fas fa-print"></i> Cetak</button>
     </div>
 </body>

@@ -168,7 +168,8 @@ $get_data = mysqli_query($connection, $query_data);
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
 								<a href="manage.php" class="dropdown-item">Toko</a>
-								<a href="manage-orders.php" class="dropdown-item">Order</a>
+                            	<a href="manage-orders.php" class="dropdown-item">Order</a>
+                            	<a href="report.php" class="dropdown-item">Laporan Penjualan</a>
 							</div>
 						</li>
 					</ul>

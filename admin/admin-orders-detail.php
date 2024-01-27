@@ -139,7 +139,7 @@ $data = mysqli_fetch_array($query_set);
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
@@ -172,14 +172,13 @@ $data = mysqli_fetch_array($query_set);
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
 								<a href="admin-product.php" class="dropdown-item">Produk</a>
 								<a href="admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin-users.php" class="dropdown-item">Pengguna</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="/cart.html" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span>0</span>)</a
-							>
+							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama_lengkap'] ?></p>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -192,7 +191,7 @@ $data = mysqli_fetch_array($query_set);
 								>User</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
-								<a href="../profile.html" class="dropdown-item">Profile</a>
+								<a href="../profile.php" class="dropdown-item">Profile</a>
 								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>
@@ -291,11 +290,7 @@ $data = mysqli_fetch_array($query_set);
 									<select name="status" id="" class="form-control" required>
 										<option value="" disabled selected><?= $data['status']; ?></option>
 										<option value="menunggu pembayaran">Menunggu pembayaran</option>
-										<option value="barang diterima">Barang diterima</option>
 										<option value="selesai">Selesai</option>
-										<option value="dikirim">Dikirim</option>
-										<option value="dikonfirmasi">Dikonfirmasi</option>
-										<option value="dikemas">Dikemas</option>
 										<option value="dibatalkan admin">Dibatalkan Admin</option>
 										<option value="menunggu konfirmasi">Menunggu Konfirmasi</option>
 									</select>

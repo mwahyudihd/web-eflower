@@ -101,7 +101,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 		</ul>
 	</div>
 
-	<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+	<nav class="navbar navbar-expand-md fixed-top <?php if($_SESSION['role'] == 'admin'){ echo 'bg-dark navbar-dark'; } else { echo 'bg-leaf'; } ?>">
 		<div class="container-fluid container">
 			<a class="navbar-brand text-leaf fw-bolder" href=".">E<span class="text-white">flower</span></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -109,10 +109,34 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav me-auto mb-2 mb-md-0">
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href=".">Home</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								href="#"
+								class="nav-link dropdown-toggle"
+								id="dropdown-1"
+								data-bs-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+								>Manage</a
+							>
+							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
+							<?php if($_SESSION['role'] == 'admin'){ ?> 
+								<a href="admin/admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin/admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin/admin-users.php" class="dropdown-item">Pengguna</a>
+							<?php } else { ?>
+								<a href="manage.php" class="dropdown-item">Toko</a>
+                            	<a href="manage-orders.php" class="dropdown-item">Order</a>
+                            	<a href="report.php" class="dropdown-item">Laporan Penjualan</a>
+							<?php } ?>
+							</div>
+						</li>
+					</ul>
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item">
-						<a class="nav-link" aria-current="page" href="index.php">Home</a>
-					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">

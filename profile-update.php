@@ -123,7 +123,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-expand-md fixed-top bg-leaf">
+		<nav class="navbar navbar-expand-md fixed-top <?php if($_SESSION['role'] == 'admin'){ echo 'bg-dark navbar-dark'; } else { echo 'bg-leaf'; } ?>">
 			<div class="container-fluid container">
 				<a class="navbar-brand text-leaf fw-bolder" href="."
 					>E<span class="text-white">flower</span></a
@@ -154,21 +154,26 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
+							<?php if($_SESSION['role'] == 'admin'){ ?> 
+								<a href="admin/admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin/admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin/admin-users.php" class="dropdown-item">Pengguna</a>
+							<?php } else { ?>
+								<a href="manage.php" class="dropdown-item">Toko</a>
+                            	<a href="manage-orders.php" class="dropdown-item">Order</a>
+                            	<a href="report.php" class="dropdown-item">Laporan Penjualan</a>
+							<?php } ?>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
-						<li class="nav-item">
+						<?php if($_SESSION['role'] != 'admin') { ?>
 							<?php include 'functions/cart-num.php'; ?>
-							<a href="cart.php" class="nav-link"
-								><i class="fas fa-shopping-cart"></i>Cart (<span><?= $jml_array ?></span>)</a
-							>
-						</li>
+							<li class="nav-item">
+								<a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i>Cart
+									(<span><?= $jml_array; ?></span>)</a>
+							</li>
+						<?php } ?>
 						<li class="nav-item dropdown">
 							<a
 								href="#"

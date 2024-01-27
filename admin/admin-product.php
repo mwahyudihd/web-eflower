@@ -39,11 +39,52 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 			href="../assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 		<!-- fontawesome CSS -->
 		<link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css" />
 
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="../assets/css-native/app.css" />
+
+		<style>
+			.spinner {
+			width: 88px;
+			height: 88px;
+			display: grid;
+			border: 7px solid #0000;
+			border-radius: 50%;
+			border-color: #5eff00 #0000;
+			animation: spinner-e04l1k 1s infinite linear;
+			}
+
+			.spinner::before,
+			.spinner::after {
+			content: "";
+			grid-area: 1/1;
+			margin: 3.5px;
+			border: inherit;
+			border-radius: 50%;
+			}
+
+			.spinner::before {
+			border-color: #947c2d #0000;
+			animation: inherit;
+			animation-duration: 0.5s;
+			animation-direction: reverse;
+			}
+
+			.spinner::after {
+			margin: 14px;
+			}
+
+			@keyframes spinner-e04l1k {
+			100% {
+				transform: rotate(1turn);
+			}
+			}
+		</style>
 	</head>
 	<body>
 		<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -162,18 +203,15 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="/admin-category.html" class="dropdown-item"
-									>Kategori</a
-								>
-								<a href="/admin-product.html" class="dropdown-item">Produk</a>
-								<a href="/admin-order.html" class="dropdown-item">Order</a>
-								<a href="/admin-users.html" class="dropdown-item">Pengguna</a>
+								<a href="admin-product.php" class="dropdown-item">Produk</a>
+								<a href="admin-order.php" class="dropdown-item">Order</a>
+								<a href="admin-users.php" class="dropdown-item">Pengguna</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama'] ?></p>
+							<p class="nav-link">Hi, Admin <?php echo $_SESSION['nama_lengkap'] ?></p>
 						</li>
 						<li class="nav-item dropdown">
 							<a
@@ -202,28 +240,23 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 						<div class="card float-center">
 							<div class="card-header bg-leaf">
 								<span>Produk</span>
-								<a
-									href="admin-product-form.html"
-									class="btn btn-sm btn-secondary">
-									<i class="fas fa-file-pen"></i>
-								</a>
 								<div class="float-end">
-									<form action="#">
 										<div class="input-group">
 											<input
 												type="text"
 												class="form-control form-control-sm text-center"
+												id="get-value"
+												value=""
 												placeholder="Cari" />
-											<div class="input-group-append">
+											<div class="input-group-append" id="search-data">
 												<button type="submit" class="btn btn-secondary btn-sm">
 													<i class="fas fa-search"></i>
-												</button>
-												<a href="#" class="btn btn-secondary btn-sm">
-													<i class="fas fa-eraser"></i>
-												</a>
+												</button>	
 											</div>
+											<button type="reset" class="btn btn-danger btn-sm" id="clear">
+												<i class="fas fa-eraser"></i>
+											</button>
 										</div>
-									</form>
 								</div>
 							</div>
 							<div class="card-body">
@@ -240,7 +273,7 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 											<th scope="col"></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="product-data">
 									<?php 
                                         $data = $_SESSION['id'];
                                         $display_produk = mysqli_query($connection, "SELECT * FROM produk JOIN users WHERE produk.id_pemilik = users.id_user");
@@ -290,29 +323,28 @@ else if (isset($_SESSION["user_mail"]) == NULL){
                                             <td>Rp.<?= $price; ?></td>
                                             <td><?= $stok_barang; ?></td>
 											<td>
-											<span class="badge <?php if($status_produk == 'aktif'){
-                                                    echo 'bg-warning'.' '.'text-dark';
-                                                }else{
-                                                    echo 'bg-danger';
-                                                } ?>"><i class="fas <?php if($status_produk == 'aktif'){
-                                                    echo 'fa-toggle-on';
-                                                }else{
-                                                    echo 'fa-toggle-off';
-                                                } ?>"></i> <?php if($status_produk == 'aktif'){
-                                                    echo 'Aktif';
-                                                }else{
-                                                    echo 'Non-Aktif';
-                                                } ?></span>
+												<form action="../functions/product-manage.php" method="post">
+													<input type="text" name="id_produk" id="" value="<?= $idproduk; ?>" hidden readonly>
+													<button type="submit" class="btn btn"><span class="badge <?php if($status_produk == 'aktif'){
+														echo 'bg-warning'.' '.'text-dark';
+													}else{
+														echo 'bg-danger';
+													} ?>"><i class="fas 
+													<?php if($status_produk == 'aktif'){
+														echo 'fa-toggle-on';
+													}else{
+														echo 'fa-toggle-off';
+													} ?>"></i> 
+													<?php if($status_produk == 'aktif'){
+														echo 'Aktif';
+													}else{
+														echo 'Non-Aktif';
+													} ?>
+													</span></button>
+												</form>
+											
 											</td>
                                             <td>
-                                                <form action="functions/edit-product.php" method="get">
-                                                    <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
-                                                    <a href="edit-product.php">
-                                                        <button class="btn btn-sm">
-                                                            <i class="fas fa-edit text-info"></i>
-                                                        </button>
-                                                    </a>
-                                                </form>
                                                 <form action="../functions/permanent-remove.php" method="post">
                                                     <input type="text" value="<?= $idproduk; ?>" name="id-produk" id="" style="display: none;">
                                                     <button type="submit" onclick="return confirm('Yakin ingin menghapus produk secara permanent?')"
@@ -358,6 +390,37 @@ else if (isset($_SESSION["user_mail"]) == NULL){
 				</div>
 			</div>
 		</main>
+		<script>
+			$(document).ready(function(){
+				$("#search-data").click(function(){
+					var Data = $("#get-value").val();
+					if(Data) {			
+						$.ajax({
+							url:"../functions/admin-search-product.php",
+							type:"POST",
+							data: {data: Data},
+							beforeSend:function(){
+								$(".product-data").html('<td colspan="7"><center><div class="spinner m-5"></div></center></td>');
+							},
+							success:function(data){
+								$(".product-data").html(data);
+							}
+						});
+					}else {
+						alert("Anda Belum memasukkan kata pencarian.");
+					}
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function(){
+				var inputColumn = $("#get-value");
+				var btnRemove = $("#clear");
+				btnRemove.on('click', function(){
+					inputColumn.val('');
+				});
+			});
+		</script>
 		<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
 		<script src="../assets/js-native/confirm.js"></script>

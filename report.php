@@ -135,6 +135,7 @@ $total_final = $array_final['total_final'];
         </div>
     </div>
     <div class="d-flex justify-content-center">
+        <a href="." class="btn btn-warning float-start m-5"><i class="fas fa-angle-left"></i> Kembali</a>
         <button id="btn" class="btn btn-primary align-self-center m-5" onclick="window.print()"><i class="fas fa-print"></i> Cetak</button>
     </div>
 </body>

@@ -214,10 +214,9 @@ $link_poto = $dt_user[5];
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown-1" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Manage</a>
                         <div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-                            <a href="/admin-category.html" class="dropdown-item">Kategori</a>
                             <a href="admin-product.php" class="dropdown-item">Produk</a>
                             <a href="admin-order.php" class="dropdown-item">Order</a>
-                            <a href="admin-users.html" class="dropdown-item">Pengguna</a>
+                            <a href="admin-users.php" class="dropdown-item">Pengguna</a>
                         </div>
                     </li>
                 </ul>
@@ -273,16 +272,16 @@ $link_poto = $dt_user[5];
                             <div class="card mb-3 bg-ktg-leaf">
                                 <div class="card-body">
                                     Kategori: <strong>Semua Jenis</strong>
-                                    <span class="float-end">
-                                        Urutkan Harga:
-                                        <a href="#" class="badge bg-success non-deco rounded-pill"
-                                            >Termurah</a
-                                        >
-                                        |
-                                        <a href="#" class="badge bg-success non-deco rounded-pill"
-                                            >Termahal</a
-                                        >
-                                    </span>
+									<span class="float-end">
+										Urutkan Harga:
+										<button type="submit" id="min" class="badge bg-success non-deco rounded-pill"
+										>Termurah</button>
+										
+										|
+										<button id="max" class="badge bg-success non-deco rounded-pill"
+											>Termahal</button
+										>
+									</span>
                                 </div>
                             </div>
                         </div>
@@ -427,7 +426,15 @@ $link_poto = $dt_user[5];
 			$(document).ready(function(){
 					$("#btn-kategori").click(function(){
 						var selectedOption = $("#kategori").val();
-						if(selectedOption) {					
+						if(selectedOption) {		
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');			
 							$.ajax({
 								url:"../functions/admin-filtered-catalog.php",
 								type:"POST",
@@ -450,7 +457,15 @@ $link_poto = $dt_user[5];
 			$(document).ready(function(){
 					$("#search-data").click(function(){
 						var inputData = $("#set-value").val();
-						if(inputData) {					
+						if(inputData) {
+                            var btnMax = $("#max");
+                            var btnMin = $("#min");
+                            btnMax.removeClass('bg-warning');
+                            btnMax.removeClass('bg-success');
+                            btnMax.addClass('bg-success');
+                            btnMin.removeClass('bg-warning');
+                            btnMin.removeClass('bg-success');
+                            btnMin.addClass('bg-success');				
 							$.ajax({
 								url:"../functions/admin-search-data.php",
 								type:"POST",
@@ -468,7 +483,50 @@ $link_poto = $dt_user[5];
 					});
 				});
 		</script>
-
+        <script>
+			$(document).ready(function(){
+					$("#min").click(function(){
+						var btnMin = $("#min");
+						var btnMax = $("#max");
+						btnMin.removeClass('bg-success');
+						btnMin.addClass('bg-warning');
+						btnMax.removeClass('bg-warning');
+						btnMax.addClass('bg-success');
+						$.ajax({
+							url:"../functions/price-min-admin.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
+					});
+				});
+		</script>
+		<script>
+			$(document).ready(function(){
+					$("#max").click(function(){
+						var btnMax = $("#max");
+						var btnMin = $("#min");
+						btnMax.removeClass('bg-success');
+						btnMax.addClass('bg-warning');
+						btnMin.removeClass('bg-warning');
+						btnMin.addClass('bg-success');
+						$.ajax({
+							url:"../functions/price-max-admin.php",
+							data:"data-req",
+							beforeSend:function(){
+								$(".catalog-data").html('<div class="dots col-md-12 centered"></div>');
+							},
+							success:function(data){
+								$(".catalog-data").html(data);
+							}
+						});
+					});
+				});
+		</script>
         <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
         <script src="../assets/js-native/confirm.js"></script>

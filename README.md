@@ -4,11 +4,10 @@
 Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi marketplace tanaman hias. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
 
 ## Anggota Kelompok
-- Wahyudi (Frontend Developer)
-  - Teknologi: Bootstrap, Native Css, HTML, Native JavaScript
+- Wahyudi (Fullstack Developer)
+  - Teknologi: Bootstrap, Native Css, HTML, AJAX & Jquery, Native JavaScript
 - Fajar (Backend Developer)
-  - Framework: CodeIgniter, PHP Native
-  - Database: MySql
+  - Teknologi: MySql
 
 ## Fitur Utama
 1. **Pencarian Tanaman Hias**
@@ -25,11 +24,12 @@ Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi
   - Bootstrap: Desain responsif dan tata letak menarik.
   - HTML: Struktur dasar halaman.
   - Native JavaScript: Interaksi dinamis dan fungsionalitas tambahan.
+  - AJAX: Sebagai Fungsi Pencarian yang di filterisasi
+  - JQuery: Functional UI
   - Native Css: Digunakan untuk fungsi tampilan khusus atau tambahan agar lebih menarik yang tidak tertutup dalam Bootstrap.
 
 - **Backend:**
-  - CodeIgniter: Framework backend untuk mempermudah pengembangan.
-  - PHP Native: Digunakan untuk fungsi khusus yang tidak tertutup dalam CodeIgniter.
+  - PHP Native: Digunakan untuk fungsi yang menghubungkan ke database.
   - MySql: Database untuk menyimpan data pengguna, transaksi, dan informasi tanaman hias.
 
 ## Cara Menjalankan Proyek

@@ -171,8 +171,9 @@ $row_invoice = mysqli_num_rows($kwitansi_query);
 								>Manage</a
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-1">
-								<a href="admin-product.php" class="dropdown-item">Produk</a>
-								<a href="admin-order.php" class="dropdown-item">Order</a>
+                            <a href="manage.php" class="dropdown-item">Toko</a>
+                            <a href="manage-orders.php" class="dropdown-item">Order</a>
+                            <a href="report.php" class="dropdown-item">Laporan Penjualan</a>
 							</div>
 						</li>
 					</ul>
