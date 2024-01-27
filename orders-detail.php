@@ -366,8 +366,7 @@ $array_pemilik = mysqli_fetch_array($quer_pemilik);
 										
 										<div class="custom-loader float-end"></div>
 										<a href="#" class="close btn btn-danger rounded-pill mb-4"><i class="fas fa-xmark"></i></a>
-										<strong>Perhatian !</strong> Mohon untuk menunggu..., ongkir sedang kami proses. <span class="pt-4">Terimakasih </span>
-										<p class="pt-3 float-end">@Admin</p>
+										<strong>Perhatian !</strong> Mohon untuk menunggu..., ongkir sedang diproses. <span class="pt-4">Terimakasih </span>
 									</div>
 									
 								</div>

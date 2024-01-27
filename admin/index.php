@@ -408,7 +408,7 @@ $link_poto = $dt_user[5];
                                 <div class="card-header bg-leaf">Kategori</div>
                                 <div class="card-body">
                                     <div class="input-group">
-										<select name="kategori" id="kategori" class="form-control">
+										<select name="kategori" id="kategori" class="form-select">
 											<option value="" disabled selected >Semua Jenis</option>
                                             <?php 
                                             if($count_data > 0){

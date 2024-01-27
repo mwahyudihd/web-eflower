@@ -341,7 +341,7 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 								<div class="card-header bg-leaf">Pencarian</div>
 								<div class="card-body">
 										<div class="input-group">
-											<input type="text" class="form-control" id="set-value" value="" />
+											<input type="text" class="form-select" id="set-value" value="" />
 											<div class="input-group-append" id="search-data">
 												<button class="btn btn-success" >
 													<i class="fas fa-search"></i>

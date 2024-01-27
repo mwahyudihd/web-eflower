@@ -50,6 +50,9 @@ $total_halaman = ceil($jumlah_data / $batas);
 			href="../assets/libs/bootstrap/css/bootstrap.min.css"
 			rel="stylesheet" />
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 		<!-- fontawesome CSS -->
 		<link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css" />
 
@@ -202,7 +205,10 @@ $total_halaman = ceil($jumlah_data / $batas);
 				</div>
 			</div>
 		</nav>
-
+		<?php
+		$option = mysqli_query($connection, "SELECT DISTINCT status FROM cart WHERE status != 'cart' AND status != 'menunggu pembayaran'");
+        $count_data = mysqli_num_rows($option);
+		?>
 		<main role="main" class="container">
 			<div class="row">
 				<div class="container-fluid">
@@ -211,22 +217,16 @@ $total_halaman = ceil($jumlah_data / $batas);
 							<div class="card-header bg-leaf">
 								<span>Order</span>
 								<div class="float-end">
-									<form action="#">
-										<div class="input-group">
-											<input
-												type="text"
-												class="form-control form-control-sm text-center"
-												placeholder="Cari" />
-											<div class="input-group-append">
-												<button type="submit" class="btn btn-secondary btn-sm">
-													<i class="fas fa-search"></i>
-												</button>
-												<a href="#" class="btn btn-secondary btn-sm">
-													<i class="fas fa-eraser"></i>
-												</a>
-											</div>
-										</div>
-									</form>
+									<div class="float-end" id="">
+										<select name="status-order" id="status-order" class="form-select">
+											<option value="" disabled selected >Pilih Status</option>
+											<?php 
+											if($count_data > 0){
+											while($interface = mysqli_fetch_assoc($option)){ ?>
+											<option value="<?= $interface['status']; ?>"><?= ucfirst($interface['status']); ?></option>
+											<?php }} ?>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -241,7 +241,7 @@ $total_halaman = ceil($jumlah_data / $batas);
 											<th scope="col"></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="order_set">
 										<?php
 										$row = mysqli_num_rows($get_data);
 										if($row > 0){
@@ -317,6 +317,26 @@ $total_halaman = ceil($jumlah_data / $batas);
 			</div>
 		</main>
 		<?php include '../footer.php'; ?>
+		<script>
+			$(document).ready(function(){
+				$("#status-order").change(function(){
+					var selectedOption = $(this).val();
+					if(selectedOption) {
+						$.ajax({	
+							url:"../functions/admin-order-filter.php",
+							type:"POST",
+							data:"request=" + selectedOption,
+							beforeSend:function(){
+								$(".order_set").html('<td colspan="7">Tunggu sebentar...</td>');
+							},
+							success:function(data){
+								$(".order_set").html(data);
+							}
+						});
+					}
+				}).change();
+			});
+		</script>
 		<?php if(isset($_GET['success'])): ?>
 			<script>
 				alert("Data berhasil dikirim");

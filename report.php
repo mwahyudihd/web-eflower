@@ -9,6 +9,12 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 	header("location: admin/index.php");
 	exit;
 }
+
+if (isset($_SESSION["nama"]) == NULL || empty($_SESSION['nama'])) {
+    header("location: manage.php?warning");
+    exit;
+}
+
 $id_data = $_SESSION['id'];
 
 $query = mysqli_query($connection, "SELECT * FROM kwitansi JOIN produk ON kwitansi.produkid = produk.id_produk WHERE kwitansi.id_toko = '$id_data' AND kwitansi.status_order = 'LUNAS'");

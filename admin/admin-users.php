@@ -226,7 +226,6 @@ $total_halaman = ceil($jumlah_data / $batas);
 							>
 							<div href="#" class="dropdown-menu" aria-labelledby="dropdown-2">
 								<a href="../profile.php" class="dropdown-item">Profile</a>
-								<a href="admin-orders.php" class="dropdown-item">Orders</a>
 								<a onclick="logOutAdmin()" class="dropdown-item">Logout</a>
 							</div>
 						</li>

@@ -38,6 +38,32 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="assets/css-native/app.css" />
+    <style>
+                .progress {
+        width: 211.2px;
+        height: 38.7px;
+        border-radius: 35.2px;
+        color: #fcd006;
+        border: 3.5px solid #252122;
+        position: relative;
+        }
+
+        .progress::before {
+        content: "";
+        position: absolute;
+        margin: 3.5px;
+        inset: 0 100% 0 0;
+        border-radius: inherit;
+        background: currentColor;
+        animation: progress-pf82op 2.4s infinite;
+        }
+
+        @keyframes progress-pf82op {
+        100% {
+            inset: 0;
+        }
+        }
+    </style>
 </head>
 
 <body>
@@ -359,7 +385,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
                                             </td>
                                         </tr>
                                         <?php }} else{ ?>
-                                            <td colspan="5" class="text-center"><h2>Belum ada <span class="text-leaf">Produk</span> yang anda masukkan!</h2></td>                                           
+                                            <td colspan="5" class="text-center"><h2>Belum ada <span class="text-primary">Produk</span> yang anda masukkan!</h2></td>                                           
                                         <?php } ?>
                                 </tbody>
                             </table>
@@ -397,7 +423,7 @@ if (isset($_SESSION["user_mail"]) == NULL) {
 							type:"POST",
 							data: {data: Data},
 							beforeSend:function(){
-								$(".product-data").html('<td colspan="7"><center><div class="spinner m-5"></div></center></td>');
+								$(".product-data").html('<td colspan="7"><center><div class="progress m-5"></div></center></td>');
 							},
 							success:function(data){
 								$(".product-data").html(data);
