@@ -50,7 +50,11 @@ while($row = mysqli_fetch_assoc($result)){
                                                     echo 'bg-secondary';
                                                 } ?> non-deco"
 										><i class="fas fa-tags"></i> <?= $row['kategori'] ?></a
-									> <span class="d-flex justify-content-center">STOK : <?= $row['qty'] ?></span>
+									> <span class="d-flex justify-content-center">STOK : <?php if($row['qty'] <= 0 ){
+										echo 'Stok Habis';
+									} else {
+										echo $row['qty'];
+									} ?></span>
                                     <p class="float-end"><strong>Kota : <?= $row['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
@@ -65,9 +69,15 @@ while($row = mysqli_fetch_assoc($result)){
 												class="form-control"
 												pattern="[0-9]" />
 											<div class="input-group-append">
+											<?php if($row['qty'] <= 0){ ?>
+												<button disabled="disabled" class="btn btn-success">
+													<i class="fas fa-cart-plus"></i>
+												</button>
+											<?php } else { ?>
 												<button class="btn btn-success">
 													<i class="fas fa-cart-plus"></i>
 												</button>
+											<?php } ?>
 											</div>
 										</div>
 									</form>

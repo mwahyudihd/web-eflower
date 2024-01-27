@@ -287,6 +287,12 @@ $row_invoice = mysqli_num_rows($kwitansi_query);
 							</table>
 						</div>
 						<div class="card-footer">
+							<?php if($row_invoice > 0 ){ ?>
+								<form action="invoice.php" class="m-2" method="post">
+									<input type="text" name="orderid" value="<?= $get_order_id; ?>" hidden readonly>
+									<button type="submit" class="btn btn-warning text-dark"><i class="fas fa-check"> INVOICE</i></button>
+								</form>
+							<?php } ?>
 							<form action="functions/seller-notes.php" method="post">
 								<div class="input-group">
 									<input type="text" name="orderid" hidden readonly value="<?= $get_order_id; ?>">
@@ -296,12 +302,7 @@ $row_invoice = mysqli_num_rows($kwitansi_query);
 									</div>
 								</div>
 							</form>
-							<?php if($row_invoice > 0 ){ ?>
-								<form action="invoice.php" class="float-end" method="post">
-									<input type="text" name="orderid" value="<?= $get_order_id; ?>" hidden readonly>
-									<button type="submit" class="btn btn-warning text-dark"><i class="fas fa-check"> INVOICE</i></button>
-								</form>
-							<?php } ?>
+							
 						</div>
 					</div>
 

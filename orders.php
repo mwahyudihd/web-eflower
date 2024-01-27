@@ -564,6 +564,11 @@ include 'functions/data-connect.php';
 					alert('Permintaan anda berhasil dikirim Mohon tunggu konfirmasi dari Penjual...!');
 				</script>
 			<?php endif ?>
+			<?php if(isset($_GET['success-end'])): ?>
+				<script>
+					alert('Pesanan anda berhasil dikirim!');
+				</script>
+			<?php endif ?>
 		</main>
 		<?php include 'footer.php'; ?>
 		<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

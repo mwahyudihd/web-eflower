@@ -37,7 +37,11 @@
                                                     echo 'bg-secondary';
                                                 } ?> non-deco"
 										><i class="fas fa-tags"></i> <?= $data['kategori'] ?></a
-									> <span class="d-flex justify-content-center">STOK : <?= $data['qty'] ?></span>
+									> <span class="d-flex justify-content-center">STOK : <?php if($data['qty'] <= 0 ){
+										echo 'Stok Habis';
+									} else {
+										echo $data['qty'];
+									} ?></span>
                                     <p class="float-end"><strong>Kota : <?= $data['kota'] ?></strong></p>
 								</div>
 								<div class="card-footer bg-ktg-leaf">
@@ -50,11 +54,17 @@
                                                 value="1"
 												id=""
 												class="form-control"
-												pattern="[1-9]" />
+												pattern="*[1-9]" />
 											<div class="input-group-append">
+											<?php if($data['qty'] <= 0){ ?>
+												<button disabled="disabled" class="btn btn-success">
+													<i class="fas fa-cart-plus"></i>
+												</button>
+											<?php } else { ?>
 												<button class="btn btn-success">
 													<i class="fas fa-cart-plus"></i>
 												</button>
+											<?php } ?>
 											</div>
 										</div>
 									</form>
