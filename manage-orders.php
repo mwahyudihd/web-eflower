@@ -297,7 +297,7 @@ $total_halaman = ceil($jumlah_data / $batas);
                                                             <input type="number" class="form-control" name="ongkir" value="<?= $set_data['ongkir']; ?>">
                                                         </td>
                                                         <td>
-                                                            <?php if($set_data['status'] == 'menunggu konfirmasi') { ?>
+                                                            <?php if($set_data['status'] == 'menunggu konfirmasi' || $set_data['status'] == 'menunggu pembayaran') { ?>
                                                                 <button type="submit" class="btn btn-success"><i class="fas fa-circle-check"></i></button>
                                                             <?php }else{ ?>
                                                                 <button disabled="disabled" class="btn btn-success"><i class="fas fa-circle-check"></i></button>

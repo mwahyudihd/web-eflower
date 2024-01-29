@@ -12,6 +12,8 @@ if (isset($_SESSION["user_mail"]) != NULL) {
 	}
 }
 
+$sesi_id = $_SESSION['id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
