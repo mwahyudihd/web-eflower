@@ -343,7 +343,7 @@ $sesi_id = $_SESSION['id'];
 								<div class="card-header bg-leaf">Pencarian</div>
 								<div class="card-body">
 										<div class="input-group">
-											<input type="text" class="form-select" id="set-value" value="" />
+											<input type="text" class="form-control" id="set-value" value="" />
 											<div class="input-group-append" id="search-data">
 												<button class="btn btn-success" >
 													<i class="fas fa-search"></i>
@@ -360,7 +360,7 @@ $sesi_id = $_SESSION['id'];
 								<div class="card-header bg-leaf">Kategori</div>
 									<div class="card-body">
 										<div class="input-group">
-											<select name="kategori" id="kategori" class="form-control">
+											<select name="kategori" id="kategori" class="form-select">
 												<option value="" disabled selected >Semua Jenis</option>
 												<?php 
 												if($count_data > 0){

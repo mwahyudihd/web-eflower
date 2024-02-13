@@ -216,7 +216,7 @@ $data = mysqli_fetch_array($query);
 							<ol>
 								<li>
 									Lakukan pembayaran pada no rekening
-									<strong><?php echo $data['no_rek'] ?></strong> a / n <?= $data[5]; ?>
+									<strong><?php echo $data['norek'] ?></strong> a / n <?= $data[5]; ?>
 								</li>
 								<li>
 									Sertakan Keterangan dengan nomer order:
