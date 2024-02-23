@@ -64,6 +64,6 @@ Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi
 - Temui masalah atau punya saran? Buat *issue* baru di bagian *Issues* pada repositori ini.
 
 ## Lisensi
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+Proyek ini dilisensikan di bawah [APACHE License](LICENSE).
 
 Terima kasih atas kontribusi Anda dalam mengembangkan Eflower - Aplikasi Marketplace Tanaman Hias!
