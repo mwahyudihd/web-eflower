@@ -5,9 +5,9 @@ Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi
 
 ## Anggota Kelompok
 - Wahyudi (Fullstack Developer)
-  - Teknologi: Bootstrap, Native Css, HTML, AJAX & Jquery, Native JavaScript
+  - Teknologi: Bootstrap, Native Css, HTML, AJAX & Jquery, Native JavaScript, Native PHP.
 - Fajar (Backend Developer)
-  - Teknologi: MySql
+  - Teknologi: MySql.
 
 ## Fitur Utama
 1. **Pencarian Tanaman Hias**
