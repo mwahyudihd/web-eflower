@@ -1,7 +1,7 @@
 # Eflower - Rancang Bangun Aplikasi Marketplace Tanaman Hias
 
 ## Deskripsi Proyek
-Eflower Adalah Aplikasi berbasis website Marketplace untuk penjualan tanam hias. aplikasi ini di bangun untuk memenuhi matakuliah proyek 1. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
+Eflower Adalah Aplikasi berbasis website sebuah Marketplace untuk penjualan tanam hias. aplikasi ini di bangun untuk memenuhi matakuliah proyek 1. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
 
 ## Anggota Kelompok
 - Wahyudi (Fullstack Developer)
