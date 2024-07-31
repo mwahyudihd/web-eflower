@@ -1,13 +1,13 @@
 # Eflower - Rancang Bangun Aplikasi Marketplace Tanaman Hias
 
 ## Deskripsi Proyek
-Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi marketplace tanaman hias. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
+Eflower Adalah Aplikasi berbasis website Marketplace untuk penjualan tanam hias. aplikasi ini di bangun untuk memenuhi matakuliah proyek 1. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
 
 ## Anggota Kelompok
 - Wahyudi (Fullstack Developer)
-  - Teknologi: Bootstrap, Native Css, HTML, AJAX & Jquery, Native JavaScript, Native PHP.
-- Fajar (Backend Developer)
-  - Teknologi: MySql.
+  - Teknologi: Bootstrap, Css, HTML, AJAX & Jquery, JavaScript, PHP.
+- Fajar (System & Bisnis Analys)
+  - Teknologi: Software Diagram ( Visual Paradigm ), Ms. Office .
 
 ## Fitur Utama
 1. **Pencarian Tanaman Hias**
@@ -23,13 +23,13 @@ Eflower adalah matakuliah proyek yang bertujuan merancang dan membangun aplikasi
 - **Frontend:**
   - Bootstrap: Desain responsif dan tata letak menarik.
   - HTML: Struktur dasar halaman.
-  - Native JavaScript: Interaksi dinamis dan fungsionalitas tambahan.
+  - JavaScript: Interaksi dinamis dan fungsionalitas tambahan.
   - AJAX: Sebagai Fungsi Pencarian yang di filterisasi
   - JQuery: Functional UI
-  - Native Css: Digunakan untuk fungsi tampilan khusus atau tambahan agar lebih menarik yang tidak tertutup dalam Bootstrap.
+  - Css: Digunakan untuk fungsi tampilan khusus atau tambahan agar lebih menarik yang tidak tertutup dalam Bootstrap.
 
 - **Backend:**
-  - PHP Native: Digunakan untuk fungsi yang menghubungkan ke database.
+  - PHP : Digunakan untuk fungsi yang menghubungkan ke database.
   - MySql: Database untuk menyimpan data pengguna, transaksi, dan informasi tanaman hias.
 
 ## Cara Menjalankan Proyek
