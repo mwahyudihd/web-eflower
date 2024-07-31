@@ -46,7 +46,7 @@ Eflower Adalah Aplikasi berbasis website sebuah Marketplace untuk penjualan tana
 ## Kontribusi
 - Jika Anda ingin berkontribusi, fork repositori ini dan ajukan pull request dengan perubahan yang diinginkan.
 ```bash
-   git clone https://github.com/WaWprjct/web-eflower
+   git clone https://github.com/mwahyudihd/web-eflower
    cd web-eflower
 ```
 
