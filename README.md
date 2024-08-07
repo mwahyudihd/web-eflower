@@ -1,69 +1,68 @@
 # Eflower - Rancang Bangun Aplikasi Marketplace Tanaman Hias
 
-## Deskripsi Proyek
-Eflower Adalah Aplikasi berbasis website sebuah Marketplace untuk penjualan tanam hias. aplikasi ini di bangun untuk memenuhi matakuliah proyek 1. Aplikasi ini akan memberikan pengalaman berbelanja tanaman hias secara online bagi para pengguna yang mencintai keindahan alam.
+## Project Description
+Eflower is a website-based application a Marketplace for the sale of ornamental plants. this application is built to fulfill the project 1 course. This application will provide an online ornamental plant shopping experience for users who love the beauty of nature.
 
-## Anggota Kelompok
+## Contributors
 - Wahyudi (Fullstack Developer)
-  - Teknologi: Bootstrap, Css, HTML, AJAX & Jquery, JavaScript, PHP.
+  - Tech: Bootstrap, Css, HTML, AJAX & Jquery, JavaScript, PHP.
 - Fajar (System & Bisnis Analys)
-  - Teknologi: Software Diagram ( Visual Paradigm ), Ms. Office .
+  - Tech: Software Diagram ( Visual Paradigm ), Ms. Office .
 
-## Fitur Utama
-1. **Pencarian Tanaman Hias**
-   - Pengguna dapat mencari tanaman hias berdasarkan jenis, ukuran, dan karakteristik lainnya.
-2. **Jual-Beli Online**
-   - Pengguna dapat menjual dan membeli tanaman hias melalui platform ini.
-3. **Keranjang Belanja**
-   - Pengguna dapat menyimpan tanaman hias pilihan dalam keranjang belanja sebelum melakukan pembayaran.
-4. **Profil Pengguna**
-   - Setiap pengguna memiliki profil pribadi untuk melihat riwayat transaksi dan mengelola produk yang dijual.
+## Main Features
+1. **Ornamental Plant Search**
+   - Users can search for ornamental plants by type, size, and other characteristics.
+2. **Online Buying and Selling**
+   - Users can sell and buy ornamental plants through this platform.
+3. **Shopping Cart**
+   - Users can store selected ornamental plants in the shopping cart before making payment.
+4. **User Profile**
+   - Each user has a personal profile to view transaction history and manage products sold.
 
-## Teknologi yang Digunakan
+## Tech Stack
 - **Frontend:**
-  - Bootstrap: Desain responsif dan tata letak menarik.
-  - HTML: Struktur dasar halaman.
-  - JavaScript: Interaksi dinamis dan fungsionalitas tambahan.
-  - AJAX: Sebagai Fungsi Pencarian yang di filterisasi
+  - Bootstrap: Responsive design and attractive layout.
+  - HTML: Basic structure of the page.
+  - JavaScript: Dynamic interaction and additional functionality.
+  - AJAX: As a filtered search function
   - JQuery: Functional UI
-  - Css: Digunakan untuk fungsi tampilan khusus atau tambahan agar lebih menarik yang tidak tertutup dalam Bootstrap.
+  - Css: Used for special or additional display functions to make it more attractive that are not covered in Bootstrap.
 
 - **Backend:**
-  - PHP : Digunakan untuk fungsi yang menghubungkan ke database.
-  - MySql: Database untuk menyimpan data pengguna, transaksi, dan informasi tanaman hias.
-
-## Cara Menjalankan Proyek
+  - PHP: Used for functions that connect to the database.
+  - MySql: Database to store user data, transactions, and ornamental plant information.
+  - 
+## Running
 1. **Backend Setup**
-   - Pastikan server packaging yang terdapat MySql seperti Xampp terpasang dan konfigurasi koneksi dilakukan.
-   - Impor skema database yang disediakan.
+   - Make sure that a MySql packaging server such as Xampp is installed and the connection configuration is performed.
+   - Import the provided database schema.
 
 2. **Frontend Setup**
-   - Jalankan halaman web melalui server lokal atau platform hosting.
+   - Run the web page through a local server or hosting platform.
 
-3. **Akses Aplikasi**
-   - Buka aplikasi melalui browser dengan mengakses alamat sesuai konfigurasi server lokal atau hosting.
-
-## Kontribusi
-- Jika Anda ingin berkontribusi, fork repositori ini dan ajukan pull request dengan perubahan yang diinginkan.
+3. **Access Application**
+   - Open the application through a browser by accessing the address according to the local server or hosting configuration.
+   - 
+## Contributing
+- If you want to contribute, fork this repository and submit a pull request with the desired changes.
 ```bash
-   git clone https://github.com/mwahyudihd/web-eflower
+   git clone https://github.com/mwahyudihd/web-eflower.git
    cd web-eflower
 ```
 
-- Lalu jika ingin push / upload hasil :
+- Then if you want to push / upload the results:
 ```bash
-   git checkout -b nama-branch
-   git add nama-dokumen-yang-dirubah-tambah.type
-   git commit -m "Label: Deskripsi singkat perubahan"
-   git pull origin nama-branch
-   git push origin nama-branch
+   git checkout -b branch-name
+   git add document-name.type
+   git commit -m "Label: Short description of changes"
+   git pull origin branch-name
+   git push origin branch-name
 ```
 
+## Bug Report
+- Encountered an issue or have a suggestion? Create a new *issue* in the *Issues* section of this repository.
 
-## Laporan Masalah
-- Temui masalah atau punya saran? Buat *issue* baru di bagian *Issues* pada repositori ini.
+## License
+This project is licensed under the [APACHE License](LICENSE).
 
-## Lisensi
-Proyek ini dilisensikan di bawah [APACHE License](LICENSE).
-
-Terima kasih atas kontribusi Anda dalam mengembangkan Eflower - Aplikasi Marketplace Tanaman Hias!
+Thank you for your contribution in developing Eflower - Ornamental Plant Marketplace App!
